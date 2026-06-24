@@ -3,51 +3,111 @@ import { institutions, PARALYSIS_START } from './data/institutions'
 import InstitutionCard from './components/InstitutionCard'
 import AlertBanner from './components/AlertBanner'
 
-function useElapsedDays(startDate) {
-  const [days, setDays] = useState(0)
+// 每秒重算「自癱瘓起算日至今」的天/時/分/秒；每次由 Date.now() 取絕對值，避免分頁休眠造成漂移
+function useElapsedParts(startDate) {
+  const [now, setNow] = useState(() => Date.now())
   useEffect(() => {
-    const calc = () => {
-      const diff = Date.now() - new Date(startDate).getTime()
-      setDays(Math.floor(diff / 86400000))
-    }
-    calc()
-    const id = setInterval(calc, 60000)
+    const id = setInterval(() => setNow(Date.now()), 1000)
     return () => clearInterval(id)
-  }, [startDate])
-  return days
+  }, [])
+  const totalSec = Math.max(0, Math.floor((now - new Date(startDate).getTime()) / 1000))
+  return {
+    days: Math.floor(totalSec / 86400),
+    h: Math.floor((totalSec % 86400) / 3600),
+    m: Math.floor((totalSec % 3600) / 60),
+    s: totalSec % 60,
+    totalHours: Math.floor(totalSec / 3600),
+    totalMinutes: Math.floor(totalSec / 60),
+  }
 }
 
-function useCountdown(targetDate) {
-  const [remaining, setRemaining] = useState({ d: 0, h: 0, m: 0 })
+function usePrevious(value) {
+  const ref = useRef(value)
   useEffect(() => {
-    const calc = () => {
-      const diff = new Date(targetDate).getTime() - Date.now()
-      if (diff <= 0) { setRemaining({ d: 0, h: 0, m: 0 }); return }
-      setRemaining({
-        d: Math.floor(diff / 86400000),
-        h: Math.floor((diff % 86400000) / 3600000),
-        m: Math.floor((diff % 3600000) / 60000),
-      })
-    }
-    calc()
-    const id = setInterval(calc, 60000)
-    return () => clearInterval(id)
-  }, [targetDate])
-  return remaining
+    ref.current = value
+  }, [value])
+  return ref.current
 }
 
-function TotalClock({ days }) {
-  const hours = days * 24
-  const mins = hours * 60
+// 單張翻牌數字：上葉（舊值）往下翻離、下葉（新值）補上，模擬車站 split-flap 機構。
+// 值改變時，兩片葉以新的 key 重新掛載而重播動畫；未變動的位不產生葉、維持靜態。
+function FlapDigit({ value }) {
+  const prev = usePrevious(value)
+  const changed = prev !== value
+
   return (
-    <div className="total-clock">
-      <div className="total-clock__label">政府癱瘓已持續</div>
-      <div className="total-clock__days">
-        <span className="total-clock__number">{days.toLocaleString()}</span>
-        <span className="total-clock__unit">天</span>
+    <span className="flap" aria-hidden="true">
+      <span className="flap__panel flap__panel--top">
+        <b>{value}</b>
+      </span>
+      <span className="flap__panel flap__panel--bottom">
+        <b>{changed ? prev : value}</b>
+      </span>
+      {changed && (
+        <>
+          <span className="flap__leaf flap__leaf--top" key={`t-${value}`}>
+            <b>{prev}</b>
+          </span>
+          <span className="flap__leaf flap__leaf--bottom" key={`b-${value}`}>
+            <b>{value}</b>
+          </span>
+        </>
+      )}
+    </span>
+  )
+}
+
+function FlapGroup({ value, pad, label }) {
+  const digits = String(value).padStart(pad, '0').split('')
+  return (
+    <div className="flap-group">
+      <div className="flap-group__digits">
+        {digits.map((digit, i) => (
+          <FlapDigit key={i} value={digit} />
+        ))}
       </div>
-      <div className="total-clock__sub">
-        ≒ {hours.toLocaleString()} 小時 ≒ {mins.toLocaleString()} 分鐘
+      <div className="flap-group__label">{label}</div>
+    </div>
+  )
+}
+
+function FlapClock({ institutions, startDate }) {
+  const { days, h, m, s, totalHours, totalMinutes } = useElapsedParts(startDate)
+  const paralyzed = institutions.filter(
+    (i) => i.status === 'paralyzed' || i.status === 'overdue'
+  ).length
+  const atRisk = institutions.filter((i) => i.status === 'at-risk').length
+  const vacant = institutions.reduce((sum, i) => sum + i.vacantSeats, 0)
+
+  return (
+    <div className="debt-clock">
+      <div className="debt-clock__caption">
+        <span className="debt-clock__rule" aria-hidden="true" />
+        政府癱瘓已持續
+        <span className="debt-clock__rule" aria-hidden="true" />
+      </div>
+
+      <div className="debt-clock__board">
+        <FlapGroup value={days} pad={4} label="天" />
+        <FlapGroup value={h} pad={2} label="時" />
+        <FlapGroup value={m} pad={2} label="分" />
+        <FlapGroup value={s} pad={2} label="秒" />
+      </div>
+
+      <p className="sr-only" aria-live="polite">
+        政府機構已癱瘓 {days} 天
+      </p>
+
+      <div className="debt-clock__accrual" aria-hidden="true">
+        ══════ 持續累積中 ══════
+      </div>
+
+      <div className="debt-clock__convert">
+        ≒ {totalHours.toLocaleString()} 時　≒ {totalMinutes.toLocaleString()} 分
+      </div>
+
+      <div className="debt-clock__plate">
+        已癱瘓 {paralyzed}　即將癱瘓 {atRisk}　空缺席次 {vacant}
       </div>
     </div>
   )
@@ -87,7 +147,6 @@ function ParalysisSummary({ institutions }) {
 }
 
 export default function App() {
-  const days = useElapsedDays(PARALYSIS_START)
   const [expandedCard, setExpandedCard] = useState(null)
 
   const toggleCard = (id) => {
@@ -108,7 +167,7 @@ export default function App() {
           <span className="header__title-main">台灣黎巴嫩化</span>
           <span className="header__title-sub">政府機構癱瘓警示鐘</span>
         </h1>
-        <TotalClock days={days} />
+        <FlapClock institutions={institutions} startDate={PARALYSIS_START} />
         <p className="header__desc">
           傅崐萁集團透過杯葛同意權、惡修法令、拖延議程等手段，癱瘓國家重要憲政機關。
           <br />

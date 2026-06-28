@@ -61,10 +61,10 @@ export function FlapDigit({ value }) {
   )
 }
 
-export function FlapGroup({ value, pad, label }) {
+export function FlapGroup({ value, pad, label, tone }) {
   const digits = String(value).padStart(pad, '0').split('')
   return (
-    <div className="flap-group">
+    <div className={`flap-group${tone ? ` flap-group--${tone}` : ''}`}>
       <div className="flap-group__digits">
         {digits.map((digit, i) => (
           <FlapDigit key={i} value={digit} />

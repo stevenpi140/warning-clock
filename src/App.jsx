@@ -27,7 +27,7 @@ function FlapClock({ institutions, startDate }) {
       </div>
 
       <div className="debt-clock__board">
-        <FlapGroup value={days} pad={4} label="天" />
+        <FlapGroup value={days} pad={4} label="天" tone="accent" />
         <FlapGroup value={h} pad={2} label="時" />
         <FlapGroup value={m} pad={2} label="分" />
         <FlapGroup value={s} pad={2} label="秒" />

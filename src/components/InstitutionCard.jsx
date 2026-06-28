@@ -1,33 +1,35 @@
 import { useState, useEffect } from 'react'
 
-// 狀態 → 主色（卡片強調色、徽章底色）
-const STATUS_COLORS = {
-  paralyzed: '#8b0000', // 已癱瘓 — 深紅
-  partial: '#c2410c', // 部分停擺 — 橙
-  atRisk: '#b8860b', // 尚未但可能癱瘓 — 金
-  overdue: '#a01020', // 逾期違憲 — 警示紅
-  former: '#475569', // 曾癱瘓・已恢復 — 灰藍
+// 狀態 → 三色階 + 造型（同色相，以實心/外框分級；保住新聞學 5 級分級而不對 partial 誇大）
+//   已癱瘓 paralyzed = 印泥紅實心 ／ 逾期違憲 overdue = 印泥紅外框
+//   部分停擺 partial = 琥珀實心 ／ 瀕危 atRisk = 琥珀外框 ／ 曾癱瘓已恢復 former = 灰實心
+const STATUS_TONE = {
+  paralyzed: { color: 'var(--accent)', fill: true },
+  overdue: { color: 'var(--accent)', fill: false },
+  partial: { color: 'var(--caution)', fill: true },
+  atRisk: { color: 'var(--caution)', fill: false },
+  former: { color: 'var(--neutral)', fill: true },
+}
+
+function toneOf(status) {
+  return STATUS_TONE[status] || STATUS_TONE.paralyzed
 }
 
 function statusColorOf(status) {
-  return STATUS_COLORS[status] || STATUS_COLORS.paralyzed
+  return toneOf(status).color
 }
 
-function StatusBadge({ status }) {
-  const dot = {
-    paralyzed: '#ff4444',
-    partial: '#ff8c42',
-    atRisk: '#ffcc44',
-    overdue: '#ff2d55',
-    former: '#94a3b8',
-  }
+function StatusMarker({ status }) {
+  const tone = toneOf(status)
   return (
     <span
-      className="status-badge"
-      style={{ background: statusColorOf(status), color: dot[status] || '#fff' }}
-    >
-      ●
-    </span>
+      className="status-marker"
+      style={{
+        borderColor: tone.color,
+        background: tone.fill ? tone.color : 'transparent',
+      }}
+      aria-hidden="true"
+    />
   )
 }
 
@@ -97,18 +99,17 @@ export default function InstitutionCard({ institution, index, expanded, onToggle
   return (
     <div
       className={`inst-card inst-card--${inst.status} ${expanded ? 'inst-card--expanded' : ''}`}
-      style={{ animationDelay: `${index * 0.08}s` }}
     >
       <button className="inst-card__header" onClick={onToggle} aria-expanded={expanded}>
         <div className="inst-card__title-row">
-          <StatusBadge status={inst.status} />
+          <StatusMarker status={inst.status} />
           <div className="inst-card__titles">
             <h2 className="inst-card__name">{inst.name}</h2>
             <span className="inst-card__subtitle">{inst.subtitle}</span>
           </div>
           <span
             className="inst-card__status"
-            style={{ background: statusColor }}
+            style={{ borderColor: statusColor }}
           >
             {inst.statusLabel}
           </span>

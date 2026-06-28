@@ -8,21 +8,32 @@
 }
 
 :root {
-  --bg-primary: #0a0a0f;
-  --bg-secondary: #111118;
-  --bg-card: #14141e;
-  --bg-card-hover: #1a1a26;
+  /* 底色：維持深底，但抬離純黑（9.A 禁純黑） */
+  --bg-primary: #0e0e12;
+  --bg-secondary: #16161c;
+  --bg-card: #16161c;
+  --bg-card-hover: #1c1c24;
+  --raised: #1c1c24;
+  /* 文字：--text-muted 由 #6a6860(3.45:1) 提亮至約 4.6:1 過 AA */
   --text-primary: #e8e6e3;
   --text-secondary: #9a9890;
-  --text-muted: #6a6860;
-  --red-alert: #c41e3a;
-  --red-deep: #8b0000;
-  --red-glow: #ff2d55;
-  --gold: #c5a55a;
-  --gold-dim: #8a7a4a;
-  --yellow-warn: #b8860b;
-  --border: #2a2a35;
-  --border-subtle: #1e1e28;
+  --text-muted: #8b8880;
+  /* 狀態三色階：單一印泥紅 accent + 琥珀 caution + 中性灰（saturation<80%、零 neon） */
+  --accent: #c2362f;
+  --accent-deep: #8f2722;
+  --caution: #b0843a;
+  --neutral: #6b6f76;
+  /* 骨白：翻牌數字等中性高亮 */
+  --bone: #ece7dc;
+  /* 舊變數名重新指向新色票：一次清掉 5-accent 彩虹與所有 glow 用色 */
+  --red-alert: #c2362f;
+  --red-deep: #8f2722;
+  --red-glow: #c2362f;
+  --gold: #b0843a;
+  --gold-dim: #7a5f2e;
+  --yellow-warn: #b0843a;
+  --border: #2a2a33;
+  --border-subtle: #1e1e26;
   /* SHAPE LOCK：全站單一圓角尺度（公文＝近直角） */
   --radius: 2px;
   /* 數據專屬等寬聲音（系統 stack，零額外載入）：只套到純數字/拉丁元素 */
@@ -41,15 +52,12 @@ body {
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
-  background-image:
-    radial-gradient(ellipse at 20% 0%, rgba(139, 0, 0, 0.06) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 100%, rgba(139, 0, 0, 0.04) 0%, transparent 50%);
 }
 
 /* === ALERT BANNER === */
 .alert-banner {
-  background: linear-gradient(90deg, var(--red-deep), #6b0000, var(--red-deep));
-  border-bottom: 1px solid var(--red-alert);
+  background: var(--accent-deep);
+  border-bottom: 1px solid var(--accent);
   padding: 0.5rem 1rem;
   position: sticky;
   top: 0;
@@ -63,24 +71,11 @@ body {
   gap: 1rem;
 }
 
-.alert-banner__dot {
-  width: 8px;
-  height: 8px;
-  background: var(--red-glow);
-  border-radius: 50%;
-  animation: pulse-dot 1.5s ease-in-out infinite;
-}
-
 .alert-banner__text {
   font-size: 0.85rem;
   font-weight: 600;
   letter-spacing: 0.06em;
   color: #ffd5d5;
-}
-
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.7); }
 }
 
 /* === HEADER === */
@@ -109,7 +104,6 @@ body {
   border: 3px solid var(--red-alert);
   border-radius: 50%;
   position: relative;
-  animation: seal-glow 3s ease-in-out infinite;
 }
 
 .seal-circle::before {
@@ -129,11 +123,6 @@ body {
   line-height: 1;
 }
 
-@keyframes seal-glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(196, 30, 58, 0.2); }
-  50% { box-shadow: 0 0 40px rgba(196, 30, 58, 0.4); }
-}
-
 .header__title {
   margin-bottom: 0;
 }
@@ -144,7 +133,6 @@ body {
   font-weight: 900;
   color: var(--red-alert);
   letter-spacing: 0.04em;
-  text-shadow: 0 0 30px rgba(196, 30, 58, 0.3);
   line-height: 1.15;
 }
 
@@ -170,10 +158,9 @@ body {
   margin: 0 auto;
   padding: clamp(1.1rem, 2.4vh, 1.8rem) 2rem;
   max-width: min(680px, 92vw);
-  border: 1px solid var(--red-deep);
-  border-top: 1px solid var(--gold-dim);
-  border-left: 4px solid var(--red-alert);
-  background: linear-gradient(135deg, rgba(139, 0, 0, 0.12) 0%, rgba(10, 10, 15, 0.92) 100%);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  background: linear-gradient(135deg, rgba(194, 54, 47, 0.06) 0%, rgba(14, 14, 18, 0) 55%), var(--bg-secondary);
 }
 
 .debt-clock__caption {
@@ -235,7 +222,7 @@ body {
   line-height: 1;
   font-variant-numeric: tabular-nums;
   border-radius: var(--radius);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 6px rgba(6, 6, 10, 0.55), inset 0 0 0 1px rgba(6, 6, 10, 0.5);
 }
 
 .flap__panel,
@@ -258,8 +245,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--red-glow);
-  text-shadow: 0 0 18px rgba(255, 45, 85, 0.45);
+  color: var(--bone);
+}
+
+/* 只有「天」這一組吃印泥紅，其餘骨白：把戲劇集中在那個會痛的數字 */
+.flap-group--accent .flap__panel > b,
+.flap-group--accent .flap__leaf > b {
+  color: var(--accent);
 }
 
 .flap__panel--top,
@@ -405,24 +397,12 @@ body {
 .inst-card {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
-  animation: card-enter 0.6s ease-out both;
-  transition: all 0.3s ease;
+  transition: background 0.2s ease, border-color 0.2s ease;
 }
 
 .inst-card:hover {
   background: var(--bg-card-hover);
   border-color: var(--border);
-}
-
-@keyframes card-enter {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .inst-card__header {
@@ -444,21 +424,14 @@ body {
   margin-bottom: 1rem;
 }
 
-.status-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  font-size: 0;
+/* 狀態標記：同色相 + 造型分級（紅實心=已癱瘓／紅外框=逾期違憲／琥珀實心=部分／琥珀外框=瀕危／灰實心=已恢復）。
+   靜態、無脈動；填色與框色由 inline style 帶入。 */
+.status-marker {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  border: 1.5px solid transparent;
   flex-shrink: 0;
-  animation: badge-pulse 2s ease-in-out infinite;
-}
-
-@keyframes badge-pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
 }
 
 .inst-card__titles {
@@ -484,8 +457,10 @@ body {
   font-size: 0.75rem;
   font-weight: 600;
   padding: 0.3rem 0.8rem;
-  border: 1px solid;
-  letter-spacing: 0.1em;
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  letter-spacing: 0.06em;
   white-space: nowrap;
   flex-shrink: 0;
 }
@@ -542,7 +517,6 @@ body {
 .progress-bar__fill {
   height: 100%;
   transition: width 1s ease;
-  box-shadow: 0 0 8px currentColor;
 }
 
 /* Key fact */
@@ -767,8 +741,8 @@ body {
   font-style: italic;
   margin-top: 1rem;
   padding: 0.8rem 1rem;
-  background: rgba(139, 0, 0, 0.05);
-  border-left: 2px solid var(--red-deep);
+  background: rgba(194, 54, 47, 0.06);
+  border-left: 2px solid var(--accent-deep);
 }
 
 /* Countdown */
@@ -777,14 +751,14 @@ body {
   align-items: center;
   gap: 1rem;
   padding: 1rem;
-  background: rgba(184, 134, 11, 0.08);
-  border: 1px solid rgba(184, 134, 11, 0.2);
+  background: rgba(176, 132, 58, 0.08);
+  border: 1px solid rgba(176, 132, 58, 0.22);
   margin: 1rem 0;
 }
 
 .countdown--overdue {
-  background: rgba(139, 0, 0, 0.15);
-  border-color: rgba(196, 30, 58, 0.4);
+  background: rgba(194, 54, 47, 0.12);
+  border-color: rgba(194, 54, 47, 0.4);
 }
 
 .countdown__label {
@@ -804,12 +778,6 @@ body {
   font-size: 1.2rem;
   font-weight: 900;
   color: var(--red-glow);
-  animation: urgent-blink 1s ease-in-out infinite;
-}
-
-@keyframes urgent-blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
 }
 
 /* === BUDGET CLOCK（115 年度總預算遭擱置警示・琥珀配色） === */
@@ -820,8 +788,8 @@ body {
 }
 
 .budget__card {
-  background: linear-gradient(135deg, rgba(197, 165, 90, 0.10) 0%, rgba(10, 10, 15, 0.92) 60%);
-  border: 1px solid var(--gold-dim);
+  background: linear-gradient(135deg, rgba(176, 132, 58, 0.07) 0%, rgba(14, 14, 18, 0) 55%), var(--bg-secondary);
+  border: 1px solid var(--border);
   border-top: 3px solid var(--gold);
   border-radius: var(--radius);
   padding: 1.8rem 1.6rem 1.4rem;
@@ -901,11 +869,10 @@ body {
   --flap-size: clamp(1.8rem, min(6.5vw, 7vh), 3.6rem);
 }
 
-/* 琥珀數字（覆寫 flap 預設紅光） */
+/* 琥珀數字（覆寫 flap 預設骨白；預算＝caution 層） */
 .budget__board .flap__panel > b,
 .budget__board .flap__leaf > b {
   color: var(--gold);
-  text-shadow: 0 0 18px rgba(197, 165, 90, 0.4);
 }
 
 .budget__accrual {
@@ -976,7 +943,7 @@ body {
   color: var(--text-muted);
   border-left: 2px solid var(--gold-dim);
   padding: 0.55rem 0.9rem;
-  background: rgba(197, 165, 90, 0.05);
+  background: rgba(176, 132, 58, 0.05);
 }
 
 .budget__toggle {
@@ -1224,6 +1191,11 @@ body {
   .flap__leaf--bottom {
     animation: none;
     transform: none;
+  }
+
+  .inst-card__detail,
+  .budget__detail {
+    animation: none;
   }
 }
 

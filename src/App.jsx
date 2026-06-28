@@ -13,7 +13,7 @@ const isHalted = (i) =>
 const isAtRisk = (i) => i.status === 'atRisk'
 
 function FlapClock({ institutions, startDate }) {
-  const { days, h, m, s, totalHours, totalMinutes } = useElapsedParts(startDate)
+  const { days, h, m, s, totalHours } = useElapsedParts(startDate)
   const halted = institutions.filter(isHalted).length
   const atRisk = institutions.filter(isAtRisk).length
   const vacant = institutions.reduce((sum, i) => sum + i.vacantSeats, 0)
@@ -37,12 +37,10 @@ function FlapClock({ institutions, startDate }) {
         憲政機關已停擺 {days} 天
       </p>
 
-      <div className="debt-clock__accrual" aria-hidden="true">
-        ══════ 持續累積中 ══════
-      </div>
+      <div className="debt-clock__accrual" aria-hidden="true">持續累積中</div>
 
       <div className="debt-clock__convert">
-        ≒ {totalHours.toLocaleString()} 時　≒ {totalMinutes.toLocaleString()} 分
+        ≒ {totalHours.toLocaleString()} 小時
       </div>
 
       <div className="debt-clock__plate">

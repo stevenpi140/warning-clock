@@ -4,7 +4,7 @@ import { budget, BUDGET_SUBMIT_DATE, BUDGET_PASSED_DATE } from '../data/budget'
 
 export default function BudgetClock() {
   const [expanded, setExpanded] = useState(false)
-  const { days, h, m, s, totalHours, totalMinutes, frozen } = useElapsedParts(
+  const { days, h, m, s, totalHours, frozen } = useElapsedParts(
     BUDGET_SUBMIT_DATE,
     BUDGET_PASSED_DATE
   )
@@ -36,10 +36,10 @@ export default function BudgetClock() {
           </p>
 
           <div className="budget__accrual" aria-hidden="true">
-            ══════ {frozen ? '已完成三讀 · 歷時定格' : '緊急經費凍結中'} ══════
+            {frozen ? '已完成三讀 · 歷時定格' : '緊急經費凍結中'}
           </div>
           <div className="budget__convert">
-            ≒ {totalHours.toLocaleString()} 時　≒ {totalMinutes.toLocaleString()} 分
+            ≒ {totalHours.toLocaleString()} 小時
           </div>
         </div>
 

@@ -961,6 +961,17 @@ body {
   padding-left: 1rem;
 }
 
+/* 《預算法》§54 法源說明（規模與結構段內） */
+.budget__law-note {
+  margin-top: 0.9rem;
+  font-size: 0.8rem;
+  line-height: 1.85;
+  color: var(--text-muted);
+  border-left: 2px solid var(--gold-dim);
+  padding: 0.55rem 0.9rem;
+  background: rgba(197, 165, 90, 0.05);
+}
+
 .budget__toggle {
   display: block;
   margin: 1.2rem auto 0;

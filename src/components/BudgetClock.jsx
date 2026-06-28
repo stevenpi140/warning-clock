@@ -71,6 +71,7 @@ export default function BudgetClock() {
           <section className="dossier-block">
             <h3 className="dossier-block__head dossier-block__head--neutral">預算規模與結構</h3>
             <p className="dossier-block__text">{budget.scale}</p>
+            {budget.lawNote && <p className="budget__law-note">{budget.lawNote}</p>}
           </section>
 
           <section className="dossier-block">

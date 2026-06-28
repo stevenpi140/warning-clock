@@ -1,14 +1,30 @@
+import { useState, useEffect } from 'react'
+
+// 狀態 → 主色（卡片強調色、徽章底色）
+const STATUS_COLORS = {
+  paralyzed: '#8b0000', // 已癱瘓 — 深紅
+  partial: '#c2410c', // 部分停擺 — 橙
+  atRisk: '#b8860b', // 尚未但可能癱瘓 — 金
+  overdue: '#a01020', // 逾期違憲 — 警示紅
+  former: '#475569', // 曾癱瘓・已恢復 — 灰藍
+}
+
+function statusColorOf(status) {
+  return STATUS_COLORS[status] || STATUS_COLORS.paralyzed
+}
+
 function StatusBadge({ status }) {
-  const colors = {
-    paralyzed: { bg: '#8b0000', text: '#fff' },
-    'at-risk': { bg: '#b8860b', text: '#fff' },
-    overdue: { bg: '#4a0000', text: '#ff4444' },
+  const dot = {
+    paralyzed: '#ff4444',
+    partial: '#ff8c42',
+    atRisk: '#ffcc44',
+    overdue: '#ff2d55',
+    former: '#94a3b8',
   }
-  const c = colors[status] || colors.paralyzed
   return (
     <span
       className="status-badge"
-      style={{ background: c.bg, color: c.text }}
+      style={{ background: statusColorOf(status), color: dot[status] || '#fff' }}
     >
       ●
     </span>
@@ -27,7 +43,7 @@ function ProgressBar({ filled, total, color }) {
   )
 }
 
-function CountdownToDeadline({ date }) {
+function CountdownToDeadline({ date, label }) {
   const [remaining, setRemaining] = useState({ d: 0, h: 0 })
   const [overdue, setOverdue] = useState(false)
 
@@ -51,17 +67,18 @@ function CountdownToDeadline({ date }) {
   }, [date])
 
   if (overdue) {
+    const elapsed = Math.floor((Date.now() - new Date(date).getTime()) / 86400000)
     return (
       <div className="countdown countdown--overdue">
-        <span className="countdown__label">已超過期限</span>
-        <span className="countdown__urgent">逾期</span>
+        <span className="countdown__label">{label || '已超過期限'}</span>
+        <span className="countdown__urgent">逾期 {elapsed} 天</span>
       </div>
     )
   }
 
   return (
     <div className="countdown">
-      <span className="countdown__label">距離期限</span>
+      <span className="countdown__label">{label || '距離期限'}</span>
       <span className="countdown__value">
         {remaining.d} 天 {remaining.h} 小時
       </span>
@@ -69,27 +86,20 @@ function CountdownToDeadline({ date }) {
   )
 }
 
-import { useState, useEffect } from 'react'
-
 export default function InstitutionCard({ institution, index, expanded, onToggle }) {
   const inst = institution
   const vacantPct = inst.totalSeats > 0
     ? Math.round((inst.vacantSeats / inst.totalSeats) * 100)
     : 0
-
-  const filledSeats = inst.totalSeats - inst.vacantSeats
-
-  const statusColor =
-    inst.status === 'paralyzed' || inst.status === 'overdue'
-      ? '#8b0000'
-      : '#b8860b'
+  const filledSeats = Math.max(0, inst.totalSeats - inst.vacantSeats)
+  const statusColor = statusColorOf(inst.status)
 
   return (
     <div
-      className={`inst-card ${expanded ? 'inst-card--expanded' : ''}`}
+      className={`inst-card inst-card--${inst.status} ${expanded ? 'inst-card--expanded' : ''}`}
       style={{ animationDelay: `${index * 0.08}s` }}
     >
-      <button className="inst-card__header" onClick={onToggle}>
+      <button className="inst-card__header" onClick={onToggle} aria-expanded={expanded}>
         <div className="inst-card__title-row">
           <StatusBadge status={inst.status} />
           <div className="inst-card__titles">
@@ -107,7 +117,7 @@ export default function InstitutionCard({ institution, index, expanded, onToggle
         <div className="inst-card__metrics">
           <div className="inst-card__metric">
             <span className="inst-card__metric-value">{inst.totalSeats}</span>
-            <span className="inst-card__metric-label">應有席次</span>
+            <span className="inst-card__metric-label">{inst.seatNoun || '應有席次'}</span>
           </div>
           <div className="inst-card__divider" />
           <div className="inst-card__metric">
@@ -126,7 +136,7 @@ export default function InstitutionCard({ institution, index, expanded, onToggle
             <span className="inst-card__metric-value" style={{ color: statusColor }}>
               {vacantPct}%
             </span>
-            <span className="inst-card__metric-label">癱瘓率</span>
+            <span className="inst-card__metric-label">空缺率</span>
           </div>
         </div>
 
@@ -137,38 +147,74 @@ export default function InstitutionCard({ institution, index, expanded, onToggle
         />
 
         <div className="inst-card__key-fact">{inst.keyFact}</div>
+        <span className="inst-card__toggle-hint">{expanded ? '收合卷宗 ▲' : '展開卷宗 ▼'}</span>
       </button>
 
       {expanded && (
         <div className="inst-card__detail">
-          <div className="inst-card__detail-grid">
-            <div className="inst-card__detail-item">
-              <span className="inst-card__detail-label">編制</span>
-              <span className="inst-card__detail-value">{inst.detail.fullTerm}</span>
-            </div>
-            <div className="inst-card__detail-item">
-              <span className="inst-card__detail-label">現況</span>
-              <span className="inst-card__detail-value">{inst.detail.currentSitting}</span>
-            </div>
-            <div className="inst-card__detail-item">
-              <span className="inst-card__detail-label">提名狀態</span>
-              <span className="inst-card__detail-value">{inst.detail.pendingNominations}</span>
-            </div>
-            <div className="inst-card__detail-item">
-              <span className="inst-card__detail-label">任期</span>
-              <span className="inst-card__detail-value">{inst.detail.termExpiry}</span>
-            </div>
-            <div className="inst-card__detail-item">
-              <span className="inst-card__detail-label">癱瘓手段</span>
-              <span className="inst-card__detail-value inst-card__detail-value--red">
-                {inst.detail.blockerAction}
-              </span>
-            </div>
-          </div>
-          {inst.criticalDate && (
-            <CountdownToDeadline date={inst.criticalDate} />
+          {inst.org && (
+            <section className="dossier-block">
+              <h3 className="dossier-block__head dossier-block__head--neutral">組織與任期</h3>
+              <p className="dossier-block__text">{inst.org}</p>
+            </section>
           )}
-          <p className="inst-card__detail-en">{inst.keyFactEn}</p>
+
+          {inst.actions?.length > 0 && (
+            <section className="dossier-block">
+              <h3 className="dossier-block__head dossier-block__head--red">藍白惡行</h3>
+              <ul className="dossier-list dossier-list--red">
+                {inst.actions.map((a, i) => (
+                  <li key={i}>{a}</li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {inst.impact?.length > 0 && (
+            <section className="dossier-block">
+              <h3 className="dossier-block__head dossier-block__head--gold">機關癱瘓後果</h3>
+              <ul className="dossier-list">
+                {inst.impact.map((a, i) => (
+                  <li key={i}>{a}</li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {inst.timeline?.length > 0 && (
+            <section className="dossier-block">
+              <h3 className="dossier-block__head dossier-block__head--neutral">事件時序</h3>
+              <ul className="timeline">
+                {inst.timeline.map((t, i) => (
+                  <li className="timeline__item" key={i}>
+                    <span className="timeline__date">{t.date}</span>
+                    <span className="timeline__text">{t.text}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {inst.criticalDate && (
+            <CountdownToDeadline date={inst.criticalDate} label={inst.criticalDateLabel} />
+          )}
+
+          {inst.sources?.length > 0 && (
+            <section className="dossier-block">
+              <h3 className="dossier-block__head dossier-block__head--neutral">資料來源</h3>
+              <ul className="source-list">
+                {inst.sources.map((s, i) => (
+                  <li key={i}>
+                    <a href={s.url} target="_blank" rel="noopener noreferrer">
+                      {s.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {inst.keyFactEn && <p className="inst-card__detail-en">{inst.keyFactEn}</p>}
         </div>
       )}
     </div>

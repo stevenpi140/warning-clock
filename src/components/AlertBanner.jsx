@@ -4,7 +4,7 @@ export default function AlertBanner() {
       <div className="alert-banner__inner">
         <span className="alert-banner__dot" />
         <span className="alert-banner__text">
-          公告：台灣政府機構癱瘓警示 — 9大機關遭受影響
+          憲政警示 — 9 大政府機關遭杯葛、惡修法令或刪減預算而停擺或瀕危
         </span>
         <span className="alert-banner__dot" />
       </div>

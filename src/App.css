@@ -560,8 +560,163 @@ body {
 }
 
 @keyframes detail-enter {
-  from { opacity: 0; max-height: 0; }
-  to { opacity: 1; max-height: 600px; }
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* === DOSSIER BLOCKS（卷宗三段：組織 / 藍白惡行 / 後果 / 時序 / 來源） === */
+.dossier-block {
+  margin-top: 1.5rem;
+}
+
+.dossier-block__head {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  margin-bottom: 0.7rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dossier-block__head::before {
+  content: '';
+  width: 6px;
+  height: 14px;
+  background: var(--text-muted);
+  display: inline-block;
+}
+
+.dossier-block__head--red { color: var(--red-glow); }
+.dossier-block__head--red::before { background: var(--red-alert); }
+.dossier-block__head--gold { color: var(--gold); }
+.dossier-block__head--gold::before { background: var(--yellow-warn); }
+.dossier-block__head--neutral { color: var(--text-secondary); }
+
+.dossier-block__text {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.9;
+}
+
+.dossier-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.dossier-list li {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.85;
+  padding-left: 1.1rem;
+  position: relative;
+}
+
+.dossier-list li::before {
+  content: '▪';
+  position: absolute;
+  left: 0;
+  color: var(--gold-dim);
+}
+
+.dossier-list--red li::before {
+  content: '✕';
+  color: var(--red-alert);
+  font-size: 0.8rem;
+  top: 0.1rem;
+}
+
+/* === TIMELINE（事件時序） === */
+.timeline {
+  list-style: none;
+  border-left: 2px solid var(--border);
+  margin-left: 0.4rem;
+}
+
+.timeline__item {
+  position: relative;
+  padding: 0 0 0.9rem 1.2rem;
+}
+
+.timeline__item:last-child {
+  padding-bottom: 0;
+}
+
+.timeline__item::before {
+  content: '';
+  position: absolute;
+  left: -5px;
+  top: 0.45rem;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--red-deep);
+  box-shadow: 0 0 0 2px var(--bg-card);
+}
+
+.timeline__date {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+  margin-right: 0.6rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.timeline__text {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* === SOURCE LIST（資料來源） === */
+.source-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.source-list li {
+  padding-left: 1.1rem;
+  position: relative;
+}
+
+.source-list li::before {
+  content: '↗';
+  position: absolute;
+  left: 0;
+  color: var(--gold-dim);
+  font-size: 0.8rem;
+}
+
+.source-list a {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--gold-dim);
+  line-height: 1.6;
+  transition: color 0.15s ease;
+  word-break: break-word;
+}
+
+.source-list a:hover {
+  color: var(--gold);
+  border-bottom-color: var(--gold);
+}
+
+/* 展開提示 */
+.inst-card__toggle-hint {
+  display: inline-block;
+  margin-top: 1rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
 }
 
 .inst-card__detail-grid {
@@ -650,11 +805,302 @@ body {
   50% { opacity: 0.3; }
 }
 
+/* === BUDGET CLOCK（115 年度總預算遭擱置警示・琥珀配色） === */
+.budget {
+  max-width: min(880px, 92vw);
+  margin: 2.5rem auto 1.5rem;
+  padding: 0 1rem;
+}
+
+.budget__card {
+  background: linear-gradient(135deg, rgba(197, 165, 90, 0.10) 0%, rgba(10, 10, 15, 0.92) 60%);
+  border: 1px solid var(--gold-dim);
+  border-top: 3px solid var(--gold);
+  border-radius: 4px;
+  padding: 1.8rem 1.6rem 1.4rem;
+}
+
+.budget--expanded .budget__card {
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+}
+
+.budget__head {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-bottom: 1.3rem;
+}
+
+.budget__tag {
+  flex: 0 0 auto;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: #0a0a0f;
+  background: var(--gold);
+  padding: 0.24rem 0.62rem;
+  border-radius: 2px;
+}
+
+.budget__title {
+  font-size: 1.22rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  color: var(--text-primary);
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.budget__title-en {
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+.budget__clock {
+  text-align: center;
+}
+
+.budget__caption {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.22em;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.budget__rule {
+  width: 2rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-dim));
+}
+
+.budget__caption .budget__rule:last-child {
+  background: linear-gradient(90deg, var(--gold-dim), transparent);
+}
+
+.budget__board {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1.1rem;
+  --flap-size: clamp(1.8rem, min(6.5vw, 7vh), 3.6rem);
+}
+
+/* 琥珀數字（覆寫 flap 預設紅光） */
+.budget__board .flap__panel > b,
+.budget__board .flap__leaf > b {
+  color: var(--gold);
+  text-shadow: 0 0 18px rgba(197, 165, 90, 0.4);
+}
+
+.budget__accrual {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.25em;
+  color: var(--yellow-warn);
+  opacity: 0.82;
+}
+
+.budget__convert {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.budget__stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border-subtle);
+  border: 1px solid var(--border-subtle);
+  margin: 1.6rem 0 1.2rem;
+}
+
+.budget__stat {
+  background: var(--bg-secondary);
+  padding: 1rem 0.6rem;
+  text-align: center;
+}
+
+.budget__stat-value {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.budget__stat-value small {
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-left: 0.1rem;
+}
+
+.budget__stat-label {
+  margin-top: 0.45rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+
+.budget__key-fact {
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  line-height: 1.85;
+  border-left: 3px solid var(--gold-dim);
+  padding-left: 1rem;
+}
+
+.budget__toggle {
+  display: block;
+  margin: 1.2rem auto 0;
+  background: none;
+  border: 1px solid var(--gold-dim);
+  border-radius: 2px;
+  color: var(--gold);
+  font-family: inherit;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  padding: 0.42rem 1.3rem;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.budget__toggle:hover {
+  background: rgba(197, 165, 90, 0.12);
+}
+
+.budget__detail {
+  padding: 0.5rem 1.6rem 1.6rem;
+  background: var(--bg-card);
+  border: 1px solid var(--gold-dim);
+  border-top: 1px dashed var(--border);
+  border-radius: 0 0 4px 4px;
+  animation: detail-enter 0.3s ease-out;
+}
+
 /* === FOOTER === */
 .footer {
   border-top: 1px solid var(--border);
   padding: 3rem 2rem;
   text-align: center;
+}
+
+/* 合作／發起團體：經濟民主連合 */
+.footer__partner {
+  max-width: 760px;
+  margin: 0 auto 2.5rem;
+  padding: 1.8rem 1.6rem;
+  display: flex;
+  align-items: center;
+  gap: 1.8rem;
+  text-align: left;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--gold-dim);
+  border-radius: 4px;
+}
+
+.footer__partner-logo {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 140px;
+  padding: 0.4rem;
+}
+
+.footer__partner-logo img {
+  width: 100%;
+  height: auto;
+  /* logo 為白色去背，深底直接顯示 */
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4));
+}
+
+.footer__partner-info {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.footer__partner-name {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: var(--text-primary);
+  letter-spacing: 0.06em;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.footer__partner-en {
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  letter-spacing: 0.12em;
+}
+
+.footer__partner-tagline {
+  margin-top: 0.7rem;
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+}
+
+.footer__partner-mission {
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.85;
+}
+
+.footer__partner-tags {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.9rem;
+}
+
+.footer__partner-tags li {
+  font-size: 0.72rem;
+  color: var(--gold);
+  border: 1px solid var(--gold-dim);
+  border-radius: 999px;
+  padding: 0.18rem 0.65rem;
+  letter-spacing: 0.04em;
+}
+
+.footer__partner-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.1rem;
+  margin-top: 1rem;
+}
+
+.footer__partner-links a {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-bottom: 1px solid var(--gold-dim);
+  padding-bottom: 1px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.footer__partner-links a:hover {
+  color: var(--gold);
+  border-bottom-color: var(--gold);
 }
 
 .footer__content p {
@@ -703,6 +1149,31 @@ body {
   .inst-card__status {
     order: 3;
     margin-left: auto;
+  }
+
+  .footer__partner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.2rem;
+    padding: 1.5rem 1.2rem;
+  }
+
+  .footer__partner-logo {
+    width: 120px;
+    align-self: center;
+  }
+
+  .budget__stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .budget__head {
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .budget__stat-value {
+    font-size: 1.3rem;
   }
 }
 

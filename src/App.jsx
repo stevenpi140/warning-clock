@@ -4,7 +4,7 @@ import { economicDemocracyUnion as edu } from './data/orgInfo'
 import InstitutionCard from './components/InstitutionCard'
 import CaseIndex from './components/CaseIndex'
 import AlertBanner from './components/AlertBanner'
-import BudgetClock from './components/BudgetClock'
+import BudgetDossier, { BudgetFlap } from './components/BudgetClock'
 import { useElapsedParts, FlapGroup } from './components/flap'
 import eduLogo from './assets/edu-logo.png'
 
@@ -13,9 +13,10 @@ function FlapClock({ startDate }) {
 
   return (
     <div className="debt-clock">
+      <div className="debt-clock__title">憲政機關停擺</div>
       <div className="debt-clock__caption">
         <span className="debt-clock__rule" aria-hidden="true" />
-        憲政機關停擺已持續
+        已持續
         <span className="debt-clock__rule" aria-hidden="true" />
       </div>
 
@@ -60,7 +61,10 @@ export default function App() {
           <span className="header__title-main">台灣黎巴嫩化</span>
           <span className="header__title-sub">傅崐萁集團癱瘓政府機構警示鐘</span>
         </h1>
-        <FlapClock startDate={PARALYSIS_START} />
+        <div className="clock-board">
+          <FlapClock startDate={PARALYSIS_START} />
+          <BudgetFlap />
+        </div>
         <p className="header__desc">
           傅崐萁集團透過杯葛人事同意權、惡修法令、刪減預算、拖延議程等手段，逐一癱瘓國家重要憲政機關。
           <br />
@@ -70,7 +74,7 @@ export default function App() {
 
       <CaseIndex institutions={institutions} />
 
-      <BudgetClock />
+      <BudgetDossier />
 
       <section className="institutions">
         {institutions.map((inst, i) => (

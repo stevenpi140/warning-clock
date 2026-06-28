@@ -163,6 +163,59 @@ body {
   background: linear-gradient(135deg, rgba(194, 54, 47, 0.06) 0%, rgba(14, 14, 18, 0) 55%), var(--bg-secondary);
 }
 
+/* 雙鐘看板：憲政鐘與預算鐘左右並排，一個 16:9 畫面同時看到兩者 */
+.clock-board {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: min(1100px, 94vw);
+  margin: 0 auto;
+}
+
+.clock-board .debt-clock {
+  max-width: 100%;
+  padding: clamp(1rem, 2vh, 1.5rem) clamp(1rem, 2vw, 1.6rem);
+}
+
+.clock-board .debt-clock__board {
+  --flap-size: clamp(1.3rem, min(3.4vw, 5vh), 2.6rem);
+  gap: 0.8rem;
+}
+
+/* 各鐘名稱 */
+.debt-clock__title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+/* 預算鐘＝琥珀 caution（與憲政鐘紅色區隔）；整框可點擊跳預算卷宗 */
+.debt-clock--budget {
+  display: block;
+  border-left-color: var(--caution);
+  background: linear-gradient(135deg, rgba(176, 132, 58, 0.06) 0%, rgba(14, 14, 18, 0) 55%), var(--bg-secondary);
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.debt-clock--budget:hover {
+  border-color: var(--caution);
+}
+
+.debt-clock--budget .flap-group--accent .flap__panel > b,
+.debt-clock--budget .flap-group--accent .flap__leaf > b {
+  color: var(--caution);
+}
+
+.debt-clock--budget .debt-clock__accrual {
+  color: var(--caution);
+}
+
 .debt-clock__caption {
   display: flex;
   align-items: center;
@@ -928,67 +981,7 @@ body {
   gap: 0.6rem;
 }
 
-.budget__title-en {
-  font-size: 0.7rem;
-  font-weight: 400;
-  letter-spacing: 0.1em;
-  color: var(--text-muted);
-}
-
-.budget__clock {
-  text-align: center;
-}
-
-.budget__caption {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.9rem;
-  font-size: 0.82rem;
-  letter-spacing: 0.08em;
-  color: var(--text-secondary);
-  margin-bottom: 1rem;
-}
-
-.budget__rule {
-  width: 2rem;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold-dim));
-}
-
-.budget__caption .budget__rule:last-child {
-  background: linear-gradient(90deg, var(--gold-dim), transparent);
-}
-
-.budget__board {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 1.1rem;
-  --flap-size: clamp(1.8rem, min(6.5vw, 7vh), 3.6rem);
-}
-
-/* 琥珀數字（覆寫 flap 預設骨白；預算＝caution 層） */
-.budget__board .flap__panel > b,
-.budget__board .flap__leaf > b {
-  color: var(--gold);
-}
-
-.budget__accrual {
-  margin-top: 1rem;
-  font-size: 0.8rem;
-  letter-spacing: 0.25em;
-  color: var(--yellow-warn);
-  opacity: 0.82;
-}
-
-.budget__convert {
-  margin-top: 0.5rem;
-  font-size: 0.8rem;
-  letter-spacing: 0.08em;
-  color: var(--text-muted);
-  font-variant-numeric: tabular-nums;
-}
+/* 預算翻牌鐘樣式已移至 .clock-board / .debt-clock--budget（與憲政鐘共用雙鐘看板） */
 
 .budget__stats {
   display: grid;
@@ -1203,6 +1196,12 @@ body {
 @media (max-width: 768px) {
   .header {
     padding: 3rem 1.5rem 2rem;
+  }
+
+  /* 雙鐘看板行動版：上下堆疊（窄螢幕無法並排，但 16:9 並排目標針對橫向畫面） */
+  .clock-board {
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
 
   /* 案件索引行動版：每列攤成兩行（機關名/關鍵日 在上，現況/空缺 在下） */

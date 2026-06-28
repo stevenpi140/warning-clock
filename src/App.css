@@ -83,12 +83,12 @@ body {
   text-align: center;
   position: relative;
   min-height: calc(100svh - 52px); /* 扣掉 sticky 公告列，使「公告列＋首屏」約一個視窗高 */
-  padding: clamp(1rem, 3vh, 2rem) 2rem;
+  padding: clamp(0.8rem, 2vh, 1.5rem) 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: clamp(0.6rem, 2.2vh, 1.6rem);
+  gap: clamp(0.5rem, 1.5vh, 1.1rem);
 }
 
 .header__seal {
@@ -163,24 +163,27 @@ body {
   background: linear-gradient(135deg, rgba(194, 54, 47, 0.06) 0%, rgba(14, 14, 18, 0) 55%), var(--bg-secondary);
 }
 
-/* 雙鐘看板：憲政鐘與預算鐘左右並排，一個 16:9 畫面同時看到兩者 */
+/* 雙鐘看板：憲政鐘與預算鐘左右並排、等大、佔滿寬度，一個 16:9 畫面同時看到兩者 */
 .clock-board {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
+  gap: clamp(1rem, 2vw, 2rem);
   width: 100%;
-  max-width: min(1100px, 94vw);
+  max-width: min(1500px, 93vw);
   margin: 0 auto;
 }
 
+/* 兩鐘各佔一半、等寬填滿 */
 .clock-board .debt-clock {
-  max-width: 100%;
-  padding: clamp(1rem, 2vh, 1.5rem) clamp(1rem, 2vw, 1.6rem);
+  max-width: none;
+  margin: 0;
+  padding: clamp(0.9rem, 1.8vh, 1.4rem) clamp(1rem, 2.2vw, 2rem);
 }
 
+/* 翻牌隨欄寬放大以填滿卡片，但以 vh 封頂避免在矮視窗把下方說明擠出畫面 */
 .clock-board .debt-clock__board {
-  --flap-size: clamp(1.3rem, min(3.4vw, 5vh), 2.6rem);
-  gap: 0.8rem;
+  --flap-size: clamp(1.7rem, min(4.8vw, 6.2vh), 3.8rem);
+  gap: clamp(0.6rem, 1.6vw, 1.3rem);
 }
 
 /* 各鐘名稱 */

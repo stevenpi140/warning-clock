@@ -8,21 +8,36 @@
 }
 
 :root {
-  --bg-primary: #0a0a0f;
-  --bg-secondary: #111118;
-  --bg-card: #14141e;
-  --bg-card-hover: #1a1a26;
+  /* 底色：維持深底，但抬離純黑（9.A 禁純黑） */
+  --bg-primary: #0e0e12;
+  --bg-secondary: #16161c;
+  --bg-card: #16161c;
+  --bg-card-hover: #1c1c24;
+  --raised: #1c1c24;
+  /* 文字：--text-muted 由 #6a6860(3.45:1) 提亮至約 4.6:1 過 AA */
   --text-primary: #e8e6e3;
   --text-secondary: #9a9890;
-  --text-muted: #6a6860;
-  --red-alert: #c41e3a;
-  --red-deep: #8b0000;
-  --red-glow: #ff2d55;
-  --gold: #c5a55a;
-  --gold-dim: #8a7a4a;
-  --yellow-warn: #b8860b;
-  --border: #2a2a35;
-  --border-subtle: #1e1e28;
+  --text-muted: #8b8880;
+  /* 狀態三色階：單一印泥紅 accent + 琥珀 caution + 中性灰（saturation<80%、零 neon） */
+  --accent: #c2362f;
+  --accent-deep: #8f2722;
+  --caution: #b0843a;
+  --neutral: #6b6f76;
+  /* 骨白：翻牌數字等中性高亮 */
+  --bone: #ece7dc;
+  /* 舊變數名重新指向新色票：一次清掉 5-accent 彩虹與所有 glow 用色 */
+  --red-alert: #c2362f;
+  --red-deep: #8f2722;
+  --red-glow: #c2362f;
+  --gold: #b0843a;
+  --gold-dim: #7a5f2e;
+  --yellow-warn: #b0843a;
+  --border: #2a2a33;
+  --border-subtle: #1e1e26;
+  /* SHAPE LOCK：全站單一圓角尺度（公文＝近直角） */
+  --radius: 2px;
+  /* 數據專屬等寬聲音（系統 stack，零額外載入）：只套到純數字/拉丁元素 */
+  --font-mono: ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, Consolas, monospace;
 }
 
 html {
@@ -37,15 +52,12 @@ body {
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
-  background-image:
-    radial-gradient(ellipse at 20% 0%, rgba(139, 0, 0, 0.06) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 100%, rgba(139, 0, 0, 0.04) 0%, transparent 50%);
 }
 
 /* === ALERT BANNER === */
 .alert-banner {
-  background: linear-gradient(90deg, var(--red-deep), #6b0000, var(--red-deep));
-  border-bottom: 1px solid var(--red-alert);
+  background: var(--accent-deep);
+  border-bottom: 1px solid var(--accent);
   padding: 0.5rem 1rem;
   position: sticky;
   top: 0;
@@ -59,25 +71,11 @@ body {
   gap: 1rem;
 }
 
-.alert-banner__dot {
-  width: 8px;
-  height: 8px;
-  background: var(--red-glow);
-  border-radius: 50%;
-  animation: pulse-dot 1.5s ease-in-out infinite;
-}
-
 .alert-banner__text {
   font-size: 0.85rem;
   font-weight: 600;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.06em;
   color: #ffd5d5;
-  text-transform: uppercase;
-}
-
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.7); }
 }
 
 /* === HEADER === */
@@ -85,12 +83,12 @@ body {
   text-align: center;
   position: relative;
   min-height: calc(100svh - 52px); /* 扣掉 sticky 公告列，使「公告列＋首屏」約一個視窗高 */
-  padding: clamp(1rem, 3vh, 2rem) 2rem;
+  padding: clamp(0.8rem, 2vh, 1.5rem) 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: clamp(0.6rem, 2.2vh, 1.6rem);
+  gap: clamp(0.5rem, 1.5vh, 1.1rem);
 }
 
 .header__seal {
@@ -106,7 +104,6 @@ body {
   border: 3px solid var(--red-alert);
   border-radius: 50%;
   position: relative;
-  animation: seal-glow 3s ease-in-out infinite;
 }
 
 .seal-circle::before {
@@ -126,11 +123,6 @@ body {
   line-height: 1;
 }
 
-@keyframes seal-glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(196, 30, 58, 0.2); }
-  50% { box-shadow: 0 0 40px rgba(196, 30, 58, 0.4); }
-}
-
 .header__title {
   margin-bottom: 0;
 }
@@ -140,8 +132,7 @@ body {
   font-size: clamp(1.9rem, min(5vw, 6.2vh), 3.5rem);
   font-weight: 900;
   color: var(--red-alert);
-  letter-spacing: 0.15em;
-  text-shadow: 0 0 30px rgba(196, 30, 58, 0.3);
+  letter-spacing: 0.04em;
   line-height: 1.15;
 }
 
@@ -150,7 +141,7 @@ body {
   font-size: clamp(1rem, 2.5vw, 1.4rem);
   font-weight: 400;
   color: var(--text-secondary);
-  letter-spacing: 0.3em;
+  letter-spacing: 0.08em;
   margin-top: 0.5rem;
 }
 
@@ -167,10 +158,65 @@ body {
   margin: 0 auto;
   padding: clamp(1.1rem, 2.4vh, 1.8rem) 2rem;
   max-width: min(680px, 92vw);
-  border: 1px solid var(--red-deep);
-  border-top: 1px solid var(--gold-dim);
-  border-left: 4px solid var(--red-alert);
-  background: linear-gradient(135deg, rgba(139, 0, 0, 0.12) 0%, rgba(10, 10, 15, 0.92) 100%);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  background: linear-gradient(135deg, rgba(194, 54, 47, 0.06) 0%, rgba(14, 14, 18, 0) 55%), var(--bg-secondary);
+}
+
+/* 雙鐘看板：憲政鐘與預算鐘左右並排、等大、佔滿寬度，一個 16:9 畫面同時看到兩者 */
+.clock-board {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1rem, 2vw, 2rem);
+  width: 100%;
+  max-width: min(1500px, 93vw);
+  margin: 0 auto;
+}
+
+/* 兩鐘各佔一半、等寬填滿 */
+.clock-board .debt-clock {
+  max-width: none;
+  margin: 0;
+  padding: clamp(0.9rem, 1.8vh, 1.4rem) clamp(1rem, 2.2vw, 2rem);
+}
+
+/* 翻牌隨欄寬放大以填滿卡片，但以 vh 封頂避免在矮視窗把下方說明擠出畫面 */
+.clock-board .debt-clock__board {
+  --flap-size: clamp(1.7rem, min(4.8vw, 6.2vh), 3.8rem);
+  gap: clamp(0.6rem, 1.6vw, 1.3rem);
+}
+
+/* 各鐘名稱 */
+.debt-clock__title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+/* 預算鐘＝琥珀 caution（與憲政鐘紅色區隔）；整框可點擊跳預算卷宗 */
+.debt-clock--budget {
+  display: block;
+  border-left-color: var(--caution);
+  background: linear-gradient(135deg, rgba(176, 132, 58, 0.06) 0%, rgba(14, 14, 18, 0) 55%), var(--bg-secondary);
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.debt-clock--budget:hover {
+  border-color: var(--caution);
+}
+
+.debt-clock--budget .flap-group--accent .flap__panel > b,
+.debt-clock--budget .flap-group--accent .flap__leaf > b {
+  color: var(--caution);
+}
+
+.debt-clock--budget .debt-clock__accrual {
+  color: var(--caution);
 }
 
 .debt-clock__caption {
@@ -179,7 +225,7 @@ body {
   justify-content: center;
   gap: 0.9rem;
   font-size: 0.9rem;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.08em;
   color: var(--text-secondary);
   margin-bottom: clamp(0.55rem, 1.6vh, 1.3rem);
 }
@@ -228,10 +274,11 @@ body {
   height: 1.18em;
   font-size: var(--flap-size);
   font-weight: 900;
+  font-family: var(--font-mono);
   line-height: 1;
   font-variant-numeric: tabular-nums;
-  border-radius: 0.1em;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(0, 0, 0, 0.5);
+  border-radius: var(--radius);
+  box-shadow: 0 2px 6px rgba(6, 6, 10, 0.55), inset 0 0 0 1px rgba(6, 6, 10, 0.5);
 }
 
 .flap__panel,
@@ -254,21 +301,26 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--red-glow);
-  text-shadow: 0 0 18px rgba(255, 45, 85, 0.45);
+  color: var(--bone);
+}
+
+/* 只有「天」這一組吃印泥紅，其餘骨白：把戲劇集中在那個會痛的數字 */
+.flap-group--accent .flap__panel > b,
+.flap-group--accent .flap__leaf > b {
+  color: var(--accent);
 }
 
 .flap__panel--top,
 .flap__leaf--top {
   top: 0;
-  border-radius: 0.1em 0.1em 0 0;
+  border-radius: var(--radius) var(--radius) 0 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.62);
 }
 
 .flap__panel--bottom,
 .flap__leaf--bottom {
   bottom: 0;
-  border-radius: 0 0 0.1em 0.1em;
+  border-radius: 0 0 var(--radius) var(--radius);
 }
 
 .flap__panel--top > b,
@@ -345,46 +397,145 @@ body {
   border: 0;
 }
 
-/* === SUMMARY === */
-.summary {
+/* 數據等寬聲音（行內數字 span）：卷宗用 serif、即時數據用 mono */
+.data {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* === CASE INDEX（案件索引：依嚴重度分三層的可掃描 triage 登錄表） === */
+.case-index {
   max-width: 1100px;
   margin: 0 auto 3rem;
   padding: 0 1.5rem;
 }
 
-.summary__grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
+.case-index__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding-bottom: 0.7rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
 }
 
-.summary__item {
-  background: var(--bg-secondary);
-  padding: 1.5rem 1rem;
-  text-align: center;
+.case-index__title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.06em;
 }
 
-.summary__value {
-  font-size: 2rem;
-  font-weight: 900;
-  font-variant-numeric: tabular-nums;
+.case-index__summary {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
 }
 
-.summary__item--red .summary__value {
-  color: var(--red-glow);
+.case-index__group {
+  margin-bottom: 1.3rem;
 }
 
-.summary__item--yellow .summary__value {
-  color: var(--yellow-warn);
+.case-index__group-head {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: 0.25rem;
+  padding: 0.25rem 0.6rem;
 }
 
-.summary__label {
+.case-index__group--halted .case-index__group-head { border-left: 3px solid var(--accent); }
+.case-index__group--atRisk .case-index__group-head { border-left: 3px solid var(--caution); }
+.case-index__group--recovered .case-index__group-head { border-left: 3px solid var(--neutral); }
+
+.case-index__group-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--text-secondary);
+}
+
+.case-index__group-count {
   font-size: 0.8rem;
   color: var(--text-muted);
-  letter-spacing: 0.15em;
-  margin-top: 0.3rem;
+}
+
+.case-index__list {
+  list-style: none;
+}
+
+.case-index__row + .case-index__row .case-index__link {
+  border-top: 1px solid var(--border-subtle);
+}
+
+.case-index__link {
+  display: grid;
+  grid-template-columns: 14px minmax(7.5em, max-content) 1fr 4.5em 5.5em;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.6rem;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.15s ease;
+}
+
+.case-index__link:hover {
+  background: var(--bg-card-hover);
+}
+
+.case-index__name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.case-index__status {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.case-index__vacancy {
+  text-align: right;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.case-index__date {
+  text-align: right;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.case-index__overdue { color: var(--accent); font-weight: 700; }
+
+/* === 收合卡精簡（4-metric 與 progress 移入展開層） === */
+.inst-card__vacancy {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 0.8rem;
+}
+
+.inst-card__vacancy-num {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.inst-card__vacancy .data + .inst-card__vacancy-label {
+  margin-left: 0.9rem;
+}
+
+.inst-card__key-fact--clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* === INSTITUTION CARDS === */
@@ -400,24 +551,13 @@ body {
 .inst-card {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
-  animation: card-enter 0.6s ease-out both;
-  transition: all 0.3s ease;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  scroll-margin-top: 56px;
 }
 
 .inst-card:hover {
   background: var(--bg-card-hover);
   border-color: var(--border);
-}
-
-@keyframes card-enter {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .inst-card__header {
@@ -439,21 +579,14 @@ body {
   margin-bottom: 1rem;
 }
 
-.status-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  font-size: 0;
+/* 狀態標記：同色相 + 造型分級（紅實心=已癱瘓／紅外框=逾期違憲／琥珀實心=部分／琥珀外框=瀕危／灰實心=已恢復）。
+   靜態、無脈動；填色與框色由 inline style 帶入。 */
+.status-marker {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  border: 1.5px solid transparent;
   flex-shrink: 0;
-  animation: badge-pulse 2s ease-in-out infinite;
-}
-
-@keyframes badge-pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
 }
 
 .inst-card__titles {
@@ -479,8 +612,10 @@ body {
   font-size: 0.75rem;
   font-weight: 600;
   padding: 0.3rem 0.8rem;
-  border: 1px solid;
-  letter-spacing: 0.1em;
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  letter-spacing: 0.06em;
   white-space: nowrap;
   flex-shrink: 0;
 }
@@ -502,6 +637,7 @@ body {
 .inst-card__metric-value {
   font-size: 1.5rem;
   font-weight: 900;
+  font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
   color: var(--text-primary);
   line-height: 1.2;
@@ -536,7 +672,6 @@ body {
 .progress-bar__fill {
   height: 100%;
   transition: width 1s ease;
-  box-shadow: 0 0 8px currentColor;
 }
 
 /* Key fact */
@@ -665,6 +800,7 @@ body {
   color: var(--gold);
   letter-spacing: 0.05em;
   margin-right: 0.6rem;
+  font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
 }
 
@@ -760,8 +896,8 @@ body {
   font-style: italic;
   margin-top: 1rem;
   padding: 0.8rem 1rem;
-  background: rgba(139, 0, 0, 0.05);
-  border-left: 2px solid var(--red-deep);
+  background: rgba(194, 54, 47, 0.06);
+  border-left: 2px solid var(--accent-deep);
 }
 
 /* Countdown */
@@ -770,14 +906,14 @@ body {
   align-items: center;
   gap: 1rem;
   padding: 1rem;
-  background: rgba(184, 134, 11, 0.08);
-  border: 1px solid rgba(184, 134, 11, 0.2);
+  background: rgba(176, 132, 58, 0.08);
+  border: 1px solid rgba(176, 132, 58, 0.22);
   margin: 1rem 0;
 }
 
 .countdown--overdue {
-  background: rgba(139, 0, 0, 0.15);
-  border-color: rgba(196, 30, 58, 0.4);
+  background: rgba(194, 54, 47, 0.12);
+  border-color: rgba(194, 54, 47, 0.4);
 }
 
 .countdown__label {
@@ -797,12 +933,6 @@ body {
   font-size: 1.2rem;
   font-weight: 900;
   color: var(--red-glow);
-  animation: urgent-blink 1s ease-in-out infinite;
-}
-
-@keyframes urgent-blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
 }
 
 /* === BUDGET CLOCK（115 年度總預算遭擱置警示・琥珀配色） === */
@@ -813,16 +943,16 @@ body {
 }
 
 .budget__card {
-  background: linear-gradient(135deg, rgba(197, 165, 90, 0.10) 0%, rgba(10, 10, 15, 0.92) 60%);
-  border: 1px solid var(--gold-dim);
+  background: linear-gradient(135deg, rgba(176, 132, 58, 0.07) 0%, rgba(14, 14, 18, 0) 55%), var(--bg-secondary);
+  border: 1px solid var(--border);
   border-top: 3px solid var(--gold);
-  border-radius: 4px;
+  border-radius: var(--radius);
   padding: 1.8rem 1.6rem 1.4rem;
 }
 
 .budget--expanded .budget__card {
   border-bottom: none;
-  border-radius: 4px 4px 0 0;
+  border-radius: var(--radius) var(--radius) 0 0;
 }
 
 .budget__head {
@@ -840,7 +970,7 @@ body {
   color: #0a0a0f;
   background: var(--gold);
   padding: 0.24rem 0.62rem;
-  border-radius: 2px;
+  border-radius: var(--radius);
 }
 
 .budget__title {
@@ -854,68 +984,7 @@ body {
   gap: 0.6rem;
 }
 
-.budget__title-en {
-  font-size: 0.7rem;
-  font-weight: 400;
-  letter-spacing: 0.1em;
-  color: var(--text-muted);
-}
-
-.budget__clock {
-  text-align: center;
-}
-
-.budget__caption {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.9rem;
-  font-size: 0.82rem;
-  letter-spacing: 0.22em;
-  color: var(--text-secondary);
-  margin-bottom: 1rem;
-}
-
-.budget__rule {
-  width: 2rem;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold-dim));
-}
-
-.budget__caption .budget__rule:last-child {
-  background: linear-gradient(90deg, var(--gold-dim), transparent);
-}
-
-.budget__board {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 1.1rem;
-  --flap-size: clamp(1.8rem, min(6.5vw, 7vh), 3.6rem);
-}
-
-/* 琥珀數字（覆寫 flap 預設紅光） */
-.budget__board .flap__panel > b,
-.budget__board .flap__leaf > b {
-  color: var(--gold);
-  text-shadow: 0 0 18px rgba(197, 165, 90, 0.4);
-}
-
-.budget__accrual {
-  margin-top: 1rem;
-  font-size: 0.8rem;
-  letter-spacing: 0.25em;
-  color: var(--yellow-warn);
-  opacity: 0.82;
-}
-
-.budget__convert {
-  margin-top: 0.5rem;
-  font-size: 0.8rem;
-  letter-spacing: 0.08em;
-  color: var(--text-muted);
-  font-variant-numeric: tabular-nums;
-}
+/* 預算翻牌鐘樣式已移至 .clock-board / .debt-clock--budget（與憲政鐘共用雙鐘看板） */
 
 .budget__stats {
   display: grid;
@@ -969,7 +1038,7 @@ body {
   color: var(--text-muted);
   border-left: 2px solid var(--gold-dim);
   padding: 0.55rem 0.9rem;
-  background: rgba(197, 165, 90, 0.05);
+  background: rgba(176, 132, 58, 0.05);
 }
 
 .budget__toggle {
@@ -977,7 +1046,7 @@ body {
   margin: 1.2rem auto 0;
   background: none;
   border: 1px solid var(--gold-dim);
-  border-radius: 2px;
+  border-radius: var(--radius);
   color: var(--gold);
   font-family: inherit;
   font-size: 0.72rem;
@@ -996,7 +1065,7 @@ body {
   background: var(--bg-card);
   border: 1px solid var(--gold-dim);
   border-top: 1px dashed var(--border);
-  border-radius: 0 0 4px 4px;
+  border-radius: 0 0 var(--radius) var(--radius);
   animation: detail-enter 0.3s ease-out;
 }
 
@@ -1019,7 +1088,7 @@ body {
   background: var(--bg-secondary);
   border: 1px solid var(--border);
   border-top: 3px solid var(--gold-dim);
-  border-radius: 4px;
+  border-radius: var(--radius);
 }
 
 .footer__partner-logo {
@@ -1088,7 +1157,7 @@ body {
   font-size: 0.72rem;
   color: var(--gold);
   border: 1px solid var(--gold-dim);
-  border-radius: 999px;
+  border-radius: var(--radius);
   padding: 0.18rem 0.65rem;
   letter-spacing: 0.04em;
 }
@@ -1132,8 +1201,35 @@ body {
     padding: 3rem 1.5rem 2rem;
   }
 
-  .summary__grid {
-    grid-template-columns: repeat(2, 1fr);
+  /* 雙鐘看板行動版：上下堆疊（窄螢幕無法並排，但 16:9 並排目標針對橫向畫面） */
+  .clock-board {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  /* 案件索引行動版：每列攤成兩行（機關名/關鍵日 在上，現況/空缺 在下） */
+  .case-index__link {
+    grid-template-columns: 14px 1fr auto;
+    grid-template-areas:
+      "marker name date"
+      "marker status vacancy";
+    row-gap: 0.2rem;
+    column-gap: 0.7rem;
+  }
+
+  .case-index__link > .status-marker {
+    grid-area: marker;
+    align-self: start;
+    margin-top: 0.3rem;
+  }
+
+  .case-index__name { grid-area: name; }
+  .case-index__date { grid-area: date; }
+  .case-index__vacancy { grid-area: vacancy; }
+
+  .case-index__status {
+    grid-area: status;
+    white-space: normal;
   }
 
   .inst-card__header {
@@ -1189,10 +1285,6 @@ body {
 }
 
 @media (max-width: 480px) {
-  .summary__grid {
-    grid-template-columns: 1fr 1fr;
-  }
-
   .debt-clock {
     padding: 1.4rem 1rem 1.2rem;
   }
@@ -1217,6 +1309,11 @@ body {
   .flap__leaf--bottom {
     animation: none;
     transform: none;
+  }
+
+  .inst-card__detail,
+  .budget__detail {
+    animation: none;
   }
 }
 
@@ -1260,7 +1357,7 @@ body {
 
 ::-webkit-scrollbar-thumb {
   background: var(--red-deep);
-  border-radius: 3px;
+  border-radius: var(--radius);
 }
 
 /* === SELECTION === */

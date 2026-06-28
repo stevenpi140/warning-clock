@@ -118,7 +118,7 @@ const institutions = [
     vacantSeats: 3,
     criticalDate: '2026-07-03',
     criticalDateLabel: '距人事案表決（恢復開會關鍵）',
-    org: '依《中央選舉委員會組織法》置委員 9–11 人，須達法定人數出席方能舉行委員會議與作成決議。',
+    org: '依《中央選舉委員會組織法》置委員 9-11 人，須達法定人數出席方能舉行委員會議與作成決議。',
     keyFact:
       '2025/11/3 共 6 名委員卸任後，中選會即無法舉行委員會議與作成決議，迄今停擺逾 7 個月；行政院提名屢遭藍白部分否決，現有委員仍不足開會門檻，待 7/3 表決後才可能恢復，距九合一選舉僅約 4 個月。',
     keyFactEn:
@@ -157,7 +157,7 @@ const institutions = [
     keyFact:
       '2024/11/30 代理主委翁柏宗因延任條款遭刪除而卸任後，NCC 委員僅餘 3 人、未達法定開會人數；逾 100 項重大業務無法決議、僅能授權主委處理約 58 項基本業務，2/3 業務形同停擺。現有 3 名委員 2026/7/31 屆滿，若再封殺提名恐全面癱瘓。',
     keyFactEn:
-      'Since acting chair Weng Po-tsung left on 30 Nov 2024 the NCC has had only 3 of 7 members — below quorum — leaving 104 major items undecidable; the remaining members’ terms end 31 July 2026, risking total paralysis.',
+      'Since acting chair Weng Po-tsung left on 30 Nov 2024 the NCC has had only 3 of 7 members, below quorum, leaving 104 major items undecidable; the remaining members’ terms end 31 July 2026, risking total paralysis.',
     actions: [
       '刪除延任條款：藍白於 2024/7/16 強行三讀刪除延任條款、11/15 三讀通過於次月施行，致代理主委翁柏宗 11/30 卸任，NCC 無法召開委員會議。',
       '封殺全體提名：行政院 2025/7/31 提名蔣榮先、程明修、黃葳威、羅慧雯，2025/11/7 遭藍白全體否決。',
@@ -221,11 +221,11 @@ const institutions = [
     totalSeats: 15,
     vacantSeats: 15,
     criticalDate: null,
-    org: '依《公視法》公視基金會設董事 11–15 人、監察人 3–5 人、董事任期 3 年；由立法院推舉審查委員、行政院提名、經審查委員 2/3 同意後聘任。公視董事會為公廣集團最高治理機關。',
+    org: '依《公視法》公視基金會設董事 11-15 人、監察人 3-5 人、董事任期 3 年；由立法院推舉審查委員、行政院提名、經審查委員 2/3 同意後聘任。公視董事會為公廣集團最高治理機關。',
     keyFact:
       '第 7 屆董監事 2025/5/19 屆滿、第 8 屆迄今未組成，治理空窗逾 13 個月；藍白刪除《公視法》董事看守延任條款製造治理真空，並杯葛審查、刪凍預算，公視無合法董事會可核定預算、遴聘總經理與決定節目方針。',
     keyFactEn:
-      'The 7th board’s term ended 19 May 2025 and the 8th is still not seated — a governance vacuum of over 13 months — after the holdover clause was repealed and nominations and budgets were blocked.',
+      'The 7th board’s term ended 19 May 2025 and the 8th is still not seated, a governance vacuum of over 13 months, after the holdover clause was repealed and nominations and budgets were blocked.',
     actions: [
       '刪除看守條款：2026/1/16 三讀刪除《公視法》第 16 條「董事屆滿未及改聘者延任」（59:49）、2/4 公布，使屆滿董事無法看守；5/7 羅智強並援引此修法將董事長胡元輝逐出議場。',
       '杯葛審查：第 8 屆審查會 2025/12/31 僅 4 人過關、不足法定下限 11 人；2026/4/16 在野推舉之審委集體請辭／拒審而流會。',
@@ -291,7 +291,7 @@ const institutions = [
     totalSeats: 9,
     vacantSeats: 1,
     criticalDate: null,
-    org: '院長 1 人、副院長 1 人、考試委員 7–9 人，由總統提名、立法院同意任命；2020 年修法後考試委員由 19 人減為 7–9 人、任期由 6 年改為 4 年。',
+    org: '院長 1 人、副院長 1 人、考試委員 7-9 人，由總統提名、立法院同意任命；2020 年修法後考試委員由 19 人減為 7-9 人、任期由 6 年改為 4 年。',
     keyFact:
       '第 13 屆正副院長及考試委員 2024/8/31 屆滿後，藍白延宕同意權審查逾 3 個月，史上首度正、副院長同時出缺、進入看守；立法院已於 2024/12 完成投票，第 14 屆就職恢復運作，僅 1 席考試委員（柯麗鈴）遭否決待補。',
     keyFactEn:

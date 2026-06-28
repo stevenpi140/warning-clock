@@ -2,12 +2,47 @@ import { useState } from 'react'
 import { useElapsedParts, FlapGroup } from './flap'
 import { budget, BUDGET_SUBMIT_DATE, BUDGET_PASSED_DATE } from '../data/budget'
 
-export default function BudgetClock() {
-  const [expanded, setExpanded] = useState(false)
-  const { days, h, m, s, totalHours, totalMinutes, frozen } = useElapsedParts(
+// 預算停擺鐘（翻牌顯示）：放進首屏「雙鐘看板」與憲政鐘左右並排。
+// 與憲政鐘共用 .debt-clock 外框，僅以 --budget 修飾改琥珀色（caution 層）。
+export function BudgetFlap() {
+  const { days, h, m, s, totalHours, frozen } = useElapsedParts(
     BUDGET_SUBMIT_DATE,
     BUDGET_PASSED_DATE
   )
+
+  return (
+    <a className="debt-clock debt-clock--budget" href="#budget">
+      <div className="debt-clock__title">115 年度總預算遭擱置</div>
+      <div className="debt-clock__caption">
+        <span className="debt-clock__rule" aria-hidden="true" />
+        {budget.clockCaption}
+        <span className="debt-clock__rule" aria-hidden="true" />
+      </div>
+
+      <div className="debt-clock__board">
+        <FlapGroup value={days} pad={4} label="天" tone="accent" />
+        <FlapGroup value={h} pad={2} label="時" />
+        <FlapGroup value={m} pad={2} label="分" />
+        <FlapGroup value={s} pad={2} label="秒" />
+      </div>
+
+      <p className="sr-only" aria-live="polite">
+        總預算未完成三讀已 {days} 天
+      </p>
+
+      <div className="debt-clock__accrual" aria-hidden="true">
+        {frozen ? '已完成三讀 · 歷時定格' : '緊急經費凍結中'}
+      </div>
+      <div className="debt-clock__convert">
+        ≒ {totalHours.toLocaleString()} 小時
+      </div>
+    </a>
+  )
+}
+
+// 預算卷宗（規模／惡行／衝擊／時序）：翻牌鐘已移至首屏雙鐘看板，此處只留卷宗明細。
+export default function BudgetDossier() {
+  const [expanded, setExpanded] = useState(false)
 
   return (
     <section className={`budget ${expanded ? 'budget--expanded' : ''}`} id="budget">
@@ -15,32 +50,6 @@ export default function BudgetClock() {
         <div className="budget__head">
           <span className="budget__tag">預算警示</span>
           <h2 className="budget__title">{budget.title}</h2>
-        </div>
-
-        <div className="budget__clock">
-          <div className="budget__caption">
-            <span className="budget__rule" aria-hidden="true" />
-            {budget.clockCaption}
-            <span className="budget__rule" aria-hidden="true" />
-          </div>
-
-          <div className="budget__board">
-            <FlapGroup value={days} pad={4} label="天" />
-            <FlapGroup value={h} pad={2} label="時" />
-            <FlapGroup value={m} pad={2} label="分" />
-            <FlapGroup value={s} pad={2} label="秒" />
-          </div>
-
-          <p className="sr-only" aria-live="polite">
-            總預算未完成三讀已 {days} 天
-          </p>
-
-          <div className="budget__accrual" aria-hidden="true">
-            ══════ {frozen ? '已完成三讀 · 歷時定格' : '緊急經費凍結中'} ══════
-          </div>
-          <div className="budget__convert">
-            ≒ {totalHours.toLocaleString()} 時　≒ {totalMinutes.toLocaleString()} 分
-          </div>
         </div>
 
         <div className="budget__stats">

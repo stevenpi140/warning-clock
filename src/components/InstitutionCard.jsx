@@ -1,35 +1,5 @@
 import { useState, useEffect } from 'react'
-
-// 狀態 → 主色（卡片強調色、徽章底色）
-const STATUS_COLORS = {
-  paralyzed: '#8b0000', // 已癱瘓 — 深紅
-  partial: '#c2410c', // 部分停擺 — 橙
-  atRisk: '#b8860b', // 尚未但可能癱瘓 — 金
-  overdue: '#a01020', // 逾期違憲 — 警示紅
-  former: '#475569', // 曾癱瘓・已恢復 — 灰藍
-}
-
-function statusColorOf(status) {
-  return STATUS_COLORS[status] || STATUS_COLORS.paralyzed
-}
-
-function StatusBadge({ status }) {
-  const dot = {
-    paralyzed: '#ff4444',
-    partial: '#ff8c42',
-    atRisk: '#ffcc44',
-    overdue: '#ff2d55',
-    former: '#94a3b8',
-  }
-  return (
-    <span
-      className="status-badge"
-      style={{ background: statusColorOf(status), color: dot[status] || '#fff' }}
-    >
-      ●
-    </span>
-  )
-}
+import { StatusMarker, statusColorOf } from './statusTone'
 
 function ProgressBar({ filled, total, color }) {
   const pct = total > 0 ? (filled / total) * 100 : 0
@@ -96,62 +66,73 @@ export default function InstitutionCard({ institution, index, expanded, onToggle
 
   return (
     <div
+      id={inst.id}
       className={`inst-card inst-card--${inst.status} ${expanded ? 'inst-card--expanded' : ''}`}
-      style={{ animationDelay: `${index * 0.08}s` }}
     >
       <button className="inst-card__header" onClick={onToggle} aria-expanded={expanded}>
         <div className="inst-card__title-row">
-          <StatusBadge status={inst.status} />
+          <StatusMarker status={inst.status} />
           <div className="inst-card__titles">
             <h2 className="inst-card__name">{inst.name}</h2>
             <span className="inst-card__subtitle">{inst.subtitle}</span>
           </div>
           <span
             className="inst-card__status"
-            style={{ background: statusColor }}
+            style={{ borderColor: statusColor }}
           >
             {inst.statusLabel}
           </span>
         </div>
 
-        <div className="inst-card__metrics">
-          <div className="inst-card__metric">
-            <span className="inst-card__metric-value">{inst.totalSeats}</span>
-            <span className="inst-card__metric-label">{inst.seatNoun || '應有席次'}</span>
-          </div>
-          <div className="inst-card__divider" />
-          <div className="inst-card__metric">
-            <span className="inst-card__metric-value inst-card__metric-value--red">
-              {inst.vacantSeats}
-            </span>
-            <span className="inst-card__metric-label">空缺</span>
-          </div>
-          <div className="inst-card__divider" />
-          <div className="inst-card__metric">
-            <span className="inst-card__metric-value">{filledSeats}</span>
-            <span className="inst-card__metric-label">現任</span>
-          </div>
-          <div className="inst-card__divider" />
-          <div className="inst-card__metric">
-            <span className="inst-card__metric-value" style={{ color: statusColor }}>
-              {vacantPct}%
-            </span>
-            <span className="inst-card__metric-label">空缺率</span>
-          </div>
+        <div className="inst-card__vacancy">
+          <span className="inst-card__vacancy-label">空缺</span>
+          <span className="data inst-card__vacancy-num" style={{ color: statusColor }}>
+            {inst.vacantSeats} / {inst.totalSeats}
+          </span>
+          <span className="inst-card__vacancy-label">空缺率</span>
+          <span className="data" style={{ color: statusColor }}>{vacantPct}%</span>
         </div>
 
-        <ProgressBar
-          filled={inst.vacantSeats}
-          total={inst.totalSeats}
-          color={statusColor}
-        />
-
-        <div className="inst-card__key-fact">{inst.keyFact}</div>
+        <div className={`inst-card__key-fact${expanded ? '' : ' inst-card__key-fact--clamp'}`}>
+          {inst.keyFact}
+        </div>
         <span className="inst-card__toggle-hint">{expanded ? '收合卷宗 ▲' : '展開卷宗 ▼'}</span>
       </button>
 
       {expanded && (
         <div className="inst-card__detail">
+          <div className="inst-card__metrics">
+            <div className="inst-card__metric">
+              <span className="inst-card__metric-value">{inst.totalSeats}</span>
+              <span className="inst-card__metric-label">{inst.seatNoun || '應有席次'}</span>
+            </div>
+            <div className="inst-card__divider" />
+            <div className="inst-card__metric">
+              <span className="inst-card__metric-value inst-card__metric-value--red">
+                {inst.vacantSeats}
+              </span>
+              <span className="inst-card__metric-label">空缺</span>
+            </div>
+            <div className="inst-card__divider" />
+            <div className="inst-card__metric">
+              <span className="inst-card__metric-value">{filledSeats}</span>
+              <span className="inst-card__metric-label">現任</span>
+            </div>
+            <div className="inst-card__divider" />
+            <div className="inst-card__metric">
+              <span className="inst-card__metric-value" style={{ color: statusColor }}>
+                {vacantPct}%
+              </span>
+              <span className="inst-card__metric-label">空缺率</span>
+            </div>
+          </div>
+
+          <ProgressBar
+            filled={inst.vacantSeats}
+            total={inst.totalSeats}
+            color={statusColor}
+          />
+
           {inst.org && (
             <section className="dossier-block">
               <h3 className="dossier-block__head dossier-block__head--neutral">組織與任期</h3>

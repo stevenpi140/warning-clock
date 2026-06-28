@@ -2,21 +2,14 @@ import { useState } from 'react'
 import { institutions, PARALYSIS_START } from './data/institutions'
 import { economicDemocracyUnion as edu } from './data/orgInfo'
 import InstitutionCard from './components/InstitutionCard'
+import CaseIndex from './components/CaseIndex'
 import AlertBanner from './components/AlertBanner'
 import BudgetClock from './components/BudgetClock'
 import { useElapsedParts, FlapGroup } from './components/flap'
 import eduLogo from './assets/edu-logo.png'
 
-// 狀態分桶：已癱瘓 / 部分停擺 / 逾期違憲 視為「停擺」；尚未但可能癱瘓視為「瀕危」
-const isHalted = (i) =>
-  i.status === 'paralyzed' || i.status === 'partial' || i.status === 'overdue'
-const isAtRisk = (i) => i.status === 'atRisk'
-
-function FlapClock({ institutions, startDate }) {
+function FlapClock({ startDate }) {
   const { days, h, m, s, totalHours } = useElapsedParts(startDate)
-  const halted = institutions.filter(isHalted).length
-  const atRisk = institutions.filter(isAtRisk).length
-  const vacant = institutions.reduce((sum, i) => sum + i.vacantSeats, 0)
 
   return (
     <div className="debt-clock">
@@ -41,41 +34,6 @@ function FlapClock({ institutions, startDate }) {
 
       <div className="debt-clock__convert">
         ≒ {totalHours.toLocaleString()} 小時
-      </div>
-
-      <div className="debt-clock__plate">
-        已／部分停擺 {halted}　瀕危 {atRisk}　空缺席次 {vacant}
-      </div>
-    </div>
-  )
-}
-
-function ParalysisSummary({ institutions }) {
-  const totalHalted = institutions.filter(isHalted).length
-  const totalAtRisk = institutions.filter(isAtRisk).length
-  const totalVacant = institutions.reduce((s, i) => s + i.vacantSeats, 0)
-  const totalSeats = institutions.reduce((s, i) => s + i.totalSeats, 0)
-  const percentage = totalSeats > 0 ? Math.round((totalVacant / totalSeats) * 100) : 0
-
-  return (
-    <div className="summary">
-      <div className="summary__grid">
-        <div className="summary__item summary__item--red">
-          <div className="summary__value">{totalHalted}</div>
-          <div className="summary__label">已／部分停擺</div>
-        </div>
-        <div className="summary__item summary__item--yellow">
-          <div className="summary__value">{totalAtRisk}</div>
-          <div className="summary__label">瀕危機關</div>
-        </div>
-        <div className="summary__item summary__item--red">
-          <div className="summary__value">{totalVacant}</div>
-          <div className="summary__label">空缺席次</div>
-        </div>
-        <div className="summary__item summary__item--red">
-          <div className="summary__value">{percentage}%</div>
-          <div className="summary__label">席次空缺率</div>
-        </div>
       </div>
     </div>
   )
@@ -102,7 +60,7 @@ export default function App() {
           <span className="header__title-main">台灣黎巴嫩化</span>
           <span className="header__title-sub">傅崐萁集團癱瘓政府機構警示鐘</span>
         </h1>
-        <FlapClock institutions={institutions} startDate={PARALYSIS_START} />
+        <FlapClock startDate={PARALYSIS_START} />
         <p className="header__desc">
           傅崐萁集團透過杯葛人事同意權、惡修法令、刪減預算、拖延議程等手段，逐一癱瘓國家重要憲政機關。
           <br />
@@ -110,9 +68,9 @@ export default function App() {
         </p>
       </header>
 
-      <BudgetClock />
+      <CaseIndex institutions={institutions} />
 
-      <ParalysisSummary institutions={institutions} />
+      <BudgetClock />
 
       <section className="institutions">
         {institutions.map((inst, i) => (

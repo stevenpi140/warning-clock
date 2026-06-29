@@ -32,7 +32,7 @@ const institutions = [
     timeline: [
       { date: '2024/10/31', text: '七位大法官卸任，總統提名兩度遭立法院否決' },
       { date: '2024/12/20', text: '立法院惡修《憲法訴訟法》提高評議與違憲宣告門檻' },
-      { date: '2025（114）', text: '憲判字第 1 號宣告該修法違憲失效，憲法法庭停擺逾 400 天後重啟' },
+      { date: '2025/12/19', text: '114 憲判字第 1 號宣告該修法違憲失效，憲法法庭停擺逾 400 天後重啟' },
       { date: '2027/09/30', text: '謝銘洋等 4 位大法官任期屆至，若續杯葛將僅餘 4 位' },
     ],
     sources: [
@@ -62,16 +62,16 @@ const institutions = [
     ],
     impact: [
       '預算遭刪後監察院僅能勉力維持運作，對基本公務運作、職權行使、民眾權益及公共利益構成嚴重妨礙。',
-      '若 2026/7/31 屆滿後提名遭全數否決，彈劾、糾舉、糾正、審計、調查及國家人權委員會職權將全面停擺（以 2026/5 為例，月內收受人民書狀逾 1,600 件）。',
+      '監察院每月收受人民陳情書狀逾千件，依我國現行權力分立制度，監察院仍有不可取代之功能，若真要討論廢除監察院，應啟動修憲程序，並規劃監察院職權分配之具體方案及期程，而不是封殺人及預算，癱瘓監察院卻不討論組織重整，致監察院無法發揮關鍵職權。',
     ],
     timeline: [
       { date: '2025', text: '立法院刪減監察院 114 年度業務費達 96%' },
-      { date: '2026/03', text: '總統核定第 7 屆監察委員提名審薦小組' },
+      { date: '2026/06/11', text: '總統府公布監察院第 7 屆正、副院長及監察委員被提名人' },
       { date: '2026/07/31', text: '本屆監察委員任期屆滿，恐遭藍白全數否決' },
     ],
     sources: [
       { label: '監察院官網：114 年度業務費遭刪逾 96%，將聲請釋憲及暫時處分', url: 'https://www.cy.gov.tw/News_Content.aspx?n=124&s=32763' },
-      { label: '公視新聞：第 6 屆監委 7 月底屆滿 賴清德核定成立提名審薦小組', url: 'https://news.pts.org.tw/article/798231' },
+      { label: '總統府：監察院第 7 屆院長、副院長及監察委員被提名人介紹', url: 'https://www.president.gov.tw/Page/777' },
       { label: 'TVBS：蔣萬安拋廢監院 羅智強挺監委全否決', url: 'https://news.tvbs.com.tw/politics/3228862' },
     ],
   },
@@ -117,15 +117,15 @@ const institutions = [
     totalSeats: 11,
     vacantSeats: 3,
     criticalDate: '2026-07-03',
-    criticalDateLabel: '距人事案表決（恢復開會關鍵）',
-    org: '依《中央選舉委員會組織法》置委員 9-11 人，須達法定人數出席方能舉行委員會議與作成決議。',
+    criticalDateLabel: '距人事案表決',
+    org: '依《中央選舉委員會組織法》置委員 9-11 人，須達最低委員人數出席方能舉行委員會議與作成決議。',
     keyFact:
       '2025/11/3 共 6 名委員卸任後，中選會即無法舉行委員會議與作成決議，迄今停擺逾 7 個月；行政院提名屢遭藍白部分否決，現有委員仍不足開會門檻，待 7/3 表決後才可能恢復，距九合一選舉僅約 4 個月。',
     keyFactEn:
       'After six commissioners left on 3 Nov 2025 the Commission has been unable to convene or pass resolutions for over seven months; with a 7 July vote pending and the 2026 local elections roughly four months away.',
     actions: [
       '否決提名：行政院提名 7 人，立法院於 2026/3/13 僅通過藍白推薦之游盈隆、李禮仲、蘇嘉宏、蘇子喬 4 人，否決民進黨推薦之胡博硯、黃文玲、陳宗義。',
-      '卡關補提名：4/21 任命 4 人後仍缺 1 人，行政院補提沈淑妃、蔡維哲、黃謀信，延至 7/3 才表決。',
+      '卡關補提名：4/21 任命 4 人後仍缺 1 人才可成會，行政院補提沈淑妃、蔡維哲、黃謀信，延至 7/3 才表決。',
     ],
     impact: [
       '自 2025/11/3 起無法舉行委員會議與決議，影響選務、公投及罷免等法定事項。',
@@ -135,7 +135,7 @@ const institutions = [
       { date: '2025/11/03', text: '6 名委員卸任，中選會無法開會決議' },
       { date: '2026/03/13', text: '立法院通過 4 人、否決 3 人' },
       { date: '2026/04/21', text: '任命 4 人仍缺 1，行政院補提 3 人' },
-      { date: '2026/07/03', text: '補提名人事案表決（恢復開會關鍵）' },
+      { date: '2026/07/03', text: '補提名人事案表決' },
     ],
     sources: [
       { label: '中央社：游盈隆任中選會主委 胡博硯等 3 人遭立院否決（2026/3/13）', url: 'https://www.cna.com.tw/news/aipl/202603130156.aspx' },
@@ -163,7 +163,7 @@ const institutions = [
       '封殺全體提名：行政院 2025/7/31 提名蔣榮先、程明修、黃葳威、羅慧雯，2025/11/7 遭藍白全體否決。',
     ],
     impact: [
-      'NCC 未達法定開會人數後，104 項重大業務事項無法決議、僅 58 項基本業務得授權主委處理。',
+      'NCC 未達法定開會人數後，104 項重大業務事項無法決議、僅有 58 項基本業務得授權主委召集委員諮詢會議處理。',
       '現有委員王正嘉、王怡惠、陳崇樹 2026/7/31 屆滿，若提名續遭封殺，委員將全體卸任、NCC 全面癱瘓。',
     ],
     timeline: [
@@ -195,7 +195,7 @@ const institutions = [
       'The blocking of two reappointments on 17 Jan 2025 cut the Fair Trade Commission to five members; a July 2025 amendment removing the holdover clause means vacant seats can no longer be filled by incumbents, threatening quorum on recusal-heavy cases.',
     actions: [
       '封殺續任：2025/1/17 立法院就公平會人事案封殺李鎂、洪財隆，僅通過陳志民、林慶堂，委員降至 5 名。',
-      '惡修組織法：2025/7/4 藍白三讀通過委員「連任一次、已連任者不得再任」、刪除延任規定並增訂補提名期限。',
+      '惡修組織法：2025/7/4 藍白三讀通過委員「限連任一次、已連任者不得再任」、刪除延任規定並增訂補提名期限。',
     ],
     impact: [
       '修法後委員出缺時無法由舊委員留任至新委員產生，席次直接空缺。',
@@ -233,7 +233,7 @@ const institutions = [
     ],
     impact: [
       '無合法董事會即無法核定預算決算、遴聘總經理、決定節目方針，連動整個公廣集團（公視、台語台、客台、兒少台、TaiwanPlus、華視）。',
-      '波及 TaiwanPlus 國際傳播與台語、客語公共服務；監委已申請自動調查公視治理危機（屬治理停擺、尚無停播）。',
+      '波及 TaiwanPlus 國際傳播與台語、客語公共服務；監委已申請自動調查公視治理危機。',
     ],
     timeline: [
       { date: '2025/05/19', text: '第 7 屆董監事任期屆滿' },
@@ -265,10 +265,10 @@ const institutions = [
       'A 2022 constitutional ruling required an independent data-protection authority by 12 Aug 2025; the organic act stalled in caucus negotiation that the Legislative Speaker has not convened for over 300 days, leaving the unconstitutional gap unresolved.',
     actions: [
       '擱置協商：《個資會組織法》2025/5/28 初審通過、6/24 決議送院長召集黨團協商後，院長韓國瑜逾 300 天未召集，組織法迄今未三讀。',
-      '預算施壓：在野一度提案將個資會籌備處預算砍至 1,000 元。',
+      '藍白兩黨一度提案將個資會籌備處預算砍至 1,000 元。',
     ],
     impact: [
-      '法定期限已逾約 10 個月，違憲狀態持續；個資仍由各部會分散主管，欠缺獨立專責監理機關。',
+      '法定期限已逾約 10 個月，違憲狀態持續；有關個資保障業務仍由各部會分散主管，欠缺獨立專責監理機關。',
       '已三讀之《個資法》修正（事故通報、稽核、限制國際傳輸等）因施行繫於委員會成立而尚未上路，衝擊歐盟 GDPR 適足性與台歐資料跨境流通。',
     ],
     timeline: [

@@ -56,6 +56,31 @@ function CountdownToDeadline({ date, label }) {
   )
 }
 
+// 停擺累積計時（正數）：給已癱瘓且有明確起算日的機關，以「已癱瘓 N 天」呈現持續累積的時間壓力。
+function ElapsedSince({ date, label }) {
+  const [elapsed, setElapsed] = useState({ d: 0, h: 0 })
+
+  useEffect(() => {
+    const calc = () => {
+      const diff = Date.now() - new Date(date).getTime()
+      setElapsed({
+        d: Math.max(0, Math.floor(diff / 86400000)),
+        h: Math.max(0, Math.floor((diff % 86400000) / 3600000)),
+      })
+    }
+    calc()
+    const id = setInterval(calc, 60000)
+    return () => clearInterval(id)
+  }, [date])
+
+  return (
+    <div className="countdown countdown--overdue">
+      <span className="countdown__label">{label || '已停擺'}</span>
+      <span className="countdown__urgent">已癱瘓 {elapsed.d} 天 {elapsed.h} 小時</span>
+    </div>
+  )
+}
+
 export default function InstitutionCard({ institution, index, expanded, onToggle }) {
   const inst = institution
   const vacantPct = inst.totalSeats > 0
@@ -96,7 +121,7 @@ export default function InstitutionCard({ institution, index, expanded, onToggle
         <div className={`inst-card__key-fact${expanded ? '' : ' inst-card__key-fact--clamp'}`}>
           {inst.keyFact}
         </div>
-        <span className="inst-card__toggle-hint">{expanded ? '收合卷宗 ▲' : '展開卷宗 ▼'}</span>
+        <span className="inst-card__toggle-hint">{expanded ? '收合檔案 ▲' : '展開檔案 ▼'}</span>
       </button>
 
       {expanded && (
@@ -176,9 +201,11 @@ export default function InstitutionCard({ institution, index, expanded, onToggle
             </section>
           )}
 
-          {inst.criticalDate && (
+          {inst.elapsedSince ? (
+            <ElapsedSince date={inst.elapsedSince} label={inst.elapsedSinceLabel} />
+          ) : inst.criticalDate ? (
             <CountdownToDeadline date={inst.criticalDate} label={inst.criticalDateLabel} />
-          )}
+          ) : null}
 
           {inst.sources?.length > 0 && (
             <section className="dossier-block">

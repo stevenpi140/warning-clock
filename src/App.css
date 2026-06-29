@@ -173,6 +173,12 @@ body {
   margin: 0 auto;
 }
 
+/* 預算鐘移除後的單鐘版：憲政停擺鐘置中、不被拉伸成半幅 */
+.clock-board--single {
+  grid-template-columns: 1fr;
+  max-width: min(760px, 93vw);
+}
+
 /* 兩鐘各佔一半、等寬填滿 */
 .clock-board .debt-clock {
   max-width: none;

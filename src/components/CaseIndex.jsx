@@ -8,6 +8,15 @@ const TIERS = [
   { key: 'recovered', label: '已恢復', statuses: ['former'] },
 ]
 
+// 無固定關鍵日時的狀態欄文字（依狀態給準確字眼，不一律套「持續癱瘓」以免對未癱瘓者誇大）
+const NODATE_LABEL = {
+  paralyzed: { text: '持續癱瘓', cls: 'case-index__overdue' },
+  partial: { text: '持續癱瘓', cls: 'case-index__overdue' },
+  overdue: { text: '持續違憲', cls: 'case-index__overdue' },
+  atRisk: { text: '瀕危', cls: 'case-index__nodate' },
+  former: { text: '已恢復', cls: 'case-index__nodate' },
+}
+
 function keyDateOf(inst) {
   if (!inst.criticalDate) return null
   const days = Math.round((new Date(inst.criticalDate).getTime() - Date.now()) / 86400000)
@@ -63,7 +72,10 @@ export default function CaseIndex({ institutions }) {
                             </span>
                           )
                         ) : (
-                          <span className="case-index__nodate">持續</span>
+                          (() => {
+                            const nd = NODATE_LABEL[inst.status] || NODATE_LABEL.paralyzed
+                            return <span className={nd.cls}>{nd.text}</span>
+                          })()
                         )}
                       </span>
                     </a>

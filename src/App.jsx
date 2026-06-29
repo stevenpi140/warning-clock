@@ -4,7 +4,6 @@ import { economicDemocracyUnion as edu } from './data/orgInfo'
 import InstitutionCard from './components/InstitutionCard'
 import CaseIndex from './components/CaseIndex'
 import AlertBanner from './components/AlertBanner'
-import BudgetDossier, { BudgetFlap } from './components/BudgetClock'
 import { useElapsedParts, FlapGroup } from './components/flap'
 import eduLogo from './assets/edu-logo.png'
 
@@ -59,22 +58,19 @@ export default function App() {
         </div>
         <h1 className="header__title">
           <span className="header__title-main">台灣黎巴嫩化</span>
-          <span className="header__title-sub">傅崐萁集團癱瘓政府機構警示鐘</span>
+          <span className="header__title-sub">鄭麗文傅崐萁集團癱瘓政府機構警示鐘</span>
         </h1>
-        <div className="clock-board">
+        <div className="clock-board clock-board--single">
           <FlapClock startDate={PARALYSIS_START} />
-          <BudgetFlap />
         </div>
         <p className="header__desc">
-          傅崐萁集團透過杯葛人事同意權、惡修法令、刪減預算、拖延議程等手段，逐一癱瘓國家重要憲政機關。
+          鄭麗文傅崐萁集團透過杯葛人事同意權、惡修法令、刪減預算、拖延議程等手段，逐一癱瘓國家重要憲政機關。
           <br />
-          以下卷宗紀錄自 2024 年以來已經、曾經或即將被癱瘓的政府機關與機構。
+          以下記錄自 2024 年以來已經、曾經或即將被癱瘓的政府機關與機構。
         </p>
       </header>
 
       <CaseIndex institutions={institutions} />
-
-      <BudgetDossier />
 
       <section className="institutions">
         {institutions.map((inst, i) => (

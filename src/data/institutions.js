@@ -106,6 +106,9 @@ const institutions = [
       { label: '聯合報：立院投票 藍白聯手反對 徐錫祥未過關', url: 'https://udn.com/news/story/6656/9482539' },
       { label: '聯合報：總統府指派徐錫祥代理檢察總長至新總長產生', url: 'https://udn.com/news/story/6656/9488773' },
       { label: '民間司法改革基金會：指定遭否決者代理檢察總長有適法性疑慮', url: 'https://www.jrf.org.tw/articles/3208' },
+      { label: '立法院：許宇甄提案《法院組織法》第 66 條條文修正草案', url: 'https://ppg.ly.gov.tw/ppg/bills/202110218420000/details' },
+      { label: '立法院：翁曉玲、王鴻薇提案《法院組織法》第 66 條條文修正草案', url: 'https://ppg.ly.gov.tw/ppg/bills/202110216000000/details' },
+      { label: '立法院：台灣民眾黨黨團提案《法院組織法》第 66 條條文修正草案', url: 'https://ppg.ly.gov.tw/ppg/bills/202110216960000/details' },
     ],
   },
   {

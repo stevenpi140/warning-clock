@@ -1,14 +1,18 @@
-import { useState } from 'react'
-import { institutions, PARALYSIS_START } from './data/institutions'
-import { economicDemocracyUnion as edu } from './data/orgInfo'
-import InstitutionCard from './components/InstitutionCard'
-import CaseIndex from './components/CaseIndex'
-import AlertBanner from './components/AlertBanner'
-import { useElapsedParts, FlapGroup } from './components/flap'
-import eduLogo from './assets/edu-logo.png'
+import { useState } from "react";
+import {
+  institutions,
+  PARALYSIS_START,
+  DATA_UPDATED,
+} from "./data/institutions";
+import { economicDemocracyUnion as edu } from "./data/orgInfo";
+import InstitutionCard from "./components/InstitutionCard";
+import CaseIndex from "./components/CaseIndex";
+import AlertBanner from "./components/AlertBanner";
+import { useElapsedParts, FlapGroup } from "./components/flap";
+import eduLogo from "./assets/edu-logo.png";
 
 function FlapClock({ startDate }) {
-  const { days, h, m, s, totalHours } = useElapsedParts(startDate)
+  const { days, h, m, s, totalHours } = useElapsedParts(startDate);
 
   return (
     <div className="debt-clock">
@@ -30,21 +34,23 @@ function FlapClock({ startDate }) {
         憲政機關已停擺 {days} 天
       </p>
 
-      <div className="debt-clock__accrual" aria-hidden="true">持續累積中</div>
+      <div className="debt-clock__accrual" aria-hidden="true">
+        持續累積中
+      </div>
 
       <div className="debt-clock__convert">
         ≒ {totalHours.toLocaleString()} 小時
       </div>
     </div>
-  )
+  );
 }
 
 export default function App() {
-  const [expandedCard, setExpandedCard] = useState(null)
+  const [expandedCard, setExpandedCard] = useState(null);
 
   const toggleCard = (id) => {
-    setExpandedCard(expandedCard === id ? null : id)
-  }
+    setExpandedCard(expandedCard === id ? null : id);
+  };
 
   return (
     <div className="app">
@@ -58,7 +64,9 @@ export default function App() {
         </div>
         <h1 className="header__title">
           <span className="header__title-main">台灣黎巴嫩化</span>
-          <span className="header__title-sub">鄭麗文傅崐萁集團癱瘓政府機構警示鐘</span>
+          <span className="header__title-sub">
+            鄭麗文傅崐萁集團癱瘓政府機構警示鐘
+          </span>
         </h1>
         <div className="clock-board clock-board--single">
           <FlapClock startDate={PARALYSIS_START} />
@@ -87,7 +95,7 @@ export default function App() {
       <footer className="footer">
         <div className="footer__partner">
           <a
-            href={edu.website || '#'}
+            href={edu.website || "#"}
             target="_blank"
             rel="noopener noreferrer"
             className="footer__partner-logo"
@@ -98,9 +106,13 @@ export default function App() {
           <div className="footer__partner-info">
             <h3 className="footer__partner-name">
               {edu.nameZh}
-              {edu.nameEn && <span className="footer__partner-en">{edu.nameEn}</span>}
+              {edu.nameEn && (
+                <span className="footer__partner-en">{edu.nameEn}</span>
+              )}
             </h3>
-            {edu.tagline && <p className="footer__partner-tagline">{edu.tagline}</p>}
+            {edu.tagline && (
+              <p className="footer__partner-tagline">{edu.tagline}</p>
+            )}
             <p className="footer__partner-mission">{edu.mission}</p>
             {edu.focusAreas?.length > 0 && (
               <ul className="footer__partner-tags">
@@ -116,12 +128,21 @@ export default function App() {
                 </a>
               )}
               {edu.facebook && (
-                <a href={edu.facebook} target="_blank" rel="noopener noreferrer">
+                <a
+                  href={edu.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Facebook
                 </a>
               )}
               {edu.otherLinks?.map((l, i) => (
-                <a key={i} href={l.url} target="_blank" rel="noopener noreferrer">
+                <a
+                  key={i}
+                  href={l.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   {l.label}
                 </a>
               ))}
@@ -131,11 +152,9 @@ export default function App() {
 
         <div className="footer__content">
           <p>本頁資料整理自公開資訊，提醒社會大眾關注政府機構運作狀況。</p>
-          <p className="footer__date">
-            最後更新：{new Date().toLocaleDateString('zh-TW', { year: 'numeric', month: 'long', day: 'numeric' })}
-          </p>
+          <p className="footer__date">最後更新：{DATA_UPDATED}</p>
         </div>
       </footer>
     </div>
-  )
+  );
 }

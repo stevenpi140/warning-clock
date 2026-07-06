@@ -8,6 +8,7 @@ import { economicDemocracyUnion as edu } from "./data/orgInfo";
 import InstitutionCard from "./components/InstitutionCard";
 import CaseIndex from "./components/CaseIndex";
 import AlertBanner from "./components/AlertBanner";
+import LegislatorScoreboard from "./components/LegislatorScoreboard";
 import { useElapsedParts, FlapGroup } from "./components/flap";
 import eduLogo from "./assets/edu-logo.png";
 
@@ -91,6 +92,8 @@ export default function App() {
           />
         ))}
       </section>
+
+      <LegislatorScoreboard />
 
       <footer className="footer">
         <div className="footer__partner">

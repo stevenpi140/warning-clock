@@ -23,6 +23,8 @@
   --accent-deep: #8f2722;
   --caution: #b0843a;
   --neutral: #6b6f76;
+  /* 立委計分板專用：同意＝中性綠灰（與 --neutral 灰階區隔、飽和度<80%、零 neon） */
+  --agree: #5f7a63;
   /* 骨白：翻牌數字等中性高亮 */
   --bone: #ece7dc;
   /* 舊變數名重新指向新色票：一次清掉 5-accent 彩虹與所有 glow 用色 */
@@ -1200,6 +1202,456 @@ body {
   margin-top: 1rem;
   font-size: 0.75rem;
   letter-spacing: 0.15em;
+}
+
+/* === LEGISLATOR SCOREBOARD（個別立委癱瘓貢獻度） === */
+.lb-scoreboard {
+  max-width: 1100px;
+  margin: 0 auto 3rem;
+  padding: 0 1.5rem;
+}
+
+.lb-scoreboard__head {
+  padding-bottom: 0.9rem;
+  margin-bottom: 1.2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.lb-scoreboard__title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.06em;
+  margin-bottom: 0.6rem;
+}
+
+.lb-scoreboard__subtitle {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  max-width: 72ch;
+}
+
+/* 政黨過濾 tabs */
+.lb-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.2rem;
+}
+
+.lb-tabs__item {
+  font: inherit;
+  cursor: pointer;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  padding: 0.4rem 0.9rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.lb-tabs__item:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
+}
+
+.lb-tabs__item--active {
+  border-color: var(--text-secondary);
+  color: var(--text-primary);
+  background: var(--bg-card-hover);
+  font-weight: 700;
+}
+
+/* 排行表 */
+.lb-table {
+  border: 1px solid var(--border-subtle);
+}
+
+.lb-table__header {
+  display: grid;
+  grid-template-columns: 2.5em minmax(9em, 1.1fr) 5.5em minmax(150px, 1fr) minmax(14em, 1.1fr) 1.4em;
+  gap: 0.9rem;
+  align-items: center;
+  padding: 0.5rem 0.9rem;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  letter-spacing: 0.12em;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.lb-table__body {
+  display: flex;
+  flex-direction: column;
+}
+
+.lb-row {
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.lb-row:last-child {
+  border-bottom: none;
+}
+
+.lb-row--expanded {
+  background: var(--bg-card-hover);
+}
+
+.lb-row__main {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2.5em minmax(9em, 1.1fr) 5.5em minmax(150px, 1fr) minmax(14em, 1.1fr) 1.4em;
+  gap: 0.9rem;
+  align-items: center;
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  text-align: left;
+  padding: 0.7rem 0.9rem;
+  transition: background 0.15s ease;
+}
+
+.lb-row__main:hover {
+  background: var(--bg-card-hover);
+}
+
+.lb-row__rank {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.lb-row__name {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.lb-party {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5em;
+  height: 1.5em;
+  flex-shrink: 0;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--bg-secondary);
+}
+
+.lb-tabs__dot {
+  display: inline-block;
+  width: 0.55em;
+  height: 0.55em;
+  border-radius: 50%;
+  margin-right: 0.35em;
+  vertical-align: 0.05em;
+}
+
+.lb-row__fraction {
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  text-align: right;
+}
+
+/* 癱瘓率：連續色階（寬度＋透明度皆隨比例漸變，不套離散 5 級狀態色） */
+.lb-rate {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.lb-rate__track {
+  flex: 1;
+  height: 6px;
+  background: var(--border-subtle);
+  overflow: hidden;
+}
+
+.lb-rate__fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.4s ease;
+}
+
+.lb-rate__value {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  min-width: 3.6em;
+  text-align: right;
+}
+
+.lb-row__breakdown {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lb-row__chevron {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-align: right;
+}
+
+/* 展開明細：9 案 chips + 客觀事由清單 */
+.lb-detail {
+  padding: 0 0.9rem 1.3rem;
+  animation: detail-enter 0.3s ease-out;
+}
+
+.lb-detail__cases {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.lb-case-chip {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.45rem 0.7rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  min-width: 8.5em;
+}
+
+.lb-case-chip--absent {
+  background: repeating-linear-gradient(
+    135deg,
+    var(--bg-secondary),
+    var(--bg-secondary) 6px,
+    var(--border-subtle) 6px,
+    var(--border-subtle) 12px
+  );
+  opacity: 0.6;
+}
+
+.lb-case-chip__org {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  letter-spacing: 0.04em;
+}
+
+.lb-case-chip__dist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.74rem;
+  color: var(--text-muted);
+}
+
+.lb-case-chip__vote {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.lb-badge {
+  display: inline-block;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 0.1rem 0.4rem;
+  border: 1px solid currentColor;
+}
+
+.lb-badge--presumed {
+  color: var(--caution);
+}
+
+.lb-reasons {
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 1rem;
+}
+
+.lb-reasons__head {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  margin-bottom: 0.7rem;
+}
+
+.lb-reasons__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.lb-reasons__item {
+  padding-left: 1rem;
+  border-left: 2px solid var(--border);
+}
+
+.lb-reasons__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.35rem;
+  font-size: 0.76rem;
+}
+
+.lb-reasons__case {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.lb-reasons__nominee {
+  color: var(--text-muted);
+}
+
+.lb-reasons__behavior {
+  font-weight: 700;
+}
+
+.lb-reasons__reason {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+}
+
+.lb-reasons__note {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.75;
+  margin-top: 0.3rem;
+}
+
+.lb-showmore {
+  display: block;
+  margin: 1rem auto 0;
+  font: inherit;
+  cursor: pointer;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  padding: 0.55rem 1.4rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.lb-showmore:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-primary);
+}
+
+/* 方法論折疊區 */
+.lb-methodology {
+  margin-top: 1.3rem;
+  border: 1px solid var(--border-subtle);
+  padding: 0.9rem 1.1rem;
+}
+
+.lb-methodology__summary {
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  letter-spacing: 0.06em;
+}
+
+.lb-methodology__body {
+  margin-top: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.lb-methodology__text {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.85;
+}
+
+.lb-methodology__text strong {
+  color: var(--text-primary);
+  font-weight: 700;
+  margin-right: 0.3rem;
+}
+
+.lb-methodology__caveat {
+  color: var(--gold);
+}
+
+.lb-methodology__sources {
+  list-style: none;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+
+.lb-methodology__sources li::before {
+  content: '↗ ';
+  color: var(--gold-dim);
+}
+
+.lb-methodology__updated {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+/* ≤640px：排行表由 grid 降級為卡片式堆疊 */
+@media (max-width: 640px) {
+  .lb-table__header {
+    display: none;
+  }
+
+  .lb-row__main {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'rank-name'
+      'fraction'
+      'rate'
+      'breakdown';
+    row-gap: 0.4rem;
+  }
+
+  .lb-row__rank {
+    display: inline;
+    margin-right: 0.5rem;
+  }
+
+  .lb-row__name {
+    display: inline-flex;
+  }
+
+  .lb-row__fraction {
+    text-align: left;
+  }
+
+  .lb-row__chevron {
+    position: absolute;
+    top: 0.7rem;
+    right: 0.9rem;
+  }
+
+  .lb-row__main {
+    position: relative;
+    padding-right: 2rem;
+  }
+
+  .lb-case-chip {
+    min-width: 40%;
+    flex: 1 1 40%;
+  }
 }
 
 /* === RESPONSIVE === */

@@ -1,5 +1,10 @@
 import { useMemo, useState } from "react";
-import { SCORE_META, CASES, LEGISLATORS } from "../data/legislatorScores";
+import {
+  SCORE_META,
+  PARALYSIS_THRESHOLD,
+  CASES,
+  LEGISLATORS,
+} from "../data/legislatorScores";
 
 // 政黨顯示順序（全部 + 4 黨籍，依實際資料值）；縮寫章與 tab 色點使用各政黨代表色
 const PARTY_ORDER = ["中國國民黨", "民主進步黨", "台灣民眾黨", "無黨籍"];
@@ -37,15 +42,30 @@ const RANK_OF_CASE = Object.fromEntries(CASES.map((c, i) => [c.id, i]));
 
 const PAGE_SIZE = 20;
 
-function RateBar({ rate }) {
-  const pct = Math.round(rate * 1000) / 10;
-  const opacity = 0.28 + rate * 0.65;
+function IndexBar({ legislator }) {
+  const { index, weightedIndex, billBonus, paralyzing } = legislator;
+  const opacity = 0.28 + (index / 100) * 0.65;
   return (
-    <div className="lb-rate" aria-label={`癱瘓率 ${pct}%`}>
+    <div
+      className="lb-rate"
+      aria-label={`癱瘓政府指數 ${index.toFixed(1)}${
+        billBonus > 0 ? `，加權 ${weightedIndex.toFixed(1)}` : ""
+      }`}
+    >
       <div className="lb-rate__track">
-        <div className="lb-rate__fill" style={{ width: `${pct}%`, opacity }} />
+        <div
+          className={`lb-rate__fill ${paralyzing ? "" : "lb-rate__fill--below"}`}
+          style={{ width: `${Math.min(index, 100)}%`, opacity }}
+        />
       </div>
-      <span className="lb-rate__value data">{pct.toFixed(1)}%</span>
+      <span className="lb-rate__value data">
+        {index.toFixed(1)}
+        {billBonus > 0 && (
+          <span className="lb-rate__weighted">
+            加權 {weightedIndex.toFixed(1)}
+          </span>
+        )}
+      </span>
     </div>
   );
 }
@@ -118,6 +138,26 @@ function LegislatorDetail({ legislator }) {
         ))}
       </div>
 
+      {legislator.billRoles.length > 0 && (
+        <div className="lb-bills">
+          <h4 className="lb-reasons__head">
+            加速政府癱瘓法案角色（加權 +{legislator.billBonus}）
+          </h4>
+          <ul className="lb-bills__list">
+            {legislator.billRoles.map((br, i) => (
+              <li className="lb-bills__item" key={i}>
+                <span className="lb-bills__bill">{br.bill}</span>
+                <span className="lb-bills__role">{br.role}</span>
+                <span className="lb-bills__points data">+{br.points}</span>
+                {br.source && (
+                  <span className="lb-bills__source">{br.source}</span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       {sortedReasons.length > 0 && (
         <div className="lb-reasons">
           <h4 className="lb-reasons__head">無效票／未領票客觀事由</h4>
@@ -163,24 +203,33 @@ function LegislatorDetail({ legislator }) {
 function LegislatorRow({ legislator, expanded, onToggle }) {
   const l = legislator;
   return (
-    <div className={`lb-row ${expanded ? "lb-row--expanded" : ""}`}>
+    <div
+      className={`lb-row ${expanded ? "lb-row--expanded" : ""} ${
+        l.paralyzing ? "" : "lb-row--below"
+      }`}
+    >
       <button
         className="lb-row__main"
         onClick={onToggle}
         aria-expanded={expanded}
       >
-        <span className="lb-row__rank data">{l.rank}</span>
+        <span className="lb-row__rank data">{l.paralyzing ? l.rank : "-"}</span>
         <span className="lb-row__name">
           {l.name}
           <PartyBadge party={l.party} />
         </span>
-        <span className="lb-row__fraction data">
-          {l.nonAgree} / {l.inOffice}
+        <span className="lb-row__votes">
+          <span className="lb-row__votes-agree">
+            同意 <span className="data">{l.agree}</span>
+          </span>
+          <span className="lb-row__votes-nonagree">
+            非同意 <span className="data">{l.nonAgree}</span>
+          </span>
         </span>
-        <RateBar rate={l.rate} />
+        <IndexBar legislator={l} />
         <span className="lb-row__breakdown">
-          不同意 {l.breakdown.disagree}・無效 {l.breakdown.invalid}・未領票{" "}
-          {l.breakdown.notPickup}
+          在任 {l.inOffice}・不同意 {l.breakdown.disagree}・無效{" "}
+          {l.breakdown.invalid}・未領票 {l.breakdown.notPickup}
         </span>
         <span className="lb-row__chevron" aria-hidden="true">
           {expanded ? "▲" : "▼"}
@@ -212,6 +261,9 @@ export default function LegislatorScoreboard() {
   );
 
   const visible = showAll ? filtered : filtered.slice(0, PAGE_SIZE);
+  // LEGISLATORS 產出時已排序：列為癱瘓（rank 1..N）在前、未達門檻者殿後
+  const visibleParalyzing = visible.filter((l) => l.paralyzing);
+  const visibleBelow = visible.filter((l) => !l.paralyzing);
 
   const handleFilter = (p) => {
     setPartyFilter(p);
@@ -230,7 +282,9 @@ export default function LegislatorScoreboard() {
         <p className="lb-scoreboard__subtitle">
           依《立法院職權行使法》第 29
           條，人事同意權案以「超過全體立法委員二分之一之同意」為通過；
-          統計僅區分同意與非同意（不同意、無效、未領票效果相同），無效票／未領票逐格詳列客觀事由。
+          統計並列同意票次數與非同意票次數（不同意、無效、未領票效果相同），無效票／未領票逐格詳列客觀事由。
+          癱瘓政府指數＝非同意票次數 ÷ 在任期間人事同意權總投票次數 ×
+          100；指數未達 {PARALYSIS_THRESHOLD} 分者不列為癱瘓。
         </p>
       </div>
 
@@ -265,13 +319,28 @@ export default function LegislatorScoreboard() {
         <div className="lb-table__header" role="row">
           <span>排名</span>
           <span>立委</span>
-          <span>非同意／在任</span>
-          <span>癱瘓率</span>
+          <span>同意／非同意</span>
+          <span>癱瘓政府指數</span>
           <span>分項</span>
           <span />
         </div>
         <div className="lb-table__body">
-          {visible.map((l) => (
+          {visibleParalyzing.map((l) => (
+            <LegislatorRow
+              key={l.name}
+              legislator={l}
+              expanded={expandedName === l.name}
+              onToggle={() =>
+                setExpandedName(expandedName === l.name ? null : l.name)
+              }
+            />
+          ))}
+          {visibleBelow.length > 0 && (
+            <div className="lb-threshold" role="presentation">
+              以下癱瘓政府指數未達 {PARALYSIS_THRESHOLD} 分，不列為癱瘓
+            </div>
+          )}
+          {visibleBelow.map((l) => (
             <LegislatorRow
               key={l.name}
               legislator={l}
@@ -307,6 +376,14 @@ export default function LegislatorScoreboard() {
           <p className="lb-methodology__text">
             <strong>計分方法：</strong>
             {SCORE_META.methodology}
+          </p>
+          <p className="lb-methodology__text">
+            <strong>指數口徑：</strong>
+            {SCORE_META.indexNote}
+          </p>
+          <p className="lb-methodology__text">
+            <strong>加權規則：</strong>
+            {SCORE_META.weightNote}
           </p>
           <p className="lb-methodology__text lb-methodology__caveat">
             <strong>資料說明：</strong>

@@ -1271,7 +1271,7 @@ body {
 
 .lb-table__header {
   display: grid;
-  grid-template-columns: 2.5em minmax(9em, 1.1fr) 5.5em minmax(150px, 1fr) minmax(14em, 1.1fr) 1.4em;
+  grid-template-columns: 2.5em minmax(8em, 1fr) 9.5em minmax(150px, 1.1fr) minmax(15em, 1.1fr) 1.4em;
   gap: 0.9rem;
   align-items: center;
   padding: 0.5rem 0.9rem;
@@ -1300,10 +1300,32 @@ body {
   background: var(--bg-card-hover);
 }
 
+/* 指數未達 50 分（不列為癱瘓）：整列降噪 */
+.lb-row--below .lb-row__main {
+  opacity: 0.72;
+}
+
+.lb-row--below .lb-row__main:hover,
+.lb-row--below.lb-row--expanded .lb-row__main {
+  opacity: 1;
+}
+
+/* 50 分門檻分隔線 */
+.lb-threshold {
+  padding: 0.55rem 0.9rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-align: center;
+  color: var(--text-muted);
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
 .lb-row__main {
   width: 100%;
   display: grid;
-  grid-template-columns: 2.5em minmax(9em, 1.1fr) 5.5em minmax(150px, 1fr) minmax(14em, 1.1fr) 1.4em;
+  grid-template-columns: 2.5em minmax(8em, 1fr) 9.5em minmax(150px, 1.1fr) minmax(15em, 1.1fr) 1.4em;
   gap: 0.9rem;
   align-items: center;
   background: none;
@@ -1356,13 +1378,23 @@ body {
   vertical-align: 0.05em;
 }
 
-.lb-row__fraction {
-  font-size: 0.85rem;
-  color: var(--text-primary);
-  text-align: right;
+/* 同意／非同意票次數並列（同意=中性綠灰、非同意=印泥紅） */
+.lb-row__votes {
+  display: flex;
+  gap: 0.7rem;
+  font-size: 0.78rem;
+  white-space: nowrap;
 }
 
-/* 癱瘓率：連續色階（寬度＋透明度皆隨比例漸變，不套離散 5 級狀態色） */
+.lb-row__votes-agree {
+  color: var(--agree);
+}
+
+.lb-row__votes-nonagree {
+  color: var(--accent);
+}
+
+/* 癱瘓政府指數（0-100 分）：連續色階（寬度＋透明度皆隨分數漸變，不套離散 5 級狀態色） */
 .lb-rate {
   display: flex;
   align-items: center;
@@ -1382,11 +1414,24 @@ body {
   transition: width 0.4s ease;
 }
 
+/* 未達 50 分（不列為癱瘓）：中性灰填色 */
+.lb-rate__fill--below {
+  background: var(--neutral);
+}
+
 .lb-rate__value {
   font-size: 0.78rem;
   color: var(--text-secondary);
   min-width: 3.6em;
   text-align: right;
+  white-space: nowrap;
+}
+
+/* 法案角色加權後分數（現階段多數列無加權，僅有角色者顯示） */
+.lb-rate__weighted {
+  margin-left: 0.45em;
+  font-size: 0.72rem;
+  color: var(--caution);
 }
 
 .lb-row__breakdown {
@@ -1471,6 +1516,48 @@ body {
 
 .lb-badge--presumed {
   color: var(--caution);
+}
+
+/* 加速政府癱瘓法案角色清單（展開明細內；有加權資料時顯示） */
+.lb-bills {
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.lb-bills__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.lb-bills__item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-size: 0.8rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--border);
+}
+
+.lb-bills__bill {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.lb-bills__role {
+  color: var(--text-secondary);
+}
+
+.lb-bills__points {
+  color: var(--caution);
+}
+
+.lb-bills__source {
+  color: var(--text-muted);
+  font-size: 0.74rem;
 }
 
 .lb-reasons {
@@ -1618,7 +1705,7 @@ body {
     grid-template-columns: 1fr;
     grid-template-areas:
       'rank-name'
-      'fraction'
+      'votes'
       'rate'
       'breakdown';
     row-gap: 0.4rem;
@@ -1631,10 +1718,6 @@ body {
 
   .lb-row__name {
     display: inline-flex;
-  }
-
-  .lb-row__fraction {
-    text-align: left;
   }
 
   .lb-row__chevron {

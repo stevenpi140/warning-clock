@@ -2,11 +2,11 @@
 // 資料來源與口徑見 SCORE_META；上游 CSV 於 07.04 同意否決/（唯讀）。
 
 export const SCORE_META = {
-  "updatedAt": "2026年7月6日",
+  "updatedAt": "2026年7月20日",
   "legalBasis": "《立法院職權行使法》第 29 條：人事同意權案交付審查後提出院會以記名投票表決，經超過全體立法委員二分之一之同意為通過。因此不同意票、無效票、未領票（不投票、不出席）對同意權行使的癱瘓效果相同。",
   "methodology": "統計僅區分同意票與非同意票；對每一筆無效票、未領票，詳列可考據的客觀事由（議事錄明文記載、公開自述），不推斷立委主觀動機。",
-  "indexNote": "癱瘓政府指數＝非同意票次數 ÷ 在任期間人事同意權總投票次數 × 100（0-100 分）。指數未達 50 分者，不列為癱瘓。",
-  "weightNote": "癱瘓政府指數加權＝癱瘓政府指數＋法案角色加分：加速政府癱瘓法案之提案人 +2、連署人 +1、三讀表決同意 +1，逐案累加。加速政府癱瘓法案之角色資料建置中，現階段加權分數等同基礎指數。",
+  "indexNote": "癱瘓政府指數＝非同意票次數 ÷ 該委員在任期間人事同意權總投票次數 × 100（0-100 分）。指數未達 40 分者（比照美國異黨政府時期對大法官同意權行使狀況，考慮國會對行政部門提名人選之合理監督），不列入癱瘓指數。",
+  "weightNote": "癱瘓政府指數加權＝癱瘓政府指數＋法案角色加分：加速政府癱瘓法案之提案人 +2、連署人 +1、三讀表決同意 +1，逐案累加（黨團提案以該黨團全體黨籍委員列提案人計點；三讀為舉手表決而議事錄無記名者，不計表決點數）。各立委計點法案與角色見展開明細。",
   "dataCaveat": "2026-07-03 中選會二輪為新聞加總推定值，待立法院公報刊出後覆核。",
   "sources": [
     "立法院議事錄／公報院會紀錄（各案唱票逐字稿）",
@@ -14,7 +14,7 @@ export const SCORE_META = {
   ]
 };
 
-export const PARALYSIS_THRESHOLD = 50;
+export const PARALYSIS_THRESHOLD = 40;
 
 export const CASES = [
   {
@@ -100,9 +100,16 @@ export const LEGISLATORS = [
     "nonAgree": 4,
     "inOffice": 4,
     "index": 100.0,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 100.0,
+    "billRoles": [
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216960000/details"
+      }
+    ],
+    "billBonus": 2,
+    "weightedIndex": 102.0,
     "paralyzing": true,
     "breakdown": {
       "disagree": 4,
@@ -140,9 +147,58 @@ export const LEGISLATORS = [
     "nonAgree": 36,
     "inOffice": 43,
     "index": 83.7,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 83.7,
+    "billRoles": [
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第十條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014450000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第七條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110041400000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110055360000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 9,
+    "weightedIndex": 92.7,
     "paralyzing": true,
     "breakdown": {
       "disagree": 24,
@@ -306,15 +362,231 @@ export const LEGISLATORS = [
   },
   {
     "rank": 3,
+    "name": "翁曉玲",
+    "party": "中國國民黨",
+    "agree": 14,
+    "nonAgree": 29,
+    "inOffice": 43,
+    "index": 67.4,
+    "billRoles": [
+      {
+        "bill": "憲法訴訟法第三十條及第四十三條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110067550000/details"
+      },
+      {
+        "bill": "憲法訴訟法第四條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110060440000/details"
+      },
+      {
+        "bill": "監察院組織法第六條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216010000/details"
+      },
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216000000/details"
+      },
+      {
+        "bill": "中央選舉委員會組織法第四條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216300000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014450000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110027190000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第五條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110047160000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第五條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216310000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110055360000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      },
+      {
+        "bill": "公共電視法第十六條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173710000/details"
+      }
+    ],
+    "billBonus": 24,
+    "weightedIndex": 91.4,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 26,
+      "invalid": 3,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": {
+        "同意": 4,
+        "不同意": 0,
+        "無效": 3,
+        "未領票": 0
+      },
+      "prosecutor": {
+        "同意": 0,
+        "不同意": 1,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec2": {
+        "同意": 0,
+        "不同意": 3,
+        "無效": 0,
+        "未領票": 0
+      }
+    },
+    "reasons": [
+      {
+        "caseId": "cec1",
+        "nominee": "胡博硯",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "黃文玲",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "陳宗義",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      }
+    ]
+  },
+  {
+    "rank": 4,
     "name": "劉書彬",
     "party": "台灣民眾黨",
     "agree": 5,
     "nonAgree": 18,
     "inOffice": 23,
     "index": 78.3,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 78.3,
+    "billRoles": [
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216960000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 8,
+    "weightedIndex": 86.3,
     "paralyzing": true,
     "breakdown": {
       "disagree": 18,
@@ -365,16 +637,262 @@ export const LEGISLATORS = [
     "reasons": []
   },
   {
-    "rank": 4,
+    "rank": 5,
+    "name": "林倩綺",
+    "party": "中國國民黨",
+    "agree": 14,
+    "nonAgree": 29,
+    "inOffice": 43,
+    "index": 67.4,
+    "billRoles": [
+      {
+        "bill": "憲法訴訟法第三十條及第四十三條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110067550000/details"
+      },
+      {
+        "bill": "憲法訴訟法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110060440000/details"
+      },
+      {
+        "bill": "監察院組織法第六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216010000/details"
+      },
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216000000/details"
+      },
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110218420000/details"
+      },
+      {
+        "bill": "中央選舉委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216300000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014450000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110027190000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第七條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110041400000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第五條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110047160000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第五條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216310000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110055360000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      },
+      {
+        "bill": "公共電視法第十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173710000/details"
+      }
+    ],
+    "billBonus": 18,
+    "weightedIndex": 85.4,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 26,
+      "invalid": 3,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": {
+        "同意": 4,
+        "不同意": 0,
+        "無效": 3,
+        "未領票": 0
+      },
+      "prosecutor": {
+        "同意": 0,
+        "不同意": 1,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec2": {
+        "同意": 0,
+        "不同意": 3,
+        "無效": 0,
+        "未領票": 0
+      }
+    },
+    "reasons": [
+      {
+        "caseId": "cec1",
+        "nominee": "胡博硯",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "黃文玲",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "陳宗義",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      }
+    ]
+  },
+  {
+    "rank": 6,
     "name": "謝衣鳯",
     "party": "中國國民黨",
     "agree": 10,
     "nonAgree": 33,
     "inOffice": 43,
     "index": 76.7,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 76.7,
+    "billRoles": [
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014450000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第七條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110041400000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 6,
+    "weightedIndex": 82.7,
     "paralyzing": true,
     "breakdown": {
       "disagree": 26,
@@ -497,21 +1015,106 @@ export const LEGISLATORS = [
     ]
   },
   {
-    "rank": 5,
-    "name": "丁學忠",
+    "rank": 7,
+    "name": "牛煦庭",
     "party": "中國國民黨",
-    "agree": 13,
-    "nonAgree": 30,
+    "agree": 14,
+    "nonAgree": 29,
     "inOffice": 43,
-    "index": 69.8,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 69.8,
+    "index": 67.4,
+    "billRoles": [
+      {
+        "bill": "憲法訴訟法第三十條及第四十三條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110067550000/details"
+      },
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110218420000/details"
+      },
+      {
+        "bill": "中央選舉委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216300000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第十條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014450000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110027190000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第七條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110041400000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第五條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110047160000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第五條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216310000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110055360000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 15,
+    "weightedIndex": 82.4,
     "paralyzing": true,
     "breakdown": {
       "disagree": 26,
       "invalid": 3,
-      "notPickup": 1
+      "notPickup": 0
     },
     "perCase": {
       "examination": {
@@ -539,10 +1142,10 @@ export const LEGISLATORS = [
         "未領票": 0
       },
       "auditor": {
-        "同意": 0,
+        "同意": 1,
         "不同意": 0,
         "無效": 0,
-        "未領票": 1
+        "未領票": 0
       },
       "ncc": {
         "同意": 0,
@@ -571,10 +1174,376 @@ export const LEGISLATORS = [
     },
     "reasons": [
       {
-        "caseId": "auditor",
-        "nominee": "陳瑞敏",
-        "behavior": "未領票",
-        "reason": "議事錄明文載『請假』",
+        "caseId": "cec1",
+        "nominee": "胡博硯",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "黃文玲",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "陳宗義",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      }
+    ]
+  },
+  {
+    "rank": 8,
+    "name": "王鴻薇",
+    "party": "中國國民黨",
+    "agree": 14,
+    "nonAgree": 29,
+    "inOffice": 43,
+    "index": 67.4,
+    "billRoles": [
+      {
+        "bill": "憲法訴訟法第三十條及第四十三條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110067550000/details"
+      },
+      {
+        "bill": "監察院組織法第六條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216010000/details"
+      },
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216000000/details"
+      },
+      {
+        "bill": "中央選舉委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216300000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第五條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110047160000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第五條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216310000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      },
+      {
+        "bill": "公共電視法第十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173710000/details"
+      }
+    ],
+    "billBonus": 14,
+    "weightedIndex": 81.4,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 25,
+      "invalid": 4,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": {
+        "同意": 4,
+        "不同意": 0,
+        "無效": 3,
+        "未領票": 0
+      },
+      "prosecutor": {
+        "同意": 0,
+        "不同意": 0,
+        "無效": 1,
+        "未領票": 0
+      },
+      "cec2": {
+        "同意": 0,
+        "不同意": 3,
+        "無效": 0,
+        "未領票": 0
+      }
+    },
+    "reasons": [
+      {
+        "caseId": "cec1",
+        "nominee": "胡博硯",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "黃文玲",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "陳宗義",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "prosecutor",
+        "nominee": "徐錫祥",
+        "behavior": "無效票",
+        "reason": "公開自認誤投（2026-05-05 媒體受訪）",
+        "note": "",
+        "presumed": false
+      }
+    ]
+  },
+  {
+    "rank": 9,
+    "name": "黃仁",
+    "party": "中國國民黨",
+    "agree": 14,
+    "nonAgree": 29,
+    "inOffice": 43,
+    "index": 67.4,
+    "billRoles": [
+      {
+        "bill": "憲法訴訟法第三十條及第四十三條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110067550000/details"
+      },
+      {
+        "bill": "監察院組織法第六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216010000/details"
+      },
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216000000/details"
+      },
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110218420000/details"
+      },
+      {
+        "bill": "中央選舉委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216300000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第七條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110041400000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第五條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110047160000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第五條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216310000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110055360000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 14,
+    "weightedIndex": 81.4,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 25,
+      "invalid": 4,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 1,
+        "無效": 1,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": {
+        "同意": 4,
+        "不同意": 0,
+        "無效": 3,
+        "未領票": 0
+      },
+      "prosecutor": {
+        "同意": 0,
+        "不同意": 1,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec2": {
+        "同意": 0,
+        "不同意": 3,
+        "無效": 0,
+        "未領票": 0
+      }
+    },
+    "reasons": [
+      {
+        "caseId": "examination",
+        "nominee": "柯麗鈴",
+        "behavior": "無效票",
+        "reason": "無明文事由",
         "note": "",
         "presumed": false
       },
@@ -605,16 +1574,83 @@ export const LEGISLATORS = [
     ]
   },
   {
-    "rank": 6,
+    "rank": 10,
     "name": "邱若華",
     "party": "中國國民黨",
     "agree": 13,
     "nonAgree": 30,
     "inOffice": 43,
     "index": 69.8,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 69.8,
+    "billRoles": [
+      {
+        "bill": "憲法訴訟法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110060440000/details"
+      },
+      {
+        "bill": "監察院組織法第六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216010000/details"
+      },
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216000000/details"
+      },
+      {
+        "bill": "中央選舉委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216300000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第七條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110041400000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第五條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216310000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110055360000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 11,
+    "weightedIndex": 80.8,
     "paralyzing": true,
     "breakdown": {
       "disagree": 26,
@@ -713,416 +1749,95 @@ export const LEGISLATORS = [
     ]
   },
   {
-    "rank": 7,
-    "name": "傅崐萁",
-    "party": "中國國民黨",
-    "agree": 14,
-    "nonAgree": 29,
-    "inOffice": 43,
-    "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 26,
-      "invalid": 3,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": {
-        "同意": 4,
-        "不同意": 0,
-        "無效": 3,
-        "未領票": 0
-      },
-      "prosecutor": {
-        "同意": 0,
-        "不同意": 1,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec2": {
-        "同意": 0,
-        "不同意": 3,
-        "無效": 0,
-        "未領票": 0
-      }
-    },
-    "reasons": [
-      {
-        "caseId": "cec1",
-        "nominee": "胡博硯",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "黃文玲",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "陳宗義",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      }
-    ]
-  },
-  {
-    "rank": 8,
-    "name": "吳宗憲",
-    "party": "中國國民黨",
-    "agree": 14,
-    "nonAgree": 29,
-    "inOffice": 43,
-    "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 26,
-      "invalid": 3,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": {
-        "同意": 4,
-        "不同意": 0,
-        "無效": 3,
-        "未領票": 0
-      },
-      "prosecutor": {
-        "同意": 0,
-        "不同意": 1,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec2": {
-        "同意": 0,
-        "不同意": 3,
-        "無效": 0,
-        "未領票": 0
-      }
-    },
-    "reasons": [
-      {
-        "caseId": "cec1",
-        "nominee": "胡博硯",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "黃文玲",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "陳宗義",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      }
-    ]
-  },
-  {
-    "rank": 9,
-    "name": "呂玉玲",
-    "party": "中國國民黨",
-    "agree": 14,
-    "nonAgree": 29,
-    "inOffice": 43,
-    "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 26,
-      "invalid": 3,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": {
-        "同意": 4,
-        "不同意": 0,
-        "無效": 3,
-        "未領票": 0
-      },
-      "prosecutor": {
-        "同意": 0,
-        "不同意": 1,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec2": {
-        "同意": 0,
-        "不同意": 3,
-        "無效": 0,
-        "未領票": 0
-      }
-    },
-    "reasons": [
-      {
-        "caseId": "cec1",
-        "nominee": "胡博硯",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "黃文玲",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "陳宗義",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      }
-    ]
-  },
-  {
-    "rank": 10,
-    "name": "廖偉翔",
-    "party": "中國國民黨",
-    "agree": 14,
-    "nonAgree": 29,
-    "inOffice": 43,
-    "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 26,
-      "invalid": 3,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": {
-        "同意": 4,
-        "不同意": 0,
-        "無效": 3,
-        "未領票": 0
-      },
-      "prosecutor": {
-        "同意": 0,
-        "不同意": 1,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec2": {
-        "同意": 0,
-        "不同意": 3,
-        "無效": 0,
-        "未領票": 0
-      }
-    },
-    "reasons": [
-      {
-        "caseId": "cec1",
-        "nominee": "胡博硯",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "黃文玲",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "陳宗義",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      }
-    ]
-  },
-  {
     "rank": 11,
-    "name": "廖先翔",
+    "name": "蘇清泉",
     "party": "中國國民黨",
     "agree": 14,
     "nonAgree": 29,
     "inOffice": 43,
     "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
+    "billRoles": [
+      {
+        "bill": "憲法訴訟法第三十條及第四十三條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110067550000/details"
+      },
+      {
+        "bill": "憲法訴訟法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110060440000/details"
+      },
+      {
+        "bill": "監察院組織法第六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216010000/details"
+      },
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216000000/details"
+      },
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110218420000/details"
+      },
+      {
+        "bill": "中央選舉委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216300000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110027190000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第五條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216310000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 13,
+    "weightedIndex": 80.4,
     "paralyzing": true,
     "breakdown": {
       "disagree": 26,
@@ -1214,19 +1929,98 @@ export const LEGISLATORS = [
   },
   {
     "rank": 12,
-    "name": "張嘉郡",
+    "name": "鄭天財 Sra Kacaw",
     "party": "中國國民黨",
     "agree": 14,
     "nonAgree": 29,
     "inOffice": 43,
     "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
+    "billRoles": [
+      {
+        "bill": "憲法訴訟法第三十條及第四十三條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110067550000/details"
+      },
+      {
+        "bill": "憲法訴訟法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110060440000/details"
+      },
+      {
+        "bill": "監察院組織法第六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216010000/details"
+      },
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216000000/details"
+      },
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110218420000/details"
+      },
+      {
+        "bill": "中央選舉委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216300000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第七條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110041400000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第五條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216310000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 13,
+    "weightedIndex": 80.4,
     "paralyzing": true,
     "breakdown": {
-      "disagree": 29,
-      "invalid": 0,
+      "disagree": 26,
+      "invalid": 3,
       "notPickup": 0
     },
     "perCase": {
@@ -1268,8 +2062,8 @@ export const LEGISLATORS = [
       },
       "cec1": {
         "同意": 4,
-        "不同意": 3,
-        "無效": 0,
+        "不同意": 0,
+        "無效": 3,
         "未領票": 0
       },
       "prosecutor": {
@@ -1285,19 +2079,123 @@ export const LEGISLATORS = [
         "未領票": 0
       }
     },
-    "reasons": []
+    "reasons": [
+      {
+        "caseId": "cec1",
+        "nominee": "胡博硯",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "黃文玲",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "陳宗義",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      }
+    ]
   },
   {
     "rank": 13,
-    "name": "張智倫",
+    "name": "鄭正鈐",
     "party": "中國國民黨",
     "agree": 14,
     "nonAgree": 29,
     "inOffice": 43,
     "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
+    "billRoles": [
+      {
+        "bill": "憲法訴訟法第三十條及第四十三條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110067550000/details"
+      },
+      {
+        "bill": "憲法訴訟法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110060440000/details"
+      },
+      {
+        "bill": "監察院組織法第六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216010000/details"
+      },
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216000000/details"
+      },
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110218420000/details"
+      },
+      {
+        "bill": "中央選舉委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216300000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014450000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第五條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216310000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 13,
+    "weightedIndex": 80.4,
     "paralyzing": true,
     "breakdown": {
       "disagree": 26,
@@ -1389,15 +2287,82 @@ export const LEGISLATORS = [
   },
   {
     "rank": 14,
-    "name": "徐巧芯",
+    "name": "廖偉翔",
     "party": "中國國民黨",
     "agree": 14,
     "nonAgree": 29,
     "inOffice": 43,
     "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
+    "billRoles": [
+      {
+        "bill": "監察院組織法第六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216010000/details"
+      },
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216000000/details"
+      },
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110218420000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第十條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014450000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110027190000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第七條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110041400000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 12,
+    "weightedIndex": 79.4,
     "paralyzing": true,
     "breakdown": {
       "disagree": 26,
@@ -1489,15 +2454,88 @@ export const LEGISLATORS = [
   },
   {
     "rank": 15,
-    "name": "徐欣瑩",
+    "name": "張智倫",
     "party": "中國國民黨",
     "agree": 14,
     "nonAgree": 29,
     "inOffice": 43,
     "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
+    "billRoles": [
+      {
+        "bill": "憲法訴訟法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110060440000/details"
+      },
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110218420000/details"
+      },
+      {
+        "bill": "中央選舉委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216300000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110027190000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第五條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110047160000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第五條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216310000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110055360000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      },
+      {
+        "bill": "公共電視法第十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173710000/details"
+      }
+    ],
+    "billBonus": 12,
+    "weightedIndex": 79.4,
     "paralyzing": true,
     "breakdown": {
       "disagree": 26,
@@ -1589,15 +2627,70 @@ export const LEGISLATORS = [
   },
   {
     "rank": 16,
-    "name": "李彥秀",
+    "name": "林沛祥",
     "party": "中國國民黨",
     "agree": 14,
     "nonAgree": 29,
     "inOffice": 43,
     "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
+    "billRoles": [
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014450000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第五條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110047160000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110055360000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      },
+      {
+        "bill": "公共電視法第十六條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173710000/details"
+      }
+    ],
+    "billBonus": 12,
+    "weightedIndex": 79.4,
     "paralyzing": true,
     "breakdown": {
       "disagree": 26,
@@ -1689,15 +2782,82 @@ export const LEGISLATORS = [
   },
   {
     "rank": 17,
-    "name": "林倩綺",
+    "name": "羅智強",
     "party": "中國國民黨",
     "agree": 14,
     "nonAgree": 29,
     "inOffice": 43,
     "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
+    "billRoles": [
+      {
+        "bill": "憲法訴訟法第三十條及第四十三條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110067550000/details"
+      },
+      {
+        "bill": "憲法訴訟法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110060440000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014450000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110027190000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第七條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110041400000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110055360000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      },
+      {
+        "bill": "公共電視法第十六條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173710000/details"
+      }
+    ],
+    "billBonus": 12,
+    "weightedIndex": 79.4,
     "paralyzing": true,
     "breakdown": {
       "disagree": 26,
@@ -1789,15 +2949,82 @@ export const LEGISLATORS = [
   },
   {
     "rank": 18,
-    "name": "林德福",
+    "name": "許宇甄",
     "party": "中國國民黨",
     "agree": 14,
     "nonAgree": 29,
     "inOffice": 43,
     "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
+    "billRoles": [
+      {
+        "bill": "監察院組織法第六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216010000/details"
+      },
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216000000/details"
+      },
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110218420000/details"
+      },
+      {
+        "bill": "中央選舉委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216300000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第五條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110047160000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第五條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216310000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110055360000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 12,
+    "weightedIndex": 79.4,
     "paralyzing": true,
     "breakdown": {
       "disagree": 26,
@@ -1889,15 +3116,88 @@ export const LEGISLATORS = [
   },
   {
     "rank": 19,
-    "name": "林思銘",
+    "name": "邱鎮軍",
     "party": "中國國民黨",
     "agree": 14,
     "nonAgree": 29,
     "inOffice": 43,
     "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
+    "billRoles": [
+      {
+        "bill": "憲法訴訟法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110060440000/details"
+      },
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110218420000/details"
+      },
+      {
+        "bill": "中央選舉委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216300000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014450000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110027190000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第五條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110047160000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第五條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216310000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110055360000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 12,
+    "weightedIndex": 79.4,
     "paralyzing": true,
     "breakdown": {
       "disagree": 26,
@@ -1989,15 +3289,82 @@ export const LEGISLATORS = [
   },
   {
     "rank": 20,
-    "name": "林沛祥",
+    "name": "馬文君",
     "party": "中國國民黨",
     "agree": 14,
     "nonAgree": 29,
     "inOffice": 43,
     "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
+    "billRoles": [
+      {
+        "bill": "憲法訴訟法第三十條及第四十三條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110067550000/details"
+      },
+      {
+        "bill": "監察院組織法第六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216010000/details"
+      },
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216000000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第十條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014450000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第七條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110041400000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110055360000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 12,
+    "weightedIndex": 79.4,
     "paralyzing": true,
     "breakdown": {
       "disagree": 26,
@@ -2089,15 +3456,76 @@ export const LEGISLATORS = [
   },
   {
     "rank": 21,
-    "name": "柯志恩",
+    "name": "林思銘",
     "party": "中國國民黨",
     "agree": 14,
     "nonAgree": 29,
     "inOffice": 43,
     "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
+    "billRoles": [
+      {
+        "bill": "憲法訴訟法第四條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110060440000/details"
+      },
+      {
+        "bill": "監察院組織法第六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216010000/details"
+      },
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216000000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014450000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110027190000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 11,
+    "weightedIndex": 78.4,
     "paralyzing": true,
     "breakdown": {
       "disagree": 26,
@@ -2189,15 +3617,82 @@ export const LEGISLATORS = [
   },
   {
     "rank": 22,
-    "name": "楊瓊瓔",
+    "name": "涂權吉",
     "party": "中國國民黨",
     "agree": 14,
     "nonAgree": 29,
     "inOffice": 43,
     "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
+    "billRoles": [
+      {
+        "bill": "憲法訴訟法第三十條及第四十三條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110067550000/details"
+      },
+      {
+        "bill": "監察院組織法第六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216010000/details"
+      },
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216000000/details"
+      },
+      {
+        "bill": "中央選舉委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216300000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110027190000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第五條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216310000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      },
+      {
+        "bill": "公共電視法第十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173710000/details"
+      }
+    ],
+    "billBonus": 11,
+    "weightedIndex": 78.4,
     "paralyzing": true,
     "breakdown": {
       "disagree": 26,
@@ -2289,15 +3784,5517 @@ export const LEGISLATORS = [
   },
   {
     "rank": 23,
+    "name": "羅明才",
+    "party": "中國國民黨",
+    "agree": 14,
+    "nonAgree": 29,
+    "inOffice": 43,
+    "index": 67.4,
+    "billRoles": [
+      {
+        "bill": "憲法訴訟法第三十條及第四十三條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110067550000/details"
+      },
+      {
+        "bill": "憲法訴訟法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110060440000/details"
+      },
+      {
+        "bill": "監察院組織法第六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216010000/details"
+      },
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216000000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第五條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110047160000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110055360000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 11,
+    "weightedIndex": 78.4,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 26,
+      "invalid": 3,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": {
+        "同意": 4,
+        "不同意": 0,
+        "無效": 3,
+        "未領票": 0
+      },
+      "prosecutor": {
+        "同意": 0,
+        "不同意": 1,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec2": {
+        "同意": 0,
+        "不同意": 3,
+        "無效": 0,
+        "未領票": 0
+      }
+    },
+    "reasons": [
+      {
+        "caseId": "cec1",
+        "nominee": "胡博硯",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "黃文玲",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "陳宗義",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      }
+    ]
+  },
+  {
+    "rank": 24,
+    "name": "謝龍介",
+    "party": "中國國民黨",
+    "agree": 14,
+    "nonAgree": 29,
+    "inOffice": 43,
+    "index": 67.4,
+    "billRoles": [
+      {
+        "bill": "憲法訴訟法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110060440000/details"
+      },
+      {
+        "bill": "監察院組織法第六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216010000/details"
+      },
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216000000/details"
+      },
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110218420000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110027190000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第七條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110041400000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第五條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110047160000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 11,
+    "weightedIndex": 78.4,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 26,
+      "invalid": 3,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": {
+        "同意": 4,
+        "不同意": 0,
+        "無效": 3,
+        "未領票": 0
+      },
+      "prosecutor": {
+        "同意": 0,
+        "不同意": 1,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec2": {
+        "同意": 0,
+        "不同意": 3,
+        "無效": 0,
+        "未領票": 0
+      }
+    },
+    "reasons": [
+      {
+        "caseId": "cec1",
+        "nominee": "胡博硯",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "黃文玲",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "陳宗義",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      }
+    ]
+  },
+  {
+    "rank": 25,
+    "name": "賴士葆",
+    "party": "中國國民黨",
+    "agree": 14,
+    "nonAgree": 29,
+    "inOffice": 43,
+    "index": 67.4,
+    "billRoles": [
+      {
+        "bill": "憲法訴訟法第三十條及第四十三條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110067550000/details"
+      },
+      {
+        "bill": "監察院組織法第六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216010000/details"
+      },
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216000000/details"
+      },
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110218420000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110027190000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第七條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110041400000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 11,
+    "weightedIndex": 78.4,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 26,
+      "invalid": 3,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": {
+        "同意": 4,
+        "不同意": 0,
+        "無效": 3,
+        "未領票": 0
+      },
+      "prosecutor": {
+        "同意": 0,
+        "不同意": 1,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec2": {
+        "同意": 0,
+        "不同意": 3,
+        "無效": 0,
+        "未領票": 0
+      }
+    },
+    "reasons": [
+      {
+        "caseId": "cec1",
+        "nominee": "胡博硯",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "黃文玲",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "陳宗義",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      }
+    ]
+  },
+  {
+    "rank": 26,
+    "name": "陳雪生",
+    "party": "中國國民黨",
+    "agree": 14,
+    "nonAgree": 29,
+    "inOffice": 43,
+    "index": 67.4,
+    "billRoles": [
+      {
+        "bill": "憲法訴訟法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110060440000/details"
+      },
+      {
+        "bill": "監察院組織法第六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216010000/details"
+      },
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216000000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110027190000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第七條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110041400000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第五條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110047160000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110055360000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 11,
+    "weightedIndex": 78.4,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 26,
+      "invalid": 3,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": {
+        "同意": 4,
+        "不同意": 0,
+        "無效": 3,
+        "未領票": 0
+      },
+      "prosecutor": {
+        "同意": 0,
+        "不同意": 1,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec2": {
+        "同意": 0,
+        "不同意": 3,
+        "無效": 0,
+        "未領票": 0
+      }
+    },
+    "reasons": [
+      {
+        "caseId": "cec1",
+        "nominee": "胡博硯",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "黃文玲",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "陳宗義",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      }
+    ]
+  },
+  {
+    "rank": 27,
+    "name": "楊瓊瓔",
+    "party": "中國國民黨",
+    "agree": 14,
+    "nonAgree": 29,
+    "inOffice": 43,
+    "index": 67.4,
+    "billRoles": [
+      {
+        "bill": "憲法訴訟法第三十條及第四十三條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110067550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014450000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110027190000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第七條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110041400000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第五條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110047160000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 10,
+    "weightedIndex": 77.4,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 26,
+      "invalid": 3,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": {
+        "同意": 4,
+        "不同意": 0,
+        "無效": 3,
+        "未領票": 0
+      },
+      "prosecutor": {
+        "同意": 0,
+        "不同意": 1,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec2": {
+        "同意": 0,
+        "不同意": 3,
+        "無效": 0,
+        "未領票": 0
+      }
+    },
+    "reasons": [
+      {
+        "caseId": "cec1",
+        "nominee": "胡博硯",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "黃文玲",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "陳宗義",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      }
+    ]
+  },
+  {
+    "rank": 28,
+    "name": "洪孟楷",
+    "party": "中國國民黨",
+    "agree": 14,
+    "nonAgree": 29,
+    "inOffice": 43,
+    "index": 67.4,
+    "billRoles": [
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110218420000/details"
+      },
+      {
+        "bill": "中央選舉委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216300000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第十條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014450000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第五條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216310000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      },
+      {
+        "bill": "公共電視法第十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173710000/details"
+      }
+    ],
+    "billBonus": 10,
+    "weightedIndex": 77.4,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 26,
+      "invalid": 3,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": {
+        "同意": 4,
+        "不同意": 0,
+        "無效": 3,
+        "未領票": 0
+      },
+      "prosecutor": {
+        "同意": 0,
+        "不同意": 1,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec2": {
+        "同意": 0,
+        "不同意": 3,
+        "無效": 0,
+        "未領票": 0
+      }
+    },
+    "reasons": [
+      {
+        "caseId": "cec1",
+        "nominee": "胡博硯",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "黃文玲",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "陳宗義",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      }
+    ]
+  },
+  {
+    "rank": 29,
+    "name": "王育敏",
+    "party": "中國國民黨",
+    "agree": 14,
+    "nonAgree": 29,
+    "inOffice": 43,
+    "index": 67.4,
+    "billRoles": [
+      {
+        "bill": "憲法訴訟法第三十條及第四十三條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110067550000/details"
+      },
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110218420000/details"
+      },
+      {
+        "bill": "中央選舉委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216300000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第七條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110041400000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第五條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110047160000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第五條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216310000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 10,
+    "weightedIndex": 77.4,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 26,
+      "invalid": 3,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": {
+        "同意": 4,
+        "不同意": 0,
+        "無效": 3,
+        "未領票": 0
+      },
+      "prosecutor": {
+        "同意": 0,
+        "不同意": 1,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec2": {
+        "同意": 0,
+        "不同意": 3,
+        "無效": 0,
+        "未領票": 0
+      }
+    },
+    "reasons": [
+      {
+        "caseId": "cec1",
+        "nominee": "胡博硯",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "黃文玲",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "陳宗義",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      }
+    ]
+  },
+  {
+    "rank": 30,
+    "name": "盧縣一",
+    "party": "中國國民黨",
+    "agree": 14,
+    "nonAgree": 29,
+    "inOffice": 43,
+    "index": 67.4,
+    "billRoles": [
+      {
+        "bill": "憲法訴訟法第三十條及第四十三條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110067550000/details"
+      },
+      {
+        "bill": "中央選舉委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216300000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014450000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第七條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110041400000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第五條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216310000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      },
+      {
+        "bill": "公共電視法第十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173710000/details"
+      }
+    ],
+    "billBonus": 10,
+    "weightedIndex": 77.4,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 25,
+      "invalid": 4,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": {
+        "同意": 4,
+        "不同意": 0,
+        "無效": 3,
+        "未領票": 0
+      },
+      "prosecutor": {
+        "同意": 0,
+        "不同意": 1,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec2": {
+        "同意": 0,
+        "不同意": 2,
+        "無效": 1,
+        "未領票": 0
+      }
+    },
+    "reasons": [
+      {
+        "caseId": "cec1",
+        "nominee": "胡博硯",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "黃文玲",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "陳宗義",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec2",
+        "nominee": "沈淑妃",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "",
+        "presumed": true
+      }
+    ]
+  },
+  {
+    "rank": 31,
+    "name": "陳永康",
+    "party": "中國國民黨",
+    "agree": 14,
+    "nonAgree": 29,
+    "inOffice": 43,
+    "index": 67.4,
+    "billRoles": [
+      {
+        "bill": "憲法訴訟法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110060440000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110027190000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第七條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110041400000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110055360000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      },
+      {
+        "bill": "公共電視法第十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173710000/details"
+      }
+    ],
+    "billBonus": 10,
+    "weightedIndex": 77.4,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 26,
+      "invalid": 3,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": {
+        "同意": 4,
+        "不同意": 0,
+        "無效": 3,
+        "未領票": 0
+      },
+      "prosecutor": {
+        "同意": 0,
+        "不同意": 1,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec2": {
+        "同意": 0,
+        "不同意": 3,
+        "無效": 0,
+        "未領票": 0
+      }
+    },
+    "reasons": [
+      {
+        "caseId": "cec1",
+        "nominee": "胡博硯",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "黃文玲",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "陳宗義",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      }
+    ]
+  },
+  {
+    "rank": 32,
+    "name": "黃建賓",
+    "party": "中國國民黨",
+    "agree": 14,
+    "nonAgree": 29,
+    "inOffice": 43,
+    "index": 67.4,
+    "billRoles": [
+      {
+        "bill": "憲法訴訟法第三十條及第四十三條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110067550000/details"
+      },
+      {
+        "bill": "監察院組織法第六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216010000/details"
+      },
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216000000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第七條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110041400000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110055360000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 10,
+    "weightedIndex": 77.4,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 19,
+      "invalid": 3,
+      "notPickup": 7
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 7
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": {
+        "同意": 4,
+        "不同意": 0,
+        "無效": 3,
+        "未領票": 0
+      },
+      "prosecutor": {
+        "同意": 0,
+        "不同意": 1,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec2": {
+        "同意": 0,
+        "不同意": 3,
+        "無效": 0,
+        "未領票": 0
+      }
+    },
+    "reasons": [
+      {
+        "caseId": "justices2",
+        "nominee": "蔡秋明",
+        "behavior": "未領票",
+        "reason": "無明文事由",
+        "note": "",
+        "presumed": false
+      },
+      {
+        "caseId": "justices2",
+        "nominee": "蘇素娥",
+        "behavior": "未領票",
+        "reason": "無明文事由",
+        "note": "",
+        "presumed": false
+      },
+      {
+        "caseId": "justices2",
+        "nominee": "蕭文生",
+        "behavior": "未領票",
+        "reason": "無明文事由",
+        "note": "",
+        "presumed": false
+      },
+      {
+        "caseId": "justices2",
+        "nominee": "鄭純惠",
+        "behavior": "未領票",
+        "reason": "無明文事由",
+        "note": "",
+        "presumed": false
+      },
+      {
+        "caseId": "justices2",
+        "nominee": "林麗瑩",
+        "behavior": "未領票",
+        "reason": "無明文事由",
+        "note": "",
+        "presumed": false
+      },
+      {
+        "caseId": "justices2",
+        "nominee": "陳慈陽",
+        "behavior": "未領票",
+        "reason": "無明文事由",
+        "note": "",
+        "presumed": false
+      },
+      {
+        "caseId": "justices2",
+        "nominee": "詹鎮榮",
+        "behavior": "未領票",
+        "reason": "無明文事由",
+        "note": "",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "胡博硯",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "黃文玲",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "陳宗義",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      }
+    ]
+  },
+  {
+    "rank": 33,
+    "name": "傅崐萁",
+    "party": "中國國民黨",
+    "agree": 14,
+    "nonAgree": 29,
+    "inOffice": 43,
+    "index": 67.4,
+    "billRoles": [
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110027190000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      },
+      {
+        "bill": "公共電視法第十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173710000/details"
+      }
+    ],
+    "billBonus": 9,
+    "weightedIndex": 76.4,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 26,
+      "invalid": 3,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": {
+        "同意": 4,
+        "不同意": 0,
+        "無效": 3,
+        "未領票": 0
+      },
+      "prosecutor": {
+        "同意": 0,
+        "不同意": 1,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec2": {
+        "同意": 0,
+        "不同意": 3,
+        "無效": 0,
+        "未領票": 0
+      }
+    },
+    "reasons": [
+      {
+        "caseId": "cec1",
+        "nominee": "胡博硯",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "黃文玲",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "陳宗義",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      }
+    ]
+  },
+  {
+    "rank": 34,
+    "name": "呂玉玲",
+    "party": "中國國民黨",
+    "agree": 14,
+    "nonAgree": 29,
+    "inOffice": 43,
+    "index": 67.4,
+    "billRoles": [
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110218420000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014450000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第七條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110041400000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      },
+      {
+        "bill": "公共電視法第十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173710000/details"
+      }
+    ],
+    "billBonus": 9,
+    "weightedIndex": 76.4,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 26,
+      "invalid": 3,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": {
+        "同意": 4,
+        "不同意": 0,
+        "無效": 3,
+        "未領票": 0
+      },
+      "prosecutor": {
+        "同意": 0,
+        "不同意": 1,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec2": {
+        "同意": 0,
+        "不同意": 3,
+        "無效": 0,
+        "未領票": 0
+      }
+    },
+    "reasons": [
+      {
+        "caseId": "cec1",
+        "nominee": "胡博硯",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "黃文玲",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "陳宗義",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      }
+    ]
+  },
+  {
+    "rank": 35,
+    "name": "徐巧芯",
+    "party": "中國國民黨",
+    "agree": 14,
+    "nonAgree": 29,
+    "inOffice": 43,
+    "index": 67.4,
+    "billRoles": [
+      {
+        "bill": "憲法訴訟法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110060440000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第十條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014450000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110055360000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 9,
+    "weightedIndex": 76.4,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 26,
+      "invalid": 3,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": {
+        "同意": 4,
+        "不同意": 0,
+        "無效": 3,
+        "未領票": 0
+      },
+      "prosecutor": {
+        "同意": 0,
+        "不同意": 1,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec2": {
+        "同意": 0,
+        "不同意": 3,
+        "無效": 0,
+        "未領票": 0
+      }
+    },
+    "reasons": [
+      {
+        "caseId": "cec1",
+        "nominee": "胡博硯",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "黃文玲",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "陳宗義",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      }
+    ]
+  },
+  {
+    "rank": 36,
+    "name": "游顥",
+    "party": "中國國民黨",
+    "agree": 14,
+    "nonAgree": 29,
+    "inOffice": 43,
+    "index": 67.4,
+    "billRoles": [
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第十條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014450000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第七條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110041400000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第五條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110047160000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 9,
+    "weightedIndex": 76.4,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 22,
+      "invalid": 3,
+      "notPickup": 4
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 4
+      },
+      "cec1": {
+        "同意": 4,
+        "不同意": 0,
+        "無效": 3,
+        "未領票": 0
+      },
+      "prosecutor": {
+        "同意": 0,
+        "不同意": 1,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec2": {
+        "同意": 0,
+        "不同意": 3,
+        "無效": 0,
+        "未領票": 0
+      }
+    },
+    "reasons": [
+      {
+        "caseId": "ncc",
+        "nominee": "蔣榮先",
+        "behavior": "未領票",
+        "reason": "無明文事由",
+        "note": "",
+        "presumed": false
+      },
+      {
+        "caseId": "ncc",
+        "nominee": "程明修",
+        "behavior": "未領票",
+        "reason": "無明文事由",
+        "note": "",
+        "presumed": false
+      },
+      {
+        "caseId": "ncc",
+        "nominee": "黃葳威",
+        "behavior": "未領票",
+        "reason": "無明文事由",
+        "note": "",
+        "presumed": false
+      },
+      {
+        "caseId": "ncc",
+        "nominee": "羅慧雯",
+        "behavior": "未領票",
+        "reason": "無明文事由",
+        "note": "",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "胡博硯",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "黃文玲",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "陳宗義",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      }
+    ]
+  },
+  {
+    "rank": 37,
+    "name": "羅廷瑋",
+    "party": "中國國民黨",
+    "agree": 14,
+    "nonAgree": 29,
+    "inOffice": 43,
+    "index": 67.4,
+    "billRoles": [
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第十條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014450000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110027190000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第五條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110047160000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      },
+      {
+        "bill": "公共電視法第十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173710000/details"
+      }
+    ],
+    "billBonus": 9,
+    "weightedIndex": 76.4,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 26,
+      "invalid": 3,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": {
+        "同意": 4,
+        "不同意": 0,
+        "無效": 3,
+        "未領票": 0
+      },
+      "prosecutor": {
+        "同意": 0,
+        "不同意": 1,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec2": {
+        "同意": 0,
+        "不同意": 3,
+        "無效": 0,
+        "未領票": 0
+      }
+    },
+    "reasons": [
+      {
+        "caseId": "cec1",
+        "nominee": "胡博硯",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "黃文玲",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "陳宗義",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      }
+    ]
+  },
+  {
+    "rank": 38,
+    "name": "陳玉珍",
+    "party": "中國國民黨",
+    "agree": 14,
+    "nonAgree": 29,
+    "inOffice": 43,
+    "index": 67.4,
+    "billRoles": [
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014450000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第七條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110041400000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第五條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110047160000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110055360000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 9,
+    "weightedIndex": 76.4,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 26,
+      "invalid": 3,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": {
+        "同意": 4,
+        "不同意": 0,
+        "無效": 3,
+        "未領票": 0
+      },
+      "prosecutor": {
+        "同意": 0,
+        "不同意": 1,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec2": {
+        "同意": 0,
+        "不同意": 3,
+        "無效": 0,
+        "未領票": 0
+      }
+    },
+    "reasons": [
+      {
+        "caseId": "cec1",
+        "nominee": "胡博硯",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "黃文玲",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "陳宗義",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      }
+    ]
+  },
+  {
+    "rank": 39,
+    "name": "廖先翔",
+    "party": "中國國民黨",
+    "agree": 14,
+    "nonAgree": 29,
+    "inOffice": 43,
+    "index": 67.4,
+    "billRoles": [
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110218420000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014450000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第七條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110041400000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110055360000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 8,
+    "weightedIndex": 75.4,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 26,
+      "invalid": 3,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": {
+        "同意": 4,
+        "不同意": 0,
+        "無效": 3,
+        "未領票": 0
+      },
+      "prosecutor": {
+        "同意": 0,
+        "不同意": 1,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec2": {
+        "同意": 0,
+        "不同意": 3,
+        "無效": 0,
+        "未領票": 0
+      }
+    },
+    "reasons": [
+      {
+        "caseId": "cec1",
+        "nominee": "胡博硯",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "黃文玲",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "陳宗義",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      }
+    ]
+  },
+  {
+    "rank": 40,
+    "name": "李彥秀",
+    "party": "中國國民黨",
+    "agree": 14,
+    "nonAgree": 29,
+    "inOffice": 43,
+    "index": 67.4,
+    "billRoles": [
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第五條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110047160000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      },
+      {
+        "bill": "公共電視法第十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173710000/details"
+      }
+    ],
+    "billBonus": 8,
+    "weightedIndex": 75.4,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 26,
+      "invalid": 3,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": {
+        "同意": 4,
+        "不同意": 0,
+        "無效": 3,
+        "未領票": 0
+      },
+      "prosecutor": {
+        "同意": 0,
+        "不同意": 1,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec2": {
+        "同意": 0,
+        "不同意": 3,
+        "無效": 0,
+        "未領票": 0
+      }
+    },
+    "reasons": [
+      {
+        "caseId": "cec1",
+        "nominee": "胡博硯",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "黃文玲",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "陳宗義",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      }
+    ]
+  },
+  {
+    "rank": 41,
+    "name": "林德福",
+    "party": "中國國民黨",
+    "agree": 14,
+    "nonAgree": 29,
+    "inOffice": 43,
+    "index": 67.4,
+    "billRoles": [
+      {
+        "bill": "憲法訴訟法第三十條及第四十三條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110067550000/details"
+      },
+      {
+        "bill": "憲法訴訟法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110060440000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014450000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第五條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110047160000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110055360000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 8,
+    "weightedIndex": 75.4,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 26,
+      "invalid": 3,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": {
+        "同意": 4,
+        "不同意": 0,
+        "無效": 3,
+        "未領票": 0
+      },
+      "prosecutor": {
+        "同意": 0,
+        "不同意": 1,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec2": {
+        "同意": 0,
+        "不同意": 3,
+        "無效": 0,
+        "未領票": 0
+      }
+    },
+    "reasons": [
+      {
+        "caseId": "cec1",
+        "nominee": "胡博硯",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "黃文玲",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "陳宗義",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      }
+    ]
+  },
+  {
+    "rank": 42,
+    "name": "陳菁徽",
+    "party": "中國國民黨",
+    "agree": 14,
+    "nonAgree": 29,
+    "inOffice": 43,
+    "index": 67.4,
+    "billRoles": [
+      {
+        "bill": "憲法訴訟法第三十條及第四十三條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110067550000/details"
+      },
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110218420000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第七條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110041400000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      },
+      {
+        "bill": "公共電視法第十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173710000/details"
+      }
+    ],
+    "billBonus": 8,
+    "weightedIndex": 75.4,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 26,
+      "invalid": 3,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": {
+        "同意": 4,
+        "不同意": 0,
+        "無效": 3,
+        "未領票": 0
+      },
+      "prosecutor": {
+        "同意": 0,
+        "不同意": 1,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec2": {
+        "同意": 0,
+        "不同意": 3,
+        "無效": 0,
+        "未領票": 0
+      }
+    },
+    "reasons": [
+      {
+        "caseId": "cec1",
+        "nominee": "胡博硯",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "黃文玲",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "陳宗義",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      }
+    ]
+  },
+  {
+    "rank": 43,
+    "name": "顏寬恒",
+    "party": "中國國民黨",
+    "agree": 14,
+    "nonAgree": 29,
+    "inOffice": 43,
+    "index": 67.4,
+    "billRoles": [
+      {
+        "bill": "憲法訴訟法第三十條及第四十三條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110067550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014450000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第五條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110047160000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 8,
+    "weightedIndex": 75.4,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 26,
+      "invalid": 3,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": {
+        "同意": 4,
+        "不同意": 0,
+        "無效": 3,
+        "未領票": 0
+      },
+      "prosecutor": {
+        "同意": 0,
+        "不同意": 1,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec2": {
+        "同意": 0,
+        "不同意": 3,
+        "無效": 0,
+        "未領票": 0
+      }
+    },
+    "reasons": [
+      {
+        "caseId": "cec1",
+        "nominee": "胡博硯",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "黃文玲",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "陳宗義",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      }
+    ]
+  },
+  {
+    "rank": 44,
+    "name": "丁學忠",
+    "party": "中國國民黨",
+    "agree": 13,
+    "nonAgree": 30,
+    "inOffice": 43,
+    "index": 69.8,
+    "billRoles": [
+      {
+        "bill": "監察院組織法第六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216010000/details"
+      },
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216000000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      }
+    ],
+    "billBonus": 5,
+    "weightedIndex": 74.8,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 26,
+      "invalid": 3,
+      "notPickup": 1
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 0,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 1
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": {
+        "同意": 4,
+        "不同意": 0,
+        "無效": 3,
+        "未領票": 0
+      },
+      "prosecutor": {
+        "同意": 0,
+        "不同意": 1,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec2": {
+        "同意": 0,
+        "不同意": 3,
+        "無效": 0,
+        "未領票": 0
+      }
+    },
+    "reasons": [
+      {
+        "caseId": "auditor",
+        "nominee": "陳瑞敏",
+        "behavior": "未領票",
+        "reason": "議事錄明文載『請假』",
+        "note": "",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "胡博硯",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "黃文玲",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "陳宗義",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      }
+    ]
+  },
+  {
+    "rank": 45,
+    "name": "萬美玲",
+    "party": "中國國民黨",
+    "agree": 14,
+    "nonAgree": 29,
+    "inOffice": 43,
+    "index": 67.4,
+    "billRoles": [
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014450000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第七條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110041400000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 7,
+    "weightedIndex": 74.4,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 26,
+      "invalid": 3,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": {
+        "同意": 4,
+        "不同意": 0,
+        "無效": 3,
+        "未領票": 0
+      },
+      "prosecutor": {
+        "同意": 0,
+        "不同意": 1,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec2": {
+        "同意": 0,
+        "不同意": 3,
+        "無效": 0,
+        "未領票": 0
+      }
+    },
+    "reasons": [
+      {
+        "caseId": "cec1",
+        "nominee": "胡博硯",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "黃文玲",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "陳宗義",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      }
+    ]
+  },
+  {
+    "rank": 46,
+    "name": "吳宗憲",
+    "party": "中國國民黨",
+    "agree": 14,
+    "nonAgree": 29,
+    "inOffice": 43,
+    "index": 67.4,
+    "billRoles": [
+      {
+        "bill": "憲法訴訟法第三十條及第四十三條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110067550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第五條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110047160000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 6,
+    "weightedIndex": 73.4,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 26,
+      "invalid": 3,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": {
+        "同意": 4,
+        "不同意": 0,
+        "無效": 3,
+        "未領票": 0
+      },
+      "prosecutor": {
+        "同意": 0,
+        "不同意": 1,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec2": {
+        "同意": 0,
+        "不同意": 3,
+        "無效": 0,
+        "未領票": 0
+      }
+    },
+    "reasons": [
+      {
+        "caseId": "cec1",
+        "nominee": "胡博硯",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "黃文玲",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "陳宗義",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      }
+    ]
+  },
+  {
+    "rank": 47,
+    "name": "張嘉郡",
+    "party": "中國國民黨",
+    "agree": 14,
+    "nonAgree": 29,
+    "inOffice": 43,
+    "index": 67.4,
+    "billRoles": [
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014450000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 6,
+    "weightedIndex": 73.4,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 29,
+      "invalid": 0,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": {
+        "同意": 4,
+        "不同意": 3,
+        "無效": 0,
+        "未領票": 0
+      },
+      "prosecutor": {
+        "同意": 0,
+        "不同意": 1,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec2": {
+        "同意": 0,
+        "不同意": 3,
+        "無效": 0,
+        "未領票": 0
+      }
+    },
+    "reasons": []
+  },
+  {
+    "rank": 48,
+    "name": "柯志恩",
+    "party": "中國國民黨",
+    "agree": 14,
+    "nonAgree": 29,
+    "inOffice": 43,
+    "index": 67.4,
+    "billRoles": [
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第五條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110047160000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 6,
+    "weightedIndex": 73.4,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 26,
+      "invalid": 3,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": {
+        "同意": 4,
+        "不同意": 0,
+        "無效": 3,
+        "未領票": 0
+      },
+      "prosecutor": {
+        "同意": 0,
+        "不同意": 1,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec2": {
+        "同意": 0,
+        "不同意": 3,
+        "無效": 0,
+        "未領票": 0
+      }
+    },
+    "reasons": [
+      {
+        "caseId": "cec1",
+        "nominee": "胡博硯",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "黃文玲",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "陳宗義",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      }
+    ]
+  },
+  {
+    "rank": 49,
+    "name": "葛如鈞",
+    "party": "中國國民黨",
+    "agree": 14,
+    "nonAgree": 29,
+    "inOffice": 43,
+    "index": 67.4,
+    "billRoles": [
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110218420000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      },
+      {
+        "bill": "公共電視法第十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173710000/details"
+      }
+    ],
+    "billBonus": 6,
+    "weightedIndex": 73.4,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 26,
+      "invalid": 3,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": {
+        "同意": 4,
+        "不同意": 0,
+        "無效": 3,
+        "未領票": 0
+      },
+      "prosecutor": {
+        "同意": 0,
+        "不同意": 1,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec2": {
+        "同意": 0,
+        "不同意": 3,
+        "無效": 0,
+        "未領票": 0
+      }
+    },
+    "reasons": [
+      {
+        "caseId": "cec1",
+        "nominee": "胡博硯",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "黃文玲",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "陳宗義",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      }
+    ]
+  },
+  {
+    "rank": 50,
+    "name": "魯明哲",
+    "party": "中國國民黨",
+    "agree": 14,
+    "nonAgree": 29,
+    "inOffice": 43,
+    "index": 67.4,
+    "billRoles": [
+      {
+        "bill": "中央選舉委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216300000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條及第五條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110047160000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第五條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216310000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 6,
+    "weightedIndex": 73.4,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 26,
+      "invalid": 3,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": {
+        "同意": 4,
+        "不同意": 0,
+        "無效": 3,
+        "未領票": 0
+      },
+      "prosecutor": {
+        "同意": 0,
+        "不同意": 1,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec2": {
+        "同意": 0,
+        "不同意": 3,
+        "無效": 0,
+        "未領票": 0
+      }
+    },
+    "reasons": [
+      {
+        "caseId": "cec1",
+        "nominee": "胡博硯",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "黃文玲",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "陳宗義",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      }
+    ]
+  },
+  {
+    "rank": 51,
+    "name": "陳昭姿",
+    "party": "台灣民眾黨",
+    "agree": 15,
+    "nonAgree": 28,
+    "inOffice": 43,
+    "index": 65.1,
+    "billRoles": [
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216960000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 8,
+    "weightedIndex": 73.1,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 28,
+      "invalid": 0,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 1,
+        "不同意": 6,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": {
+        "同意": 4,
+        "不同意": 3,
+        "無效": 0,
+        "未領票": 0
+      },
+      "prosecutor": {
+        "同意": 0,
+        "不同意": 1,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec2": {
+        "同意": 0,
+        "不同意": 3,
+        "無效": 0,
+        "未領票": 0
+      }
+    },
+    "reasons": []
+  },
+  {
+    "rank": 52,
+    "name": "張啓楷",
+    "party": "台灣民眾黨",
+    "agree": 11,
+    "nonAgree": 21,
+    "inOffice": 32,
+    "index": 65.6,
+    "billRoles": [
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110055360000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 7,
+    "weightedIndex": 72.6,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 21,
+      "invalid": 0,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 1,
+        "不同意": 6,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": null,
+      "prosecutor": null,
+      "cec2": null
+    },
+    "reasons": []
+  },
+  {
+    "rank": 53,
+    "name": "林國成",
+    "party": "台灣民眾黨",
+    "agree": 11,
+    "nonAgree": 21,
+    "inOffice": 32,
+    "index": 65.6,
+    "billRoles": [
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110055360000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 7,
+    "weightedIndex": 72.6,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 21,
+      "invalid": 0,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 1,
+        "不同意": 6,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": null,
+      "prosecutor": null,
+      "cec2": null
+    },
+    "reasons": []
+  },
+  {
+    "rank": 54,
+    "name": "徐欣瑩",
+    "party": "中國國民黨",
+    "agree": 14,
+    "nonAgree": 29,
+    "inOffice": 43,
+    "index": 67.4,
+    "billRoles": [
+      {
+        "bill": "憲法訴訟法第三十條及第四十三條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110067550000/details"
+      },
+      {
+        "bill": "憲法訴訟法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110060440000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 5,
+    "weightedIndex": 72.4,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 26,
+      "invalid": 3,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": {
+        "同意": 4,
+        "不同意": 0,
+        "無效": 3,
+        "未領票": 0
+      },
+      "prosecutor": {
+        "同意": 0,
+        "不同意": 1,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec2": {
+        "同意": 0,
+        "不同意": 3,
+        "無效": 0,
+        "未領票": 0
+      }
+    },
+    "reasons": [
+      {
+        "caseId": "cec1",
+        "nominee": "胡博硯",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "黃文玲",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "陳宗義",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      }
+    ]
+  },
+  {
+    "rank": 55,
+    "name": "陳超明",
+    "party": "無黨籍",
+    "agree": 15,
+    "nonAgree": 28,
+    "inOffice": 43,
+    "index": 65.1,
+    "billRoles": [
+      {
+        "bill": "憲法訴訟法第三十條及第四十三條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110067550000/details"
+      },
+      {
+        "bill": "監察院組織法第六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216010000/details"
+      },
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216000000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110027190000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 7,
+    "weightedIndex": 72.1,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 24,
+      "invalid": 4,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 1,
+        "無效": 1,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 3,
+        "不同意": 1,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": {
+        "同意": 4,
+        "不同意": 0,
+        "無效": 3,
+        "未領票": 0
+      },
+      "prosecutor": {
+        "同意": 0,
+        "不同意": 1,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec2": {
+        "同意": 0,
+        "不同意": 3,
+        "無效": 0,
+        "未領票": 0
+      }
+    },
+    "reasons": [
+      {
+        "caseId": "examination",
+        "nominee": "柯麗鈴",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "胡博硯",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "黃文玲",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "陳宗義",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      }
+    ]
+  },
+  {
+    "rank": 56,
+    "name": "林憶君",
+    "party": "台灣民眾黨",
+    "agree": 11,
+    "nonAgree": 21,
+    "inOffice": 32,
+    "index": 65.6,
+    "billRoles": [
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 6,
+    "weightedIndex": 71.6,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 17,
+      "invalid": 0,
+      "notPickup": 4
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 1,
+        "不同意": 6,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 4
+      },
+      "cec1": null,
+      "prosecutor": null,
+      "cec2": null
+    },
+    "reasons": [
+      {
+        "caseId": "ncc",
+        "nominee": "蔣榮先",
+        "behavior": "未領票",
+        "reason": "無明文事由",
+        "note": "",
+        "presumed": false
+      },
+      {
+        "caseId": "ncc",
+        "nominee": "程明修",
+        "behavior": "未領票",
+        "reason": "無明文事由",
+        "note": "",
+        "presumed": false
+      },
+      {
+        "caseId": "ncc",
+        "nominee": "黃葳威",
+        "behavior": "未領票",
+        "reason": "無明文事由",
+        "note": "",
+        "presumed": false
+      },
+      {
+        "caseId": "ncc",
+        "nominee": "羅慧雯",
+        "behavior": "未領票",
+        "reason": "無明文事由",
+        "note": "",
+        "presumed": false
+      }
+    ]
+  },
+  {
+    "rank": 57,
+    "name": "麥玉珍",
+    "party": "台灣民眾黨",
+    "agree": 11,
+    "nonAgree": 21,
+    "inOffice": 32,
+    "index": 65.6,
+    "billRoles": [
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 6,
+    "weightedIndex": 71.6,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 21,
+      "invalid": 0,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 1,
+        "不同意": 6,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": null,
+      "prosecutor": null,
+      "cec2": null
+    },
+    "reasons": []
+  },
+  {
+    "rank": 58,
+    "name": "黃國昌",
+    "party": "台灣民眾黨",
+    "agree": 11,
+    "nonAgree": 21,
+    "inOffice": 32,
+    "index": 65.6,
+    "billRoles": [
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 6,
+    "weightedIndex": 71.6,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 21,
+      "invalid": 0,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 1,
+        "不同意": 6,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": null,
+      "prosecutor": null,
+      "cec2": null
+    },
+    "reasons": []
+  },
+  {
+    "rank": 59,
+    "name": "黃珊珊",
+    "party": "台灣民眾黨",
+    "agree": 11,
+    "nonAgree": 21,
+    "inOffice": 32,
+    "index": 65.6,
+    "billRoles": [
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 6,
+    "weightedIndex": 71.6,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 20,
+      "invalid": 1,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 1,
+        "無效": 1,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 1,
+        "不同意": 6,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": null,
+      "prosecutor": null,
+      "cec2": null
+    },
+    "reasons": [
+      {
+        "caseId": "examination",
+        "nominee": "柯麗鈴",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "",
+        "presumed": false
+      }
+    ]
+  },
+  {
+    "rank": 60,
+    "name": "葉元之",
+    "party": "中國國民黨",
+    "agree": 14,
+    "nonAgree": 29,
+    "inOffice": 43,
+    "index": 67.4,
+    "billRoles": [
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "國家通訊傳播委員會組織法第四條、第八條及第十條條文修正草案",
+        "role": "連署人",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110014430000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 4,
+    "weightedIndex": 71.4,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 26,
+      "invalid": 3,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": {
+        "同意": 4,
+        "不同意": 0,
+        "無效": 3,
+        "未領票": 0
+      },
+      "prosecutor": {
+        "同意": 0,
+        "不同意": 1,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec2": {
+        "同意": 0,
+        "不同意": 3,
+        "無效": 0,
+        "未領票": 0
+      }
+    },
+    "reasons": [
+      {
+        "caseId": "cec1",
+        "nominee": "胡博硯",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "黃文玲",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "陳宗義",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      }
+    ]
+  },
+  {
+    "rank": 61,
+    "name": "高金素梅",
+    "party": "無黨籍",
+    "agree": 14,
+    "nonAgree": 29,
+    "inOffice": 43,
+    "index": 67.4,
+    "billRoles": [
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      },
+      {
+        "bill": "公平交易委員會組織法第四條及第十六條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110080550000/details"
+      },
+      {
+        "bill": "公共電視法第十六條及第四十九條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110173170000/details"
+      }
+    ],
+    "billBonus": 3,
+    "weightedIndex": 70.4,
+    "paralyzing": true,
+    "breakdown": {
+      "disagree": 26,
+      "invalid": 3,
+      "notPickup": 0
+    },
+    "perCase": {
+      "examination": {
+        "同意": 7,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices1": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ftc": {
+        "同意": 2,
+        "不同意": 2,
+        "無效": 0,
+        "未領票": 0
+      },
+      "justices2": {
+        "同意": 0,
+        "不同意": 7,
+        "無效": 0,
+        "未領票": 0
+      },
+      "auditor": {
+        "同意": 1,
+        "不同意": 0,
+        "無效": 0,
+        "未領票": 0
+      },
+      "ncc": {
+        "同意": 0,
+        "不同意": 4,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec1": {
+        "同意": 4,
+        "不同意": 0,
+        "無效": 3,
+        "未領票": 0
+      },
+      "prosecutor": {
+        "同意": 0,
+        "不同意": 1,
+        "無效": 0,
+        "未領票": 0
+      },
+      "cec2": {
+        "同意": 0,
+        "不同意": 3,
+        "無效": 0,
+        "未領票": 0
+      }
+    },
+    "reasons": [
+      {
+        "caseId": "cec1",
+        "nominee": "胡博硯",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "黃文玲",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      },
+      {
+        "caseId": "cec1",
+        "nominee": "陳宗義",
+        "behavior": "無效票",
+        "reason": "無明文事由",
+        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
+        "presumed": false
+      }
+    ]
+  },
+  {
+    "rank": 62,
     "name": "江啟臣",
     "party": "中國國民黨",
     "agree": 14,
     "nonAgree": 29,
     "inOffice": 43,
     "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
+    "billRoles": [
+      {
+        "bill": "國家通訊傳播委員會組織法第四條條文修正草案",
+        "role": "三讀表決同意",
+        "points": 1,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110009550000/details"
+      }
+    ],
+    "billBonus": 1,
+    "weightedIndex": 68.4,
     "paralyzing": true,
     "breakdown": {
       "disagree": 19,
@@ -2444,2555 +9441,7 @@ export const LEGISLATORS = [
     ]
   },
   {
-    "rank": 24,
-    "name": "洪孟楷",
-    "party": "中國國民黨",
-    "agree": 14,
-    "nonAgree": 29,
-    "inOffice": 43,
-    "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 26,
-      "invalid": 3,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": {
-        "同意": 4,
-        "不同意": 0,
-        "無效": 3,
-        "未領票": 0
-      },
-      "prosecutor": {
-        "同意": 0,
-        "不同意": 1,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec2": {
-        "同意": 0,
-        "不同意": 3,
-        "無效": 0,
-        "未領票": 0
-      }
-    },
-    "reasons": [
-      {
-        "caseId": "cec1",
-        "nominee": "胡博硯",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "黃文玲",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "陳宗義",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      }
-    ]
-  },
-  {
-    "rank": 25,
-    "name": "涂權吉",
-    "party": "中國國民黨",
-    "agree": 14,
-    "nonAgree": 29,
-    "inOffice": 43,
-    "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 26,
-      "invalid": 3,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": {
-        "同意": 4,
-        "不同意": 0,
-        "無效": 3,
-        "未領票": 0
-      },
-      "prosecutor": {
-        "同意": 0,
-        "不同意": 1,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec2": {
-        "同意": 0,
-        "不同意": 3,
-        "無效": 0,
-        "未領票": 0
-      }
-    },
-    "reasons": [
-      {
-        "caseId": "cec1",
-        "nominee": "胡博硯",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "黃文玲",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "陳宗義",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      }
-    ]
-  },
-  {
-    "rank": 26,
-    "name": "游顥",
-    "party": "中國國民黨",
-    "agree": 14,
-    "nonAgree": 29,
-    "inOffice": 43,
-    "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 22,
-      "invalid": 3,
-      "notPickup": 4
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 4
-      },
-      "cec1": {
-        "同意": 4,
-        "不同意": 0,
-        "無效": 3,
-        "未領票": 0
-      },
-      "prosecutor": {
-        "同意": 0,
-        "不同意": 1,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec2": {
-        "同意": 0,
-        "不同意": 3,
-        "無效": 0,
-        "未領票": 0
-      }
-    },
-    "reasons": [
-      {
-        "caseId": "ncc",
-        "nominee": "蔣榮先",
-        "behavior": "未領票",
-        "reason": "無明文事由",
-        "note": "",
-        "presumed": false
-      },
-      {
-        "caseId": "ncc",
-        "nominee": "程明修",
-        "behavior": "未領票",
-        "reason": "無明文事由",
-        "note": "",
-        "presumed": false
-      },
-      {
-        "caseId": "ncc",
-        "nominee": "黃葳威",
-        "behavior": "未領票",
-        "reason": "無明文事由",
-        "note": "",
-        "presumed": false
-      },
-      {
-        "caseId": "ncc",
-        "nominee": "羅慧雯",
-        "behavior": "未領票",
-        "reason": "無明文事由",
-        "note": "",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "胡博硯",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "黃文玲",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "陳宗義",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      }
-    ]
-  },
-  {
-    "rank": 27,
-    "name": "牛煦庭",
-    "party": "中國國民黨",
-    "agree": 14,
-    "nonAgree": 29,
-    "inOffice": 43,
-    "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 26,
-      "invalid": 3,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": {
-        "同意": 4,
-        "不同意": 0,
-        "無效": 3,
-        "未領票": 0
-      },
-      "prosecutor": {
-        "同意": 0,
-        "不同意": 1,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec2": {
-        "同意": 0,
-        "不同意": 3,
-        "無效": 0,
-        "未領票": 0
-      }
-    },
-    "reasons": [
-      {
-        "caseId": "cec1",
-        "nominee": "胡博硯",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "黃文玲",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "陳宗義",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      }
-    ]
-  },
-  {
-    "rank": 28,
-    "name": "王育敏",
-    "party": "中國國民黨",
-    "agree": 14,
-    "nonAgree": 29,
-    "inOffice": 43,
-    "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 26,
-      "invalid": 3,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": {
-        "同意": 4,
-        "不同意": 0,
-        "無效": 3,
-        "未領票": 0
-      },
-      "prosecutor": {
-        "同意": 0,
-        "不同意": 1,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec2": {
-        "同意": 0,
-        "不同意": 3,
-        "無效": 0,
-        "未領票": 0
-      }
-    },
-    "reasons": [
-      {
-        "caseId": "cec1",
-        "nominee": "胡博硯",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "黃文玲",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "陳宗義",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      }
-    ]
-  },
-  {
-    "rank": 29,
-    "name": "王鴻薇",
-    "party": "中國國民黨",
-    "agree": 14,
-    "nonAgree": 29,
-    "inOffice": 43,
-    "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 25,
-      "invalid": 4,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": {
-        "同意": 4,
-        "不同意": 0,
-        "無效": 3,
-        "未領票": 0
-      },
-      "prosecutor": {
-        "同意": 0,
-        "不同意": 0,
-        "無效": 1,
-        "未領票": 0
-      },
-      "cec2": {
-        "同意": 0,
-        "不同意": 3,
-        "無效": 0,
-        "未領票": 0
-      }
-    },
-    "reasons": [
-      {
-        "caseId": "cec1",
-        "nominee": "胡博硯",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "黃文玲",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "陳宗義",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "prosecutor",
-        "nominee": "徐錫祥",
-        "behavior": "無效票",
-        "reason": "公開自認誤投（2026-05-05 媒體受訪）",
-        "note": "",
-        "presumed": false
-      }
-    ]
-  },
-  {
-    "rank": 30,
-    "name": "盧縣一",
-    "party": "中國國民黨",
-    "agree": 14,
-    "nonAgree": 29,
-    "inOffice": 43,
-    "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 25,
-      "invalid": 4,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": {
-        "同意": 4,
-        "不同意": 0,
-        "無效": 3,
-        "未領票": 0
-      },
-      "prosecutor": {
-        "同意": 0,
-        "不同意": 1,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec2": {
-        "同意": 0,
-        "不同意": 2,
-        "無效": 1,
-        "未領票": 0
-      }
-    },
-    "reasons": [
-      {
-        "caseId": "cec1",
-        "nominee": "胡博硯",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "黃文玲",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "陳宗義",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec2",
-        "nominee": "沈淑妃",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "",
-        "presumed": true
-      }
-    ]
-  },
-  {
-    "rank": 31,
-    "name": "羅廷瑋",
-    "party": "中國國民黨",
-    "agree": 14,
-    "nonAgree": 29,
-    "inOffice": 43,
-    "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 26,
-      "invalid": 3,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": {
-        "同意": 4,
-        "不同意": 0,
-        "無效": 3,
-        "未領票": 0
-      },
-      "prosecutor": {
-        "同意": 0,
-        "不同意": 1,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec2": {
-        "同意": 0,
-        "不同意": 3,
-        "無效": 0,
-        "未領票": 0
-      }
-    },
-    "reasons": [
-      {
-        "caseId": "cec1",
-        "nominee": "胡博硯",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "黃文玲",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "陳宗義",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      }
-    ]
-  },
-  {
-    "rank": 32,
-    "name": "羅明才",
-    "party": "中國國民黨",
-    "agree": 14,
-    "nonAgree": 29,
-    "inOffice": 43,
-    "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 26,
-      "invalid": 3,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": {
-        "同意": 4,
-        "不同意": 0,
-        "無效": 3,
-        "未領票": 0
-      },
-      "prosecutor": {
-        "同意": 0,
-        "不同意": 1,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec2": {
-        "同意": 0,
-        "不同意": 3,
-        "無效": 0,
-        "未領票": 0
-      }
-    },
-    "reasons": [
-      {
-        "caseId": "cec1",
-        "nominee": "胡博硯",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "黃文玲",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "陳宗義",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      }
-    ]
-  },
-  {
-    "rank": 33,
-    "name": "羅智強",
-    "party": "中國國民黨",
-    "agree": 14,
-    "nonAgree": 29,
-    "inOffice": 43,
-    "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 26,
-      "invalid": 3,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": {
-        "同意": 4,
-        "不同意": 0,
-        "無效": 3,
-        "未領票": 0
-      },
-      "prosecutor": {
-        "同意": 0,
-        "不同意": 1,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec2": {
-        "同意": 0,
-        "不同意": 3,
-        "無效": 0,
-        "未領票": 0
-      }
-    },
-    "reasons": [
-      {
-        "caseId": "cec1",
-        "nominee": "胡博硯",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "黃文玲",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "陳宗義",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      }
-    ]
-  },
-  {
-    "rank": 34,
-    "name": "翁曉玲",
-    "party": "中國國民黨",
-    "agree": 14,
-    "nonAgree": 29,
-    "inOffice": 43,
-    "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 26,
-      "invalid": 3,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": {
-        "同意": 4,
-        "不同意": 0,
-        "無效": 3,
-        "未領票": 0
-      },
-      "prosecutor": {
-        "同意": 0,
-        "不同意": 1,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec2": {
-        "同意": 0,
-        "不同意": 3,
-        "無效": 0,
-        "未領票": 0
-      }
-    },
-    "reasons": [
-      {
-        "caseId": "cec1",
-        "nominee": "胡博硯",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "黃文玲",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "陳宗義",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      }
-    ]
-  },
-  {
-    "rank": 35,
-    "name": "萬美玲",
-    "party": "中國國民黨",
-    "agree": 14,
-    "nonAgree": 29,
-    "inOffice": 43,
-    "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 26,
-      "invalid": 3,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": {
-        "同意": 4,
-        "不同意": 0,
-        "無效": 3,
-        "未領票": 0
-      },
-      "prosecutor": {
-        "同意": 0,
-        "不同意": 1,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec2": {
-        "同意": 0,
-        "不同意": 3,
-        "無效": 0,
-        "未領票": 0
-      }
-    },
-    "reasons": [
-      {
-        "caseId": "cec1",
-        "nominee": "胡博硯",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "黃文玲",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "陳宗義",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      }
-    ]
-  },
-  {
-    "rank": 36,
-    "name": "葉元之",
-    "party": "中國國民黨",
-    "agree": 14,
-    "nonAgree": 29,
-    "inOffice": 43,
-    "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 26,
-      "invalid": 3,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": {
-        "同意": 4,
-        "不同意": 0,
-        "無效": 3,
-        "未領票": 0
-      },
-      "prosecutor": {
-        "同意": 0,
-        "不同意": 1,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec2": {
-        "同意": 0,
-        "不同意": 3,
-        "無效": 0,
-        "未領票": 0
-      }
-    },
-    "reasons": [
-      {
-        "caseId": "cec1",
-        "nominee": "胡博硯",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "黃文玲",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "陳宗義",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      }
-    ]
-  },
-  {
-    "rank": 37,
-    "name": "葛如鈞",
-    "party": "中國國民黨",
-    "agree": 14,
-    "nonAgree": 29,
-    "inOffice": 43,
-    "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 26,
-      "invalid": 3,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": {
-        "同意": 4,
-        "不同意": 0,
-        "無效": 3,
-        "未領票": 0
-      },
-      "prosecutor": {
-        "同意": 0,
-        "不同意": 1,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec2": {
-        "同意": 0,
-        "不同意": 3,
-        "無效": 0,
-        "未領票": 0
-      }
-    },
-    "reasons": [
-      {
-        "caseId": "cec1",
-        "nominee": "胡博硯",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "黃文玲",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "陳宗義",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      }
-    ]
-  },
-  {
-    "rank": 38,
-    "name": "蘇清泉",
-    "party": "中國國民黨",
-    "agree": 14,
-    "nonAgree": 29,
-    "inOffice": 43,
-    "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 26,
-      "invalid": 3,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": {
-        "同意": 4,
-        "不同意": 0,
-        "無效": 3,
-        "未領票": 0
-      },
-      "prosecutor": {
-        "同意": 0,
-        "不同意": 1,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec2": {
-        "同意": 0,
-        "不同意": 3,
-        "無效": 0,
-        "未領票": 0
-      }
-    },
-    "reasons": [
-      {
-        "caseId": "cec1",
-        "nominee": "胡博硯",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "黃文玲",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "陳宗義",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      }
-    ]
-  },
-  {
-    "rank": 39,
-    "name": "許宇甄",
-    "party": "中國國民黨",
-    "agree": 14,
-    "nonAgree": 29,
-    "inOffice": 43,
-    "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 26,
-      "invalid": 3,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": {
-        "同意": 4,
-        "不同意": 0,
-        "無效": 3,
-        "未領票": 0
-      },
-      "prosecutor": {
-        "同意": 0,
-        "不同意": 1,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec2": {
-        "同意": 0,
-        "不同意": 3,
-        "無效": 0,
-        "未領票": 0
-      }
-    },
-    "reasons": [
-      {
-        "caseId": "cec1",
-        "nominee": "胡博硯",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "黃文玲",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "陳宗義",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      }
-    ]
-  },
-  {
-    "rank": 40,
-    "name": "謝龍介",
-    "party": "中國國民黨",
-    "agree": 14,
-    "nonAgree": 29,
-    "inOffice": 43,
-    "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 26,
-      "invalid": 3,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": {
-        "同意": 4,
-        "不同意": 0,
-        "無效": 3,
-        "未領票": 0
-      },
-      "prosecutor": {
-        "同意": 0,
-        "不同意": 1,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec2": {
-        "同意": 0,
-        "不同意": 3,
-        "無效": 0,
-        "未領票": 0
-      }
-    },
-    "reasons": [
-      {
-        "caseId": "cec1",
-        "nominee": "胡博硯",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "黃文玲",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "陳宗義",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      }
-    ]
-  },
-  {
-    "rank": 41,
-    "name": "賴士葆",
-    "party": "中國國民黨",
-    "agree": 14,
-    "nonAgree": 29,
-    "inOffice": 43,
-    "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 26,
-      "invalid": 3,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": {
-        "同意": 4,
-        "不同意": 0,
-        "無效": 3,
-        "未領票": 0
-      },
-      "prosecutor": {
-        "同意": 0,
-        "不同意": 1,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec2": {
-        "同意": 0,
-        "不同意": 3,
-        "無效": 0,
-        "未領票": 0
-      }
-    },
-    "reasons": [
-      {
-        "caseId": "cec1",
-        "nominee": "胡博硯",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "黃文玲",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "陳宗義",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      }
-    ]
-  },
-  {
-    "rank": 42,
-    "name": "邱鎮軍",
-    "party": "中國國民黨",
-    "agree": 14,
-    "nonAgree": 29,
-    "inOffice": 43,
-    "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 26,
-      "invalid": 3,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": {
-        "同意": 4,
-        "不同意": 0,
-        "無效": 3,
-        "未領票": 0
-      },
-      "prosecutor": {
-        "同意": 0,
-        "不同意": 1,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec2": {
-        "同意": 0,
-        "不同意": 3,
-        "無效": 0,
-        "未領票": 0
-      }
-    },
-    "reasons": [
-      {
-        "caseId": "cec1",
-        "nominee": "胡博硯",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "黃文玲",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "陳宗義",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      }
-    ]
-  },
-  {
-    "rank": 43,
-    "name": "鄭天財 Sra Kacaw",
-    "party": "中國國民黨",
-    "agree": 14,
-    "nonAgree": 29,
-    "inOffice": 43,
-    "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 26,
-      "invalid": 3,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": {
-        "同意": 4,
-        "不同意": 0,
-        "無效": 3,
-        "未領票": 0
-      },
-      "prosecutor": {
-        "同意": 0,
-        "不同意": 1,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec2": {
-        "同意": 0,
-        "不同意": 3,
-        "無效": 0,
-        "未領票": 0
-      }
-    },
-    "reasons": [
-      {
-        "caseId": "cec1",
-        "nominee": "胡博硯",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "黃文玲",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "陳宗義",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      }
-    ]
-  },
-  {
-    "rank": 44,
-    "name": "鄭正鈐",
-    "party": "中國國民黨",
-    "agree": 14,
-    "nonAgree": 29,
-    "inOffice": 43,
-    "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 26,
-      "invalid": 3,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": {
-        "同意": 4,
-        "不同意": 0,
-        "無效": 3,
-        "未領票": 0
-      },
-      "prosecutor": {
-        "同意": 0,
-        "不同意": 1,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec2": {
-        "同意": 0,
-        "不同意": 3,
-        "無效": 0,
-        "未領票": 0
-      }
-    },
-    "reasons": [
-      {
-        "caseId": "cec1",
-        "nominee": "胡博硯",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "黃文玲",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "陳宗義",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      }
-    ]
-  },
-  {
-    "rank": 45,
-    "name": "陳永康",
-    "party": "中國國民黨",
-    "agree": 14,
-    "nonAgree": 29,
-    "inOffice": 43,
-    "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 26,
-      "invalid": 3,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": {
-        "同意": 4,
-        "不同意": 0,
-        "無效": 3,
-        "未領票": 0
-      },
-      "prosecutor": {
-        "同意": 0,
-        "不同意": 1,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec2": {
-        "同意": 0,
-        "不同意": 3,
-        "無效": 0,
-        "未領票": 0
-      }
-    },
-    "reasons": [
-      {
-        "caseId": "cec1",
-        "nominee": "胡博硯",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "黃文玲",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "陳宗義",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      }
-    ]
-  },
-  {
-    "rank": 46,
-    "name": "陳玉珍",
-    "party": "中國國民黨",
-    "agree": 14,
-    "nonAgree": 29,
-    "inOffice": 43,
-    "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 26,
-      "invalid": 3,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": {
-        "同意": 4,
-        "不同意": 0,
-        "無效": 3,
-        "未領票": 0
-      },
-      "prosecutor": {
-        "同意": 0,
-        "不同意": 1,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec2": {
-        "同意": 0,
-        "不同意": 3,
-        "無效": 0,
-        "未領票": 0
-      }
-    },
-    "reasons": [
-      {
-        "caseId": "cec1",
-        "nominee": "胡博硯",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "黃文玲",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "陳宗義",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      }
-    ]
-  },
-  {
-    "rank": 47,
-    "name": "陳菁徽",
-    "party": "中國國民黨",
-    "agree": 14,
-    "nonAgree": 29,
-    "inOffice": 43,
-    "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 26,
-      "invalid": 3,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": {
-        "同意": 4,
-        "不同意": 0,
-        "無效": 3,
-        "未領票": 0
-      },
-      "prosecutor": {
-        "同意": 0,
-        "不同意": 1,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec2": {
-        "同意": 0,
-        "不同意": 3,
-        "無效": 0,
-        "未領票": 0
-      }
-    },
-    "reasons": [
-      {
-        "caseId": "cec1",
-        "nominee": "胡博硯",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "黃文玲",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "陳宗義",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      }
-    ]
-  },
-  {
-    "rank": 48,
-    "name": "陳雪生",
-    "party": "中國國民黨",
-    "agree": 14,
-    "nonAgree": 29,
-    "inOffice": 43,
-    "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 26,
-      "invalid": 3,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": {
-        "同意": 4,
-        "不同意": 0,
-        "無效": 3,
-        "未領票": 0
-      },
-      "prosecutor": {
-        "同意": 0,
-        "不同意": 1,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec2": {
-        "同意": 0,
-        "不同意": 3,
-        "無效": 0,
-        "未領票": 0
-      }
-    },
-    "reasons": [
-      {
-        "caseId": "cec1",
-        "nominee": "胡博硯",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "黃文玲",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "陳宗義",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      }
-    ]
-  },
-  {
-    "rank": 49,
+    "rank": 63,
     "name": "韓國瑜",
     "party": "中國國民黨",
     "agree": 14,
@@ -5172,1255 +9621,6 @@ export const LEGISLATORS = [
     ]
   },
   {
-    "rank": 50,
-    "name": "顏寬恒",
-    "party": "中國國民黨",
-    "agree": 14,
-    "nonAgree": 29,
-    "inOffice": 43,
-    "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 26,
-      "invalid": 3,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": {
-        "同意": 4,
-        "不同意": 0,
-        "無效": 3,
-        "未領票": 0
-      },
-      "prosecutor": {
-        "同意": 0,
-        "不同意": 1,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec2": {
-        "同意": 0,
-        "不同意": 3,
-        "無效": 0,
-        "未領票": 0
-      }
-    },
-    "reasons": [
-      {
-        "caseId": "cec1",
-        "nominee": "胡博硯",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "黃文玲",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "陳宗義",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      }
-    ]
-  },
-  {
-    "rank": 51,
-    "name": "馬文君",
-    "party": "中國國民黨",
-    "agree": 14,
-    "nonAgree": 29,
-    "inOffice": 43,
-    "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 26,
-      "invalid": 3,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": {
-        "同意": 4,
-        "不同意": 0,
-        "無效": 3,
-        "未領票": 0
-      },
-      "prosecutor": {
-        "同意": 0,
-        "不同意": 1,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec2": {
-        "同意": 0,
-        "不同意": 3,
-        "無效": 0,
-        "未領票": 0
-      }
-    },
-    "reasons": [
-      {
-        "caseId": "cec1",
-        "nominee": "胡博硯",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "黃文玲",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "陳宗義",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      }
-    ]
-  },
-  {
-    "rank": 52,
-    "name": "高金素梅",
-    "party": "無黨籍",
-    "agree": 14,
-    "nonAgree": 29,
-    "inOffice": 43,
-    "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 26,
-      "invalid": 3,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": {
-        "同意": 4,
-        "不同意": 0,
-        "無效": 3,
-        "未領票": 0
-      },
-      "prosecutor": {
-        "同意": 0,
-        "不同意": 1,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec2": {
-        "同意": 0,
-        "不同意": 3,
-        "無效": 0,
-        "未領票": 0
-      }
-    },
-    "reasons": [
-      {
-        "caseId": "cec1",
-        "nominee": "胡博硯",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "黃文玲",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "陳宗義",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      }
-    ]
-  },
-  {
-    "rank": 53,
-    "name": "魯明哲",
-    "party": "中國國民黨",
-    "agree": 14,
-    "nonAgree": 29,
-    "inOffice": 43,
-    "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 26,
-      "invalid": 3,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": {
-        "同意": 4,
-        "不同意": 0,
-        "無效": 3,
-        "未領票": 0
-      },
-      "prosecutor": {
-        "同意": 0,
-        "不同意": 1,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec2": {
-        "同意": 0,
-        "不同意": 3,
-        "無效": 0,
-        "未領票": 0
-      }
-    },
-    "reasons": [
-      {
-        "caseId": "cec1",
-        "nominee": "胡博硯",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "黃文玲",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "陳宗義",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      }
-    ]
-  },
-  {
-    "rank": 54,
-    "name": "黃仁",
-    "party": "中國國民黨",
-    "agree": 14,
-    "nonAgree": 29,
-    "inOffice": 43,
-    "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 25,
-      "invalid": 4,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 1,
-        "無效": 1,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": {
-        "同意": 4,
-        "不同意": 0,
-        "無效": 3,
-        "未領票": 0
-      },
-      "prosecutor": {
-        "同意": 0,
-        "不同意": 1,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec2": {
-        "同意": 0,
-        "不同意": 3,
-        "無效": 0,
-        "未領票": 0
-      }
-    },
-    "reasons": [
-      {
-        "caseId": "examination",
-        "nominee": "柯麗鈴",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "胡博硯",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "黃文玲",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "陳宗義",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      }
-    ]
-  },
-  {
-    "rank": 55,
-    "name": "黃建賓",
-    "party": "中國國民黨",
-    "agree": 14,
-    "nonAgree": 29,
-    "inOffice": 43,
-    "index": 67.4,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 67.4,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 19,
-      "invalid": 3,
-      "notPickup": 7
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 7
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": {
-        "同意": 4,
-        "不同意": 0,
-        "無效": 3,
-        "未領票": 0
-      },
-      "prosecutor": {
-        "同意": 0,
-        "不同意": 1,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec2": {
-        "同意": 0,
-        "不同意": 3,
-        "無效": 0,
-        "未領票": 0
-      }
-    },
-    "reasons": [
-      {
-        "caseId": "justices2",
-        "nominee": "蔡秋明",
-        "behavior": "未領票",
-        "reason": "無明文事由",
-        "note": "",
-        "presumed": false
-      },
-      {
-        "caseId": "justices2",
-        "nominee": "蘇素娥",
-        "behavior": "未領票",
-        "reason": "無明文事由",
-        "note": "",
-        "presumed": false
-      },
-      {
-        "caseId": "justices2",
-        "nominee": "蕭文生",
-        "behavior": "未領票",
-        "reason": "無明文事由",
-        "note": "",
-        "presumed": false
-      },
-      {
-        "caseId": "justices2",
-        "nominee": "鄭純惠",
-        "behavior": "未領票",
-        "reason": "無明文事由",
-        "note": "",
-        "presumed": false
-      },
-      {
-        "caseId": "justices2",
-        "nominee": "林麗瑩",
-        "behavior": "未領票",
-        "reason": "無明文事由",
-        "note": "",
-        "presumed": false
-      },
-      {
-        "caseId": "justices2",
-        "nominee": "陳慈陽",
-        "behavior": "未領票",
-        "reason": "無明文事由",
-        "note": "",
-        "presumed": false
-      },
-      {
-        "caseId": "justices2",
-        "nominee": "詹鎮榮",
-        "behavior": "未領票",
-        "reason": "無明文事由",
-        "note": "",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "胡博硯",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "黃文玲",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "陳宗義",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      }
-    ]
-  },
-  {
-    "rank": 56,
-    "name": "張啓楷",
-    "party": "台灣民眾黨",
-    "agree": 11,
-    "nonAgree": 21,
-    "inOffice": 32,
-    "index": 65.6,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 65.6,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 21,
-      "invalid": 0,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 1,
-        "不同意": 6,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": null,
-      "prosecutor": null,
-      "cec2": null
-    },
-    "reasons": []
-  },
-  {
-    "rank": 57,
-    "name": "林國成",
-    "party": "台灣民眾黨",
-    "agree": 11,
-    "nonAgree": 21,
-    "inOffice": 32,
-    "index": 65.6,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 65.6,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 21,
-      "invalid": 0,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 1,
-        "不同意": 6,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": null,
-      "prosecutor": null,
-      "cec2": null
-    },
-    "reasons": []
-  },
-  {
-    "rank": 58,
-    "name": "林憶君",
-    "party": "台灣民眾黨",
-    "agree": 11,
-    "nonAgree": 21,
-    "inOffice": 32,
-    "index": 65.6,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 65.6,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 17,
-      "invalid": 0,
-      "notPickup": 4
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 1,
-        "不同意": 6,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 4
-      },
-      "cec1": null,
-      "prosecutor": null,
-      "cec2": null
-    },
-    "reasons": [
-      {
-        "caseId": "ncc",
-        "nominee": "蔣榮先",
-        "behavior": "未領票",
-        "reason": "無明文事由",
-        "note": "",
-        "presumed": false
-      },
-      {
-        "caseId": "ncc",
-        "nominee": "程明修",
-        "behavior": "未領票",
-        "reason": "無明文事由",
-        "note": "",
-        "presumed": false
-      },
-      {
-        "caseId": "ncc",
-        "nominee": "黃葳威",
-        "behavior": "未領票",
-        "reason": "無明文事由",
-        "note": "",
-        "presumed": false
-      },
-      {
-        "caseId": "ncc",
-        "nominee": "羅慧雯",
-        "behavior": "未領票",
-        "reason": "無明文事由",
-        "note": "",
-        "presumed": false
-      }
-    ]
-  },
-  {
-    "rank": 59,
-    "name": "麥玉珍",
-    "party": "台灣民眾黨",
-    "agree": 11,
-    "nonAgree": 21,
-    "inOffice": 32,
-    "index": 65.6,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 65.6,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 21,
-      "invalid": 0,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 1,
-        "不同意": 6,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": null,
-      "prosecutor": null,
-      "cec2": null
-    },
-    "reasons": []
-  },
-  {
-    "rank": 60,
-    "name": "黃國昌",
-    "party": "台灣民眾黨",
-    "agree": 11,
-    "nonAgree": 21,
-    "inOffice": 32,
-    "index": 65.6,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 65.6,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 21,
-      "invalid": 0,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 1,
-        "不同意": 6,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": null,
-      "prosecutor": null,
-      "cec2": null
-    },
-    "reasons": []
-  },
-  {
-    "rank": 61,
-    "name": "黃珊珊",
-    "party": "台灣民眾黨",
-    "agree": 11,
-    "nonAgree": 21,
-    "inOffice": 32,
-    "index": 65.6,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 65.6,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 20,
-      "invalid": 1,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 1,
-        "無效": 1,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 1,
-        "不同意": 6,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": null,
-      "prosecutor": null,
-      "cec2": null
-    },
-    "reasons": [
-      {
-        "caseId": "examination",
-        "nominee": "柯麗鈴",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "",
-        "presumed": false
-      }
-    ]
-  },
-  {
-    "rank": 62,
-    "name": "陳昭姿",
-    "party": "台灣民眾黨",
-    "agree": 15,
-    "nonAgree": 28,
-    "inOffice": 43,
-    "index": 65.1,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 65.1,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 28,
-      "invalid": 0,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 1,
-        "不同意": 6,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 2,
-        "不同意": 2,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": {
-        "同意": 4,
-        "不同意": 3,
-        "無效": 0,
-        "未領票": 0
-      },
-      "prosecutor": {
-        "同意": 0,
-        "不同意": 1,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec2": {
-        "同意": 0,
-        "不同意": 3,
-        "無效": 0,
-        "未領票": 0
-      }
-    },
-    "reasons": []
-  },
-  {
-    "rank": 63,
-    "name": "陳超明",
-    "party": "無黨籍",
-    "agree": 15,
-    "nonAgree": 28,
-    "inOffice": 43,
-    "index": 65.1,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 65.1,
-    "paralyzing": true,
-    "breakdown": {
-      "disagree": 24,
-      "invalid": 4,
-      "notPickup": 0
-    },
-    "perCase": {
-      "examination": {
-        "同意": 7,
-        "不同意": 1,
-        "無效": 1,
-        "未領票": 0
-      },
-      "justices1": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ftc": {
-        "同意": 3,
-        "不同意": 1,
-        "無效": 0,
-        "未領票": 0
-      },
-      "justices2": {
-        "同意": 0,
-        "不同意": 7,
-        "無效": 0,
-        "未領票": 0
-      },
-      "auditor": {
-        "同意": 1,
-        "不同意": 0,
-        "無效": 0,
-        "未領票": 0
-      },
-      "ncc": {
-        "同意": 0,
-        "不同意": 4,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec1": {
-        "同意": 4,
-        "不同意": 0,
-        "無效": 3,
-        "未領票": 0
-      },
-      "prosecutor": {
-        "同意": 0,
-        "不同意": 1,
-        "無效": 0,
-        "未領票": 0
-      },
-      "cec2": {
-        "同意": 0,
-        "不同意": 3,
-        "無效": 0,
-        "未領票": 0
-      }
-    },
-    "reasons": [
-      {
-        "caseId": "examination",
-        "nominee": "柯麗鈴",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "胡博硯",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "黃文玲",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      },
-      {
-        "caseId": "cec1",
-        "nominee": "陳宗義",
-        "behavior": "無效票",
-        "reason": "無明文事由",
-        "note": "該案無效票共53人157格：國民黨50人於胡博硯/陳宗義/黃文玲三案全投無效（該黨另有張嘉郡三案均投不同意、謝衣鳯全案未領票）＋無黨籍陳超明、高金素梅三案全投無效＋民眾黨蔡春綢僅黃文玲案投無效（另兩案投不同意）；民眾黨其餘7名領票者三案均投不同意（分工型否決：國投無效、眾投不同意）",
-        "presumed": false
-      }
-    ]
-  },
-  {
     "rank": 64,
     "name": "洪毓祥",
     "party": "台灣民眾黨",
@@ -6428,9 +9628,16 @@ export const LEGISLATORS = [
     "nonAgree": 7,
     "inOffice": 11,
     "index": 63.6,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 63.6,
+    "billRoles": [
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216960000/details"
+      }
+    ],
+    "billBonus": 2,
+    "weightedIndex": 65.6,
     "paralyzing": true,
     "breakdown": {
       "disagree": 7,
@@ -6473,9 +9680,16 @@ export const LEGISLATORS = [
     "nonAgree": 7,
     "inOffice": 11,
     "index": 63.6,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 63.6,
+    "billRoles": [
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216960000/details"
+      }
+    ],
+    "billBonus": 2,
+    "weightedIndex": 65.6,
     "paralyzing": true,
     "breakdown": {
       "disagree": 7,
@@ -6518,9 +9732,16 @@ export const LEGISLATORS = [
     "nonAgree": 7,
     "inOffice": 11,
     "index": 63.6,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 63.6,
+    "billRoles": [
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216960000/details"
+      }
+    ],
+    "billBonus": 2,
+    "weightedIndex": 65.6,
     "paralyzing": true,
     "breakdown": {
       "disagree": 6,
@@ -6572,9 +9793,16 @@ export const LEGISLATORS = [
     "nonAgree": 7,
     "inOffice": 11,
     "index": 63.6,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 63.6,
+    "billRoles": [
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216960000/details"
+      }
+    ],
+    "billBonus": 2,
+    "weightedIndex": 65.6,
     "paralyzing": true,
     "breakdown": {
       "disagree": 7,
@@ -6617,9 +9845,16 @@ export const LEGISLATORS = [
     "nonAgree": 7,
     "inOffice": 11,
     "index": 63.6,
-    "billRoles": [],
-    "billBonus": 0,
-    "weightedIndex": 63.6,
+    "billRoles": [
+      {
+        "bill": "法院組織法第六十六條條文修正草案",
+        "role": "提案人",
+        "points": 2,
+        "source": "https://ppg.ly.gov.tw/ppg/bills/202110216960000/details"
+      }
+    ],
+    "billBonus": 2,
+    "weightedIndex": 65.6,
     "paralyzing": true,
     "breakdown": {
       "disagree": 7,
@@ -6700,7 +9935,7 @@ export const LEGISLATORS = [
     "reasons": []
   },
   {
-    "rank": null,
+    "rank": 70,
     "name": "李貞秀",
     "party": "台灣民眾黨",
     "agree": 4,
@@ -6710,7 +9945,7 @@ export const LEGISLATORS = [
     "billRoles": [],
     "billBonus": 0,
     "weightedIndex": 42.9,
-    "paralyzing": false,
+    "paralyzing": true,
     "breakdown": {
       "disagree": 3,
       "invalid": 0,

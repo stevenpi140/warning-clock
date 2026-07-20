@@ -149,9 +149,19 @@ function LegislatorDetail({ legislator }) {
                 <span className="lb-bills__bill">{br.bill}</span>
                 <span className="lb-bills__role">{br.role}</span>
                 <span className="lb-bills__points data">+{br.points}</span>
-                {br.source && (
-                  <span className="lb-bills__source">{br.source}</span>
-                )}
+                {br.source &&
+                  (br.source.startsWith("http") ? (
+                    <a
+                      className="lb-bills__source"
+                      href={br.source}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      議案連結
+                    </a>
+                  ) : (
+                    <span className="lb-bills__source">{br.source}</span>
+                  ))}
               </li>
             ))}
           </ul>
@@ -283,8 +293,9 @@ export default function LegislatorScoreboard() {
           依《立法院職權行使法》第 29
           條，人事同意權案以「超過全體立法委員二分之一之同意」為通過；
           統計並列同意票次數與非同意票次數（不同意、無效、未領票效果相同），無效票／未領票逐格詳列客觀事由。
-          癱瘓政府指數＝非同意票次數 ÷ 在任期間人事同意權總投票次數 ×
-          100；指數未達 {PARALYSIS_THRESHOLD} 分者不列為癱瘓。
+          癱瘓政府指數＝非同意票次數 ÷ 該委員在任期間人事同意權總投票次數 ×
+          100；未達 {PARALYSIS_THRESHOLD}{" "}
+          分者（比照美國異黨政府時期對大法官同意權行使狀況，考慮國會對行政部門提名人選之合理監督）不列入癱瘓指數。
         </p>
       </div>
 
@@ -337,7 +348,7 @@ export default function LegislatorScoreboard() {
           ))}
           {visibleBelow.length > 0 && (
             <div className="lb-threshold" role="presentation">
-              以下癱瘓政府指數未達 {PARALYSIS_THRESHOLD} 分，不列為癱瘓
+              以下癱瘓政府指數未達 {PARALYSIS_THRESHOLD} 分，不列入癱瘓指數
             </div>
           )}
           {visibleBelow.map((l) => (

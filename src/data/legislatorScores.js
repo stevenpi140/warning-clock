@@ -1,16 +1,20 @@
 // 本檔由 build_legislator_data.py 自動產生，勿手動編輯。
 // 資料來源與口徑見 SCORE_META；上游 CSV 於 07.04 同意否決/（唯讀）。
+// 2026-07-27 手動覆核：cec2（2026-07-03 中選會二輪）原為新聞加總推定值，
+// 已依立法院公報第 115 卷第 54 期院會紀錄逐格唱票核對，113 人逐格完全一致，
+// dataStatus 改 official、reasons 的 presumed 全數改 false。重跑 build script 時請一併帶入。
 
 export const SCORE_META = {
-  "updatedAt": "2026年7月20日",
+  "updatedAt": "2026年7月27日",
   "legalBasis": "《立法院職權行使法》第 29 條：人事同意權案交付審查後提出院會以記名投票表決，經超過全體立法委員二分之一之同意為通過。因此不同意票、無效票、未領票（不投票、不出席）對同意權行使的癱瘓效果相同。",
   "methodology": "統計僅區分同意票與非同意票；對每一筆無效票、未領票，詳列可考據的客觀事由（議事錄明文記載、公開自述），不推斷立委主觀動機。",
   "indexNote": "癱瘓政府指數＝非同意票次數 ÷ 該委員在任期間人事同意權總投票次數 × 100（0-100 分）。指數未達 40 分者（比照美國異黨政府時期對大法官同意權行使狀況，考慮國會對行政部門提名人選之合理監督），不列入癱瘓指數。",
   "weightNote": "癱瘓政府指數加權＝癱瘓政府指數＋法案角色加分：加速政府癱瘓法案之提案人 +2、連署人 +1、三讀表決同意 +1，逐案累加（黨團提案以該黨團全體黨籍委員列提案人計點；三讀為舉手表決而議事錄無記名者，不計表決點數）。各立委計點法案與角色見展開明細。",
-  "dataCaveat": "2026-07-03 中選會二輪為新聞加總推定值，待立法院公報刊出後覆核。",
+  "dataCaveat": "",
   "sources": [
     "立法院議事錄／公報院會紀錄（各案唱票逐字稿）",
-    "考試院、司法院、公平交易委員會、審計部、國家通訊傳播委員會、中央選舉委員會、最高檢察署等機關人事同意權案公告"
+    "考試院、司法院、公平交易委員會、審計部、國家通訊傳播委員會、中央選舉委員會、最高檢察署等機關人事同意權案公告",
+    "立法院公報第 115 卷第 54 期院會紀錄（2026-07-03 中選會人事同意權案逐格唱票與表決結果）"
   ]
 };
 
@@ -87,7 +91,7 @@ export const CASES = [
     "org": "中選會（二輪）",
     "nomineeCount": 3,
     "passed": false,
-    "dataStatus": "presumed"
+    "dataStatus": "official"
   }
 ];
 
@@ -5086,7 +5090,7 @@ export const LEGISLATORS = [
         "behavior": "無效票",
         "reason": "無明文事由",
         "note": "",
-        "presumed": true
+        "presumed": false
       }
     ]
   },
@@ -9600,7 +9604,7 @@ export const LEGISLATORS = [
         "behavior": "未領票",
         "reason": "無明文事由",
         "note": "本屆9案中7案照常投票，僅大法官二輪、中選會二輪共2案全案未領票",
-        "presumed": true
+        "presumed": false
       },
       {
         "caseId": "cec2",
@@ -9608,7 +9612,7 @@ export const LEGISLATORS = [
         "behavior": "未領票",
         "reason": "無明文事由",
         "note": "本屆9案中7案照常投票，僅大法官二輪、中選會二輪共2案全案未領票",
-        "presumed": true
+        "presumed": false
       },
       {
         "caseId": "cec2",
@@ -9616,7 +9620,7 @@ export const LEGISLATORS = [
         "behavior": "未領票",
         "reason": "無明文事由",
         "note": "本屆9案中7案照常投票，僅大法官二輪、中選會二輪共2案全案未領票",
-        "presumed": true
+        "presumed": false
       }
     ]
   },
@@ -10157,7 +10161,7 @@ export const LEGISLATORS = [
         "behavior": "未領票",
         "reason": "無明文事由",
         "note": "",
-        "presumed": true
+        "presumed": false
       },
       {
         "caseId": "cec2",
@@ -10165,7 +10169,7 @@ export const LEGISLATORS = [
         "behavior": "未領票",
         "reason": "無明文事由",
         "note": "",
-        "presumed": true
+        "presumed": false
       },
       {
         "caseId": "cec2",
@@ -10173,7 +10177,7 @@ export const LEGISLATORS = [
         "behavior": "未領票",
         "reason": "無明文事由",
         "note": "",
-        "presumed": true
+        "presumed": false
       }
     ]
   },

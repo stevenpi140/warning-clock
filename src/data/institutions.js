@@ -177,7 +177,7 @@ const institutions = [
       "Six commissioners’ terms expired on 3 Nov 2025, leaving only four and stalling the Commission for about six months. On 13 Mar 2026 the Legislature confirmed four nominees but rejected three; after delayed appointments, chair Yu Ying-lung took office on 27 Apr and convened the first commission meeting on 15 May, restoring operations. The current eight members sit below the statutory minimum of nine, yet meet the quorum counted on current membership. A follow-up slate of three nominees was rejected wholesale on 3 Jul 2026, leaving the vacancies unfilled; the real test comes when four more terms expire on 3 Nov 2027.",
     actions: [
       "部分否決提名（迄今唯一一次）：行政院提名 7 人，立法院於 2026/3/13 僅通過游盈隆、李禮仲、蘇嘉宏、蘇子喬 4 人，否決副主委被提名人胡博硯及委員黃文玲、陳宗義 3 人；行政院批藍白未守協商誠信，致中選會委員缺額、副主委至今從缺。",
-      "再度全數否決補提名：行政院 2026/4/21 補提名沈淑妃、蔡維哲、黃謀信 3 人，立法院 7/3 記名投票全數封殺（沈淑妃 50 同意:60 不同意:1 無效、蔡維哲 50:61、黃謀信 50:61），民進黨全數同意、國民黨與民眾黨全數不同意，委員缺額與副主委從缺持續無解。",
+      "再度全數否決補提名：行政院 2026/4/21 補提名沈淑妃、蔡維哲、黃謀信 3 人，立法院 7/3 記名投票全數封殺（沈淑妃 50 同意:60 不同意:1 無效、蔡維哲 50:61、黃謀信 50:61）；民進黨籍委員除林宜瑾未領票外全數投同意，國民黨籍除盧縣一於沈淑妃案投無效票、院長韓國瑜未領票外全數投不同意，民眾黨與無黨籍全數投不同意，委員缺額與副主委從缺持續無解。",
     ],
     impact: [
       "2025/11/3 起至 2026/5/15 復會前約半年無法召開委員會議與作成決議，曾影響選務、公投及罷免等法定事項之推進。",
@@ -238,6 +238,11 @@ const institutions = [
         label:
           "中央社：中選會人事同意權案 沈淑妃、蔡維哲、黃謀信遭立院否決（2026/7/3）",
         url: "https://www.cna.com.tw/news/aipl/202607030165.aspx",
+      },
+      {
+        label:
+          "立法院公報第 115 卷第 54 期院會紀錄：中選會人事同意權案逐格唱票、發票報告書與表決結果（2026/7/3）",
+        url: "https://ppg.ly.gov.tw/ppg/download/communique1/final/pdf/115/54/LCIDC01_1155401_00004.pdf",
       },
     ],
   },

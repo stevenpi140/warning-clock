@@ -408,10 +408,12 @@ export default function LegislatorScoreboard() {
             <strong>加權規則：</strong>
             {SCORE_META.weightNote}
           </p>
-          <p className="lb-methodology__text lb-methodology__caveat">
-            <strong>資料說明：</strong>
-            {SCORE_META.dataCaveat}
-          </p>
+          {SCORE_META.dataCaveat && (
+            <p className="lb-methodology__text lb-methodology__caveat">
+              <strong>資料說明：</strong>
+              {SCORE_META.dataCaveat}
+            </p>
+          )}
           <ul className="lb-methodology__sources">
             {SCORE_META.sources.map((s, i) => (
               <li key={i}>{s}</li>

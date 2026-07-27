@@ -1204,7 +1204,7 @@ body {
   letter-spacing: 0.15em;
 }
 
-/* === LEGISLATOR SCOREBOARD（個別立委癱瘓貢獻度） === */
+/* === LEGISLATOR SCOREBOARD（惡意癱瘓指數排名表） === */
 .lb-scoreboard {
   max-width: 1100px;
   margin: 0 auto 3rem;

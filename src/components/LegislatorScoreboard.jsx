@@ -5,6 +5,7 @@ import {
   CASES,
   LEGISLATORS,
 } from "../data/legislatorScores";
+import { billDisplay } from "../data/billSummaries";
 
 // 政黨顯示順序（全部 + 4 黨籍，依實際資料值）；縮寫章與 tab 色點使用各政黨代表色
 const PARTY_ORDER = ["中國國民黨", "民主進步黨", "台灣民眾黨", "無黨籍"];
@@ -144,26 +145,37 @@ function LegislatorDetail({ legislator }) {
             加速政府癱瘓法案角色（加權 +{legislator.billBonus}）
           </h4>
           <ul className="lb-bills__list">
-            {legislator.billRoles.map((br, i) => (
-              <li className="lb-bills__item" key={i}>
-                <span className="lb-bills__bill">{br.bill}</span>
-                <span className="lb-bills__role">{br.role}</span>
-                <span className="lb-bills__points data">+{br.points}</span>
-                {br.source &&
-                  (br.source.startsWith("http") ? (
-                    <a
-                      className="lb-bills__source"
-                      href={br.source}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      議案連結
-                    </a>
-                  ) : (
-                    <span className="lb-bills__source">{br.source}</span>
-                  ))}
-              </li>
-            ))}
+            {legislator.billRoles.map((br, i) => {
+              // 顯示一句話摘要；法案全名與提案編號藏在 title 提示與議案連結
+              const { billNo, summary, fullTitle } = billDisplay(br);
+              return (
+                <li className="lb-bills__item" key={i} title={fullTitle}>
+                  <span className="lb-bills__bill">{summary}</span>
+                  <span className="lb-bills__role">{br.role}</span>
+                  <span className="lb-bills__points data">+{br.points}</span>
+                  {br.source &&
+                    (br.source.startsWith("http") ? (
+                      <a
+                        className="lb-bills__source"
+                        href={br.source}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label={`查看議案：${fullTitle}`}
+                      >
+                        {billNo ? (
+                          <>
+                            議案 <span className="data">{billNo}</span>
+                          </>
+                        ) : (
+                          "議案連結"
+                        )}
+                      </a>
+                    ) : (
+                      <span className="lb-bills__source">{br.source}</span>
+                    ))}
+                </li>
+              );
+            })}
           </ul>
         </div>
       )}
@@ -285,10 +297,10 @@ export default function LegislatorScoreboard() {
     <section
       className="lb-scoreboard"
       id="legislator-scoreboard"
-      aria-label="個別立委癱瘓貢獻度"
+      aria-label="惡意癱瘓指數排名表"
     >
       <div className="lb-scoreboard__head">
-        <h2 className="lb-scoreboard__title">個別立委癱瘓貢獻度</h2>
+        <h2 className="lb-scoreboard__title">惡意癱瘓指數排名表</h2>
         <p className="lb-scoreboard__subtitle">
           依《立法院職權行使法》第 29
           條，人事同意權案以「超過全體立法委員二分之一之同意」為通過；
@@ -326,7 +338,7 @@ export default function LegislatorScoreboard() {
         ))}
       </div>
 
-      <div className="lb-table" role="table" aria-label="立委癱瘓貢獻度排行">
+      <div className="lb-table" role="table" aria-label="立委惡意癱瘓指數排行">
         <div className="lb-table__header" role="row">
           <span>排名</span>
           <span>立委</span>

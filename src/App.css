@@ -1454,55 +1454,106 @@ body {
   animation: detail-enter 0.3s ease-out;
 }
 
-.lb-detail__cases {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+/* 同意權行使具體細節：一案一列（左為案由日期＋公報出處，右依行為分群列出被提名人） */
+.lb-consent {
   margin-bottom: 1rem;
 }
 
-.lb-case-chip {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  padding: 0.45rem 0.7rem;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-subtle);
-  min-width: 8.5em;
+.lb-consent__case {
+  display: grid;
+  grid-template-columns: 12.5rem 1fr;
+  gap: 0.9rem;
+  padding: 0.55rem 0;
+  border-top: 1px solid var(--border-subtle);
 }
 
-.lb-case-chip--absent {
-  background: repeating-linear-gradient(
-    135deg,
-    var(--bg-secondary),
-    var(--bg-secondary) 6px,
-    var(--border-subtle) 6px,
-    var(--border-subtle) 12px
-  );
-  opacity: 0.6;
+.lb-consent__case:first-of-type {
+  border-top: none;
 }
 
-.lb-case-chip__org {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.74rem;
-  font-weight: 700;
-  color: var(--text-secondary);
-  letter-spacing: 0.04em;
-}
-
-.lb-case-chip__dist {
+/* 機關名獨占一行，日期與公報出處併作第二行，左欄高度貼近右欄 */
+.lb-consent__id {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  font-size: 0.74rem;
+  align-items: baseline;
+  column-gap: 0.55rem;
+  row-gap: 0.1rem;
+  min-width: 0;
+  align-content: flex-start;
+}
+
+.lb-consent__org {
+  flex-basis: 100%;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.lb-consent__date {
+  font-size: 0.68rem;
   color: var(--text-muted);
 }
 
-.lb-case-chip__vote {
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
+.lb-consent__source {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.lb-consent__source:hover {
+  color: var(--text-secondary);
+  border-color: var(--text-muted);
+}
+
+.lb-consent__rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.lb-consent__row {
+  display: grid;
+  grid-template-columns: 5.6rem 1fr;
+  gap: 0.7rem;
+  align-items: baseline;
+}
+
+.lb-consent__behavior {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--tone);
+  border-left: 3px solid var(--tone);
+  padding-left: 0.45rem;
+}
+
+.lb-consent__count {
+  font-size: 0.68rem;
+  font-weight: 400;
+  opacity: 0.75;
+}
+
+.lb-consent__names {
+  font-size: 0.82rem;
+  color: var(--text-primary);
+  word-break: break-word;
+}
+
+.lb-consent__case--absent .lb-consent__org,
+.lb-consent__case--absent .lb-consent__date {
+  color: var(--text-muted);
+}
+
+.lb-consent__absent {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
 }
 
 .lb-badge {
@@ -1560,64 +1611,12 @@ body {
   font-size: 0.74rem;
 }
 
-.lb-reasons {
-  border-top: 1px solid var(--border-subtle);
-  padding-top: 1rem;
-}
-
-.lb-reasons__head {
+.lb-detail__head {
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   color: var(--text-secondary);
   margin-bottom: 0.7rem;
-}
-
-.lb-reasons__list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.9rem;
-}
-
-.lb-reasons__item {
-  padding-left: 1rem;
-  border-left: 2px solid var(--border);
-}
-
-.lb-reasons__meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.6rem;
-  margin-bottom: 0.35rem;
-  font-size: 0.76rem;
-}
-
-.lb-reasons__case {
-  font-weight: 700;
-  color: var(--text-primary);
-}
-
-.lb-reasons__nominee {
-  color: var(--text-muted);
-}
-
-.lb-reasons__behavior {
-  font-weight: 700;
-}
-
-.lb-reasons__reason {
-  font-size: 0.84rem;
-  color: var(--text-secondary);
-  line-height: 1.75;
-}
-
-.lb-reasons__note {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  line-height: 1.75;
-  margin-top: 0.3rem;
 }
 
 .lb-showmore {
@@ -1731,9 +1730,26 @@ body {
     padding-right: 2rem;
   }
 
-  .lb-case-chip {
-    min-width: 40%;
-    flex: 1 1 40%;
+  .lb-consent__case {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+
+  .lb-consent__id {
+    column-gap: 0.5rem;
+  }
+
+  .lb-consent__org {
+    flex-basis: auto;
+  }
+
+  .lb-consent__row {
+    grid-template-columns: 1fr;
+    gap: 0.15rem;
+  }
+
+  .lb-consent__behavior {
+    justify-self: start;
   }
 }
 

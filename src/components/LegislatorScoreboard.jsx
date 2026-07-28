@@ -38,9 +38,6 @@ const VOTE_TONE = {
   未領票: "var(--text-muted)",
 };
 
-const CASE_BY_ID = Object.fromEntries(CASES.map((c) => [c.id, c]));
-const RANK_OF_CASE = Object.fromEntries(CASES.map((c, i) => [c.id, i]));
-
 const PAGE_SIZE = 20;
 
 function IndexBar({ legislator }) {
@@ -83,65 +80,79 @@ function PartyBadge({ party }) {
   );
 }
 
-function CaseChip({ caseInfo, perCase }) {
-  if (!perCase) {
+// 一案一列：左為案由與日期，右為該委員對每位被提名人的行使結果。
+// 同案同行為的被提名人併為一列（避免七位被提名人重複七次同一個行為標籤），
+// 行使分歧的案子因此自然多出幾列，一眼可辨。
+function CaseRow({ caseInfo, votes }) {
+  if (!votes) {
     return (
-      <div className="lb-case-chip lb-case-chip--absent">
-        <span className="lb-case-chip__org">{caseInfo.org}</span>
-        <span className="lb-case-chip__dist">不在任</span>
+      <div className="lb-consent__case lb-consent__case--absent">
+        <div className="lb-consent__id">
+          <span className="lb-consent__org">{caseInfo.org}</span>
+          <span className="lb-consent__date data">{caseInfo.date}</span>
+        </div>
+        <div className="lb-consent__rows">
+          <span className="lb-consent__absent">不在任</span>
+        </div>
       </div>
     );
   }
 
-  const parts = VOTE_KEYS.filter((k) => perCase[k] > 0);
+  const groups = VOTE_KEYS.map((behavior) => ({
+    behavior,
+    names: caseInfo.nominees.filter((_, i) => votes[i] === behavior),
+  })).filter((g) => g.names.length > 0);
+
+  const { gazette } = caseInfo;
 
   return (
-    <div className="lb-case-chip">
-      <span className="lb-case-chip__org">
-        {caseInfo.org}
-        {caseInfo.dataStatus === "presumed" && (
-          <span className="lb-badge lb-badge--presumed" title="待公報覆核">
-            推定
-          </span>
+    <div className="lb-consent__case">
+      <div className="lb-consent__id">
+        <span className="lb-consent__org">{caseInfo.org}</span>
+        <span className="lb-consent__date data">{caseInfo.date}</span>
+        {gazette && (
+          <a
+            className="lb-consent__source"
+            href={gazette.url}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={`${caseInfo.org}人事同意權案立法院公報唱票紀錄`}
+          >
+            公報 <span className="data">p.{gazette.pages}</span>
+          </a>
         )}
-      </span>
-      <span className="lb-case-chip__dist">
-        {parts.length === 0
-          ? "—"
-          : parts.map((k) => (
-              <span
-                key={k}
-                className="lb-case-chip__vote"
-                style={{ color: VOTE_TONE[k] }}
-              >
-                {k}×{perCase[k]}
-              </span>
-            ))}
-      </span>
+      </div>
+      <div className="lb-consent__rows">
+        {groups.map((g) => (
+          <div className="lb-consent__row" key={g.behavior}>
+            <span
+              className="lb-consent__behavior"
+              style={{ "--tone": VOTE_TONE[g.behavior] }}
+            >
+              {g.behavior}
+              <span className="lb-consent__count data">{g.names.length}</span>
+            </span>
+            <span className="lb-consent__names">{g.names.join("、")}</span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
 
 function LegislatorDetail({ legislator }) {
-  const sortedReasons = [...legislator.reasons].sort(
-    (a, b) => (RANK_OF_CASE[a.caseId] ?? 0) - (RANK_OF_CASE[b.caseId] ?? 0),
-  );
-
   return (
     <div className="lb-detail">
-      <div className="lb-detail__cases">
+      <div className="lb-consent">
+        <h4 className="lb-detail__head">同意權行使具體細節</h4>
         {CASES.map((c) => (
-          <CaseChip
-            key={c.id}
-            caseInfo={c}
-            perCase={legislator.perCase[c.id]}
-          />
+          <CaseRow key={c.id} caseInfo={c} votes={legislator.votes[c.id]} />
         ))}
       </div>
 
       {legislator.billRoles.length > 0 && (
         <div className="lb-bills">
-          <h4 className="lb-reasons__head">
+          <h4 className="lb-detail__head">
             加速政府癱瘓法案角色（加權 +{legislator.billBonus}）
           </h4>
           <ul className="lb-bills__list">
@@ -176,45 +187,6 @@ function LegislatorDetail({ legislator }) {
                 </li>
               );
             })}
-          </ul>
-        </div>
-      )}
-
-      {sortedReasons.length > 0 && (
-        <div className="lb-reasons">
-          <h4 className="lb-reasons__head">無效票／未領票客觀事由</h4>
-          <ul className="lb-reasons__list">
-            {sortedReasons.map((r, i) => (
-              <li className="lb-reasons__item" key={i}>
-                <div className="lb-reasons__meta">
-                  <span className="lb-reasons__case">
-                    {CASE_BY_ID[r.caseId]?.org || r.caseId}
-                  </span>
-                  <span className="lb-reasons__nominee">
-                    被提名人：{r.nominee}
-                  </span>
-                  <span
-                    className="lb-reasons__behavior"
-                    style={{
-                      color:
-                        VOTE_TONE[r.behavior === "無效票" ? "無效" : "未領票"],
-                    }}
-                  >
-                    {r.behavior}
-                  </span>
-                  {r.presumed && (
-                    <span
-                      className="lb-badge lb-badge--presumed"
-                      title="待公報覆核"
-                    >
-                      待公報覆核
-                    </span>
-                  )}
-                </div>
-                <p className="lb-reasons__reason">客觀事由：{r.reason}</p>
-                {r.note && <p className="lb-reasons__note">{r.note}</p>}
-              </li>
-            ))}
           </ul>
         </div>
       )}
@@ -304,7 +276,7 @@ export default function LegislatorScoreboard() {
         <p className="lb-scoreboard__subtitle">
           依《立法院職權行使法》第 29
           條，人事同意權案以「超過全體立法委員二分之一之同意」為通過；
-          統計並列同意票次數與非同意票次數（不同意、無效、未領票效果相同），無效票／未領票逐格詳列客觀事由。
+          統計並列同意票次數與非同意票次數（不同意、無效、未領票效果相同），展開後依立法院公報唱票紀錄逐格列出每位被提名人的行使結果。
           癱瘓政府指數＝非同意票次數 ÷ 該委員在任期間人事同意權總投票次數 ×
           100；未達 {PARALYSIS_THRESHOLD}{" "}
           分者（比照美國異黨政府時期對大法官同意權行使狀況，考慮國會對行政部門提名人選之合理監督）不列入癱瘓指數。

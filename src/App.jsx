@@ -17,7 +17,7 @@ function FlapClock({ startDate }) {
 
   return (
     <div className="debt-clock">
-      <div className="debt-clock__title">憲政機關停擺</div>
+      <div className="debt-clock__title">國家機關（構）停擺</div>
       <div className="debt-clock__caption">
         <span className="debt-clock__rule" aria-hidden="true" />
         已持續
@@ -32,7 +32,7 @@ function FlapClock({ startDate }) {
       </div>
 
       <p className="sr-only" aria-live="polite">
-        憲政機關已停擺 {days} 天
+        國家機關（構）已停擺 {days} 天
       </p>
 
       <div className="debt-clock__accrual" aria-hidden="true">
@@ -73,7 +73,7 @@ export default function App() {
           <FlapClock startDate={PARALYSIS_START} />
         </div>
         <p className="header__desc">
-          鄭麗文傅崐萁集團透過杯葛人事同意權、惡修法令、刪減預算、拖延議程等手段，逐一癱瘓國家重要憲政機關。
+          鄭麗文傅崐萁集團透過杯葛人事同意權、惡修法令、刪減預算、拖延議程等手段，逐一癱瘓重要的國家機關（構）。
           <br />
           以下記錄自 2024 年以來已經、曾經或即將被癱瘓的政府機關與機構。
         </p>

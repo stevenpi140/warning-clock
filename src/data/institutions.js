@@ -1,9 +1,9 @@
-// 「憲政機關停擺」起算日：2024/05/28 16:41《立法院職權行使法》修正草案三讀通過之時點（國會擴權法案）。
+// 「國家機關（構）停擺」起算日：2024/05/28 16:41《立法院職權行使法》修正草案三讀通過之時點（國會擴權法案）。
 // 依立法院公報第 113 卷第 47 期、第 11 屆第 1 會期第 15 次會議紀錄，全案於當日下午 4 時 41 分三讀通過，傅崐萁等 31 人隨即提復議。
 const PARALYSIS_START = "2024-05-28T16:41:00+08:00";
 
 // 資料實際校準日（footer「最後更新」顯示用）：每次更新 src/data/ 內容時手動改這裡。
-const DATA_UPDATED = "2026年7月6日";
+const DATA_UPDATED = "2026年7月28日";
 
 // 狀態 → 色調對應（呈現層 InstitutionCard.STATUS_COLORS 同步登錄；新增狀態須兩處一致）
 //  paralyzed 已癱瘓 / partial 部分停擺 / atRisk 尚未但可能癱瘓 / overdue 逾期違憲 / former 曾癱瘓已恢復
@@ -82,7 +82,7 @@ const institutions = [
     ],
     impact: [
       "預算遭刪後監察院僅能勉力維持運作，對基本公務運作、職權行使、民眾權益及公共利益構成嚴重妨礙。",
-      "監察院每月收受人民陳情書狀逾千件，依我國現行權力分立制度，監察院仍有不可取代之功能，若真要討論廢除監察院，應啟動修憲程序，並規劃監察院職權分配之具體方案及期程，而不是封殺人及預算，癱瘓監察院卻不討論組織重整，致監察院無法發揮關鍵職權。",
+      "監察院每月收受人民陳情書狀逾千件，依我國現行權力分立制度，監察院仍有不可取代之功能，若真要討論廢除監察院，應啟動修憲程序，並規劃監察院職權分配之具體方案及期程，而不是封殺人事及預算，癱瘓監察院卻不討論組織重整，致監察院無法發揮關鍵職權。",
     ],
     timeline: [
       { date: "2025", text: "立法院刪減監察院 2025 年度業務費達 96%" },
@@ -127,6 +127,7 @@ const institutions = [
     ],
     impact: [
       "檢察總長指揮監督全國各級檢察署檢察官、得親自處理或移轉其事務，檢察官對其命令有服從義務。",
+      "依《刑事訴訟法》第 441 條，判決確定後發現案件之審判違背法令者，非常上訴專屬檢察總長得向最高法院提起；檢察總長懸缺，即無人可提起非常上訴，冤案救濟因而失去唯一的法定發動者。",
       "總長懸缺及代理權限遭限縮，將對檢察體系之偵查、公訴等職權產生重大影響。",
     ],
     timeline: [
@@ -148,6 +149,10 @@ const institutions = [
         url: "https://www.jrf.org.tw/articles/3208",
       },
       {
+        label: "全國法規資料庫：刑事訴訟法第 441 條（非常上訴由檢察總長提起）",
+        url: "https://law.moj.gov.tw/LawClass/LawSingle.aspx?pcode=C0010001&flno=441",
+      },
+      {
         label: "立法院：許宇甄提案《法院組織法》第 66 條條文修正草案",
         url: "https://ppg.ly.gov.tw/ppg/bills/202110218420000/details",
       },
@@ -165,18 +170,18 @@ const institutions = [
     id: "cec",
     name: "中選會",
     subtitle: "Central Election Commission",
-    status: "former",
-    statusLabel: "曾停擺半年・已復會、補額再遭全數否決",
+    status: "atRisk",
+    statusLabel: "委員低於法定下限・副主委從缺",
     totalSeats: 11,
     vacantSeats: 3,
     criticalDate: null,
-    org: "依《中央選舉委員會組織法》置委員 9-11 人（含主委、副主委各 1）；依《中央選舉委員會會議規則》第 5 條，全體委員及委員總額以「現有委員人數」為計算標準，故現有委員即達開會門檻，得召開委員會議並作成決議。",
+    org: "依《中央選舉委員會組織法》置委員 9-11 人（含主委、副主委各 1）；依《中央選舉委員會會議規則》第 5 條。",
     keyFact:
-      "原 6 名委員（含主委李進勇）2025/11/3 任期屆滿卸任後僅餘 4 人，中選會停擺約半年；2026/3/13 立法院通過游盈隆等 4 人、否決胡博硯等 3 人（迄今唯一一次部分否決），游盈隆 4/27 就任、5/15 主持首次委員會議恢復運作。現有 8 名委員雖低於法定下限 9 人、副主委仍從缺，依《會議規則》以現有委員人數計算已達開會門檻、得作成決議；行政院 4/21 補提名 3 人，2026/7/3 又遭立法院全數否決，缺額補足遙遙無期，真正考驗在 2027/11/3 另 4 名委員任期屆滿。",
+      "原 6 名委員（含主委李進勇）2025/11/3 任期屆滿卸任後僅餘 4 人，中選會停擺約半年；2026/3/13 立法院通過游盈隆等 4 人、否決胡博硯等 3 人，游盈隆 4/27 就任、5/15 主持首次委員會議恢復運作。現有 8 名委員仍低於法定下限 9 人、副主委從缺；行政院 4/21 補提名 3 人，2026/7/3 又遭立法院全數否決，缺額補足遙遙無期，真正考驗在 2027/11/3 另 4 名委員任期屆滿。",
     keyFactEn:
-      "Six commissioners’ terms expired on 3 Nov 2025, leaving only four and stalling the Commission for about six months. On 13 Mar 2026 the Legislature confirmed four nominees but rejected three; after delayed appointments, chair Yu Ying-lung took office on 27 Apr and convened the first commission meeting on 15 May, restoring operations. The current eight members sit below the statutory minimum of nine, yet meet the quorum counted on current membership. A follow-up slate of three nominees was rejected wholesale on 3 Jul 2026, leaving the vacancies unfilled; the real test comes when four more terms expire on 3 Nov 2027.",
+      "Six commissioners’ terms expired on 3 Nov 2025, leaving only four and stalling the Commission for about six months. On 13 Mar 2026 the Legislature confirmed four nominees but rejected three; after delayed appointments, chair Yu Ying-lung took office on 27 Apr and convened the first commission meeting on 15 May, restoring operations. The current eight members remain below the statutory minimum of nine, with the deputy chair post still vacant. A follow-up slate of three nominees was rejected wholesale on 3 Jul 2026, leaving the vacancies unfilled; the real test comes when four more terms expire on 3 Nov 2027.",
     actions: [
-      "部分否決提名（迄今唯一一次）：行政院提名 7 人，立法院於 2026/3/13 僅通過游盈隆、李禮仲、蘇嘉宏、蘇子喬 4 人，否決副主委被提名人胡博硯及委員黃文玲、陳宗義 3 人；行政院批藍白未守協商誠信，致中選會委員缺額、副主委至今從缺。",
+      "部分否決提名：行政院提名 7 人，立法院於 2026/3/13 僅通過游盈隆、李禮仲、蘇嘉宏、蘇子喬 4 人，否決副主委被提名人胡博硯及委員黃文玲、陳宗義 3 人；行政院批藍白未守協商誠信，致中選會委員缺額、副主委至今從缺。",
       "再度全數否決補提名：行政院 2026/4/21 補提名沈淑妃、蔡維哲、黃謀信 3 人，立法院 7/3 記名投票全數封殺（沈淑妃 50 同意:60 不同意:1 無效、蔡維哲 50:61、黃謀信 50:61）；民進黨籍委員除林宜瑾未領票外全數投同意，國民黨籍除盧縣一於沈淑妃案投無效票、院長韓國瑜未領票外全數投不同意，民眾黨與無黨籍全數投不同意，委員缺額與副主委從缺持續無解。",
     ],
     impact: [
@@ -190,7 +195,7 @@ const institutions = [
       },
       {
         date: "2026/03/13",
-        text: "立法院通過游盈隆等 4 人、否決胡博硯等 3 人（唯一一次部分否決）",
+        text: "立法院通過游盈隆等 4 人、否決胡博硯等 3 人",
       },
       {
         date: "2026/04/27",
@@ -222,8 +227,7 @@ const institutions = [
         url: "https://udn.com/news/story/124652/9505473",
       },
       {
-        label:
-          "中選會主管法規系統：中央選舉委員會會議規則第 5 條（門檻以現有委員人數計算）",
+        label: "中選會主管法規系統：中央選舉委員會會議規則第 5 條",
         url: "https://law.cec.gov.tw/LawContent.aspx?id=GL000302",
       },
       {
@@ -303,8 +307,7 @@ const institutions = [
     statusLabel: "尚未但可能癱瘓",
     totalSeats: 7,
     vacantSeats: 2,
-    criticalDate: "2027-01-30",
-    criticalDateLabel: "距 3 名委員任期屆滿",
+    criticalDate: null,
     org: "依《公平交易委員會組織法》置委員 7 人、任期 4 年得連任一次；會議須過半數委員出席方能決議，並有較嚴格之利益迴避要求。",
     keyFact:
       "2025/1/17 藍白封殺李鎂、洪財隆續任，公平會僅餘 5 名委員；7/4 又三讀修法刪除延任、限制連任並增訂補提名期限，一旦委員因人事卡關出缺即無人留任，遇須利益迴避之案件恐無法成會。",
@@ -316,7 +319,7 @@ const institutions = [
     ],
     impact: [
       "修法後委員出缺時無法由舊委員留任至新委員產生，席次直接空缺。",
-      "現有 5 名委員中辛志中、顏雅倫、李師榮 2027/1/30 屆滿，遇須迴避案件易因人數不足而無法成會。",
+      "現有 5 名委員中辛志中、顏雅倫、李師榮 2027/1/30 屆滿，屆時若人事案續遭杯葛，公平會將僅剩 2 名委員，遇須迴避案件易因人數不足而無法成會。",
     ],
     timeline: [
       { date: "2025/01/17", text: "立法院封殺李鎂、洪財隆，僅通過 2 人" },
@@ -346,17 +349,17 @@ const institutions = [
     name: "公共電視",
     subtitle: "Public Television Service",
     status: "paralyzed",
-    statusLabel: "董事會空窗逾 13 個月",
+    statusLabel: "董事會停擺約半年",
     totalSeats: 15,
     vacantSeats: 15,
     criticalDate: null,
     org: "依《公視法》公視基金會設董事 11-15 人、監察人 3-5 人、董事任期 3 年；由立法院推舉審查委員、行政院提名、經審查委員 2/3 同意後聘任。公視董事會為公廣集團最高治理機關。",
     keyFact:
-      "第 7 屆董監事 2025/5/19 屆滿、第 8 屆迄今未組成，治理空窗逾 13 個月；藍白刪除《公視法》董事看守延任條款製造治理真空，並杯葛審查、刪凍預算，公視無合法董事會可核定預算、遴聘總經理與決定節目方針。",
+      "第 7 屆董監事 2025/5/19 任期屆滿，原依《公視法》看守延任條款（新的不來、舊的不走）續行職務；藍白 2026/1/16 三讀刪除該條款、2/4 公布、2/6 生效，看守董事會即告解散，公視董事會停擺至今約半年。第 8 屆董監事迄今未組成，藍白並杯葛審查、刪凍預算，公視無合法董事會可核定預算、遴聘總經理與決定節目方針。",
     keyFactEn:
-      "The 7th board’s term ended 19 May 2025 and the 8th is still not seated, a governance vacuum of over 13 months, after the holdover clause was repealed and nominations and budgets were blocked.",
+      "The 7th board’s term ended on 19 May 2025 but stayed on under the Public Television Act’s holdover clause. The blue-white camp repealed that clause on 16 Jan 2026 (promulgated 4 Feb, effective 6 Feb), dissolving the caretaker board and leaving PTS without a lawful board for about six months, with the 8th board still unseated amid blocked nominations and frozen budgets.",
     actions: [
-      "刪除看守條款：2026/1/16 三讀刪除《公視法》第 16 條「董事屆滿未及改聘者延任」（59:49）、2/4 公布，使屆滿董事無法看守；5/7 羅智強並援引此修法將董事長胡元輝逐出議場。",
+      "刪除看守條款：2026/1/16 三讀刪除《公視法》第 16 條「董事屆滿未及改聘者延任」（59:49）、2/4 公布、2/6 生效，使屆滿董事無法看守；5/7 羅智強並援引此修法將董事長胡元輝逐出議場。",
       "杯葛審查：第 8 屆審查會 2025/12/31 僅 4 人過關、不足法定下限 11 人；2026/4/16 在野推舉之審委集體請辭／拒審而流會。",
       "刪凍預算：2025 年度公視預算遭刪 2,300 萬、凍結 5.7 億（約 25%）。",
     ],
@@ -368,6 +371,10 @@ const institutions = [
       { date: "2025/05/19", text: "第 7 屆董監事任期屆滿" },
       { date: "2025/12/31", text: "第 8 屆審查會僅 4 人過關，不足下限 11 人" },
       { date: "2026/01/16", text: "立法院三讀刪除董事看守延任條款" },
+      {
+        date: "2026/02/06",
+        text: "刪除延任條款生效（2/4 公布），第 7 屆看守董事會解散，董事會自此停擺",
+      },
       { date: "2026/04/16", text: "再次提名遭在野審委請辭、流會" },
     ],
     sources: [

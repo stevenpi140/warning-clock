@@ -33,7 +33,7 @@ export default function CaseIndex({ institutions }) {
       <div className="case-index__head">
         <h2 className="case-index__title">案件索引</h2>
         <p className="case-index__summary">
-          <span className="data">{institutions.length}</span> 個憲政機關　空缺{' '}
+          <span className="data">{institutions.length}</span> 個國家機關（構）　空缺{' '}
           <span className="data">{totalVacant} / {totalSeats}</span> 席（
           <span className="data">{vacantPct}%</span>）
         </p>

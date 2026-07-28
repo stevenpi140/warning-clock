@@ -47,7 +47,7 @@ function IndexBar({ legislator }) {
     <div
       className="lb-rate"
       aria-label={`癱瘓政府指數 ${index.toFixed(1)}${
-        billBonus > 0 ? `，加權 ${weightedIndex.toFixed(1)}` : ""
+        billBonus > 0 ? `，加權後 ${weightedIndex.toFixed(1)}` : ""
       }`}
     >
       <div className="lb-rate__track">
@@ -60,7 +60,7 @@ function IndexBar({ legislator }) {
         {index.toFixed(1)}
         {billBonus > 0 && (
           <span className="lb-rate__weighted">
-            加權 {weightedIndex.toFixed(1)}
+            加權後 {weightedIndex.toFixed(1)}
           </span>
         )}
       </span>
@@ -153,7 +153,7 @@ function LegislatorDetail({ legislator }) {
       {legislator.billRoles.length > 0 && (
         <div className="lb-bills">
           <h4 className="lb-detail__head">
-            加速政府癱瘓法案角色（加權 +{legislator.billBonus}）
+            加速政府癱瘓法案角色（加權後 +{legislator.billBonus}）
           </h4>
           <ul className="lb-bills__list">
             {legislator.billRoles.map((br, i) => {
@@ -222,7 +222,7 @@ function LegislatorRow({ legislator, expanded, onToggle }) {
         </span>
         <IndexBar legislator={l} />
         <span className="lb-row__breakdown">
-          在任 {l.inOffice}・不同意 {l.breakdown.disagree}・無效{" "}
+          總次數 {l.inOffice}・不同意 {l.breakdown.disagree}・無效{" "}
           {l.breakdown.invalid}・未領票 {l.breakdown.notPickup}
         </span>
         <span className="lb-row__chevron" aria-hidden="true">
@@ -277,7 +277,7 @@ export default function LegislatorScoreboard() {
           依《立法院職權行使法》第 29
           條，人事同意權案以「超過全體立法委員二分之一之同意」為通過；
           統計並列同意票次數與非同意票次數（不同意、無效、未領票效果相同），展開後依立法院公報唱票紀錄逐格列出每位被提名人的行使結果。
-          癱瘓政府指數＝非同意票次數 ÷ 該委員在任期間人事同意權總投票次數 ×
+          癱瘓政府指數＝非同意票次數 ÷ 該委員在任期間人事同意權總表決次數 ×
           100；未達 {PARALYSIS_THRESHOLD}{" "}
           分者（比照美國異黨政府時期對大法官同意權行使狀況，考慮國會對行政部門提名人選之合理監督）不列入癱瘓指數。
         </p>
@@ -377,7 +377,7 @@ export default function LegislatorScoreboard() {
             {SCORE_META.indexNote}
           </p>
           <p className="lb-methodology__text">
-            <strong>加權規則：</strong>
+            <strong>加權後指數規則：</strong>
             {SCORE_META.weightNote}
           </p>
           {SCORE_META.dataCaveat && (

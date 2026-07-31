@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react'
-import { StatusMarker, statusColorOf } from './statusTone'
+import { useState, useEffect } from "react";
+import { TriageStrip, chartColorOf, toneOf } from "./statusTone";
 
 function ProgressBar({ filled, total, color }) {
-  const pct = total > 0 ? (filled / total) * 100 : 0
+  const pct = total > 0 ? (filled / total) * 100 : 0;
   return (
     <div className="progress-bar">
       <div
@@ -10,118 +10,142 @@ function ProgressBar({ filled, total, color }) {
         style={{ width: `${pct}%`, background: color }}
       />
     </div>
-  )
+  );
 }
 
 function CountdownToDeadline({ date, label }) {
-  const [remaining, setRemaining] = useState({ d: 0, h: 0 })
-  const [overdue, setOverdue] = useState(false)
+  const [remaining, setRemaining] = useState({ d: 0, h: 0 });
+  const [overdue, setOverdue] = useState(false);
 
   useEffect(() => {
     const calc = () => {
-      const diff = new Date(date).getTime() - Date.now()
+      const diff = new Date(date).getTime() - Date.now();
       if (diff <= 0) {
-        setOverdue(true)
-        setRemaining({ d: 0, h: 0 })
-        return
+        setOverdue(true);
+        setRemaining({ d: 0, h: 0 });
+        return;
       }
-      setOverdue(false)
+      setOverdue(false);
       setRemaining({
         d: Math.floor(diff / 86400000),
         h: Math.floor((diff % 86400000) / 3600000),
-      })
-    }
-    calc()
-    const id = setInterval(calc, 60000)
-    return () => clearInterval(id)
-  }, [date])
+      });
+    };
+    calc();
+    const id = setInterval(calc, 60000);
+    return () => clearInterval(id);
+  }, [date]);
 
   if (overdue) {
-    const elapsed = Math.floor((Date.now() - new Date(date).getTime()) / 86400000)
+    const elapsed = Math.floor(
+      (Date.now() - new Date(date).getTime()) / 86400000,
+    );
     return (
       <div className="countdown countdown--overdue">
-        <span className="countdown__label">{label || '已超過期限'}</span>
+        <span className="countdown__label">{label || "已超過期限"}</span>
         <span className="countdown__urgent">逾期 {elapsed} 天</span>
       </div>
-    )
+    );
   }
 
   return (
     <div className="countdown">
-      <span className="countdown__label">{label || '距離期限'}</span>
+      <span className="countdown__label">{label || "距離期限"}</span>
       <span className="countdown__value">
         {remaining.d} 天 {remaining.h} 小時
       </span>
     </div>
-  )
+  );
 }
 
 // 停擺累積計時（正數）：給已癱瘓且有明確起算日的機關，以「已癱瘓 N 天」呈現持續累積的時間壓力。
 function ElapsedSince({ date, label }) {
-  const [elapsed, setElapsed] = useState({ d: 0, h: 0 })
+  const [elapsed, setElapsed] = useState({ d: 0, h: 0 });
 
   useEffect(() => {
     const calc = () => {
-      const diff = Date.now() - new Date(date).getTime()
+      const diff = Date.now() - new Date(date).getTime();
       setElapsed({
         d: Math.max(0, Math.floor(diff / 86400000)),
         h: Math.max(0, Math.floor((diff % 86400000) / 3600000)),
-      })
-    }
-    calc()
-    const id = setInterval(calc, 60000)
-    return () => clearInterval(id)
-  }, [date])
+      });
+    };
+    calc();
+    const id = setInterval(calc, 60000);
+    return () => clearInterval(id);
+  }, [date]);
 
   return (
     <div className="countdown countdown--overdue">
-      <span className="countdown__label">{label || '已停擺'}</span>
-      <span className="countdown__urgent">已癱瘓 {elapsed.d} 天 {elapsed.h} 小時</span>
+      <span className="countdown__label">{label || "已停擺"}</span>
+      <span className="countdown__urgent">
+        已癱瘓 {elapsed.d} 天 {elapsed.h} 小時
+      </span>
     </div>
-  )
+  );
 }
 
-export default function InstitutionCard({ institution, index, expanded, onToggle }) {
-  const inst = institution
-  const vacantPct = inst.totalSeats > 0
-    ? Math.round((inst.vacantSeats / inst.totalSeats) * 100)
-    : 0
-  const filledSeats = Math.max(0, inst.totalSeats - inst.vacantSeats)
-  const statusColor = statusColorOf(inst.status)
+export default function InstitutionCard({
+  institution,
+  index,
+  expanded,
+  onToggle,
+}) {
+  const inst = institution;
+  const vacantPct =
+    inst.totalSeats > 0
+      ? Math.round((inst.vacantSeats / inst.totalSeats) * 100)
+      : 0;
+  const filledSeats = Math.max(0, inst.totalSeats - inst.vacantSeats);
+  const statusColor = chartColorOf(inst.status);
+  const level = toneOf(inst.status);
 
   return (
     <div
       id={inst.id}
-      className={`inst-card inst-card--${inst.status} ${expanded ? 'inst-card--expanded' : ''}`}
+      className={`inst-card inst-card--${inst.status} ${expanded ? "inst-card--expanded" : ""}`}
     >
-      <button className="inst-card__header" onClick={onToggle} aria-expanded={expanded}>
+      <button
+        className="inst-card__header"
+        onClick={onToggle}
+        aria-expanded={expanded}
+      >
         <div className="inst-card__title-row">
-          <StatusMarker status={inst.status} />
+          <TriageStrip status={inst.status} />
           <div className="inst-card__titles">
             <h2 className="inst-card__name">{inst.name}</h2>
             <span className="inst-card__subtitle">{inst.subtitle}</span>
           </div>
-          <span
-            className="inst-card__status"
-            style={{ borderColor: statusColor }}
-          >
-            {inst.statusLabel}
+          <span className={`triage-chip triage-chip--${level.key}`}>
+            <span className="triage-chip__code">{level.code}</span>
+            {level.name}
           </span>
         </div>
+
+        <p className="inst-card__status-line">{inst.statusLabel}</p>
 
         <div className="inst-card__vacancy">
           <span className="inst-card__vacancy-label">空缺</span>
-          <span className="data inst-card__vacancy-num" style={{ color: statusColor }}>
+          <span
+            className="data inst-card__vacancy-num"
+            style={{ color: statusColor }}
+          >
             {inst.vacantSeats} / {inst.totalSeats}
           </span>
           <span className="inst-card__vacancy-label">空缺率</span>
-          <span className="data" style={{ color: statusColor }}>{vacantPct}%</span>
+          <span className="data" style={{ color: statusColor }}>
+            {vacantPct}%
+          </span>
         </div>
 
-        <div className={`inst-card__key-fact${expanded ? '' : ' inst-card__key-fact--clamp'}`}>
+        <div
+          className={`inst-card__key-fact${expanded ? "" : " inst-card__key-fact--clamp"}`}
+        >
           {inst.keyFact}
         </div>
-        <span className="inst-card__toggle-hint">{expanded ? '收合檔案 ▲' : '展開檔案 ▼'}</span>
+        <span className="inst-card__toggle-hint">
+          {expanded ? "收合檔案 ▲" : "展開檔案 ▼"}
+        </span>
       </button>
 
       {expanded && (
@@ -129,7 +153,9 @@ export default function InstitutionCard({ institution, index, expanded, onToggle
           <div className="inst-card__metrics">
             <div className="inst-card__metric">
               <span className="inst-card__metric-value">{inst.totalSeats}</span>
-              <span className="inst-card__metric-label">{inst.seatNoun || '應有席次'}</span>
+              <span className="inst-card__metric-label">
+                {inst.seatNoun || "應有席次"}
+              </span>
             </div>
             <div className="inst-card__divider" />
             <div className="inst-card__metric">
@@ -145,7 +171,10 @@ export default function InstitutionCard({ institution, index, expanded, onToggle
             </div>
             <div className="inst-card__divider" />
             <div className="inst-card__metric">
-              <span className="inst-card__metric-value" style={{ color: statusColor }}>
+              <span
+                className="inst-card__metric-value"
+                style={{ color: statusColor }}
+              >
                 {vacantPct}%
               </span>
               <span className="inst-card__metric-label">空缺率</span>
@@ -160,14 +189,18 @@ export default function InstitutionCard({ institution, index, expanded, onToggle
 
           {inst.org && (
             <section className="dossier-block">
-              <h3 className="dossier-block__head dossier-block__head--neutral">組織與任期</h3>
+              <h3 className="dossier-block__head dossier-block__head--neutral">
+                組織與任期
+              </h3>
               <p className="dossier-block__text">{inst.org}</p>
             </section>
           )}
 
           {inst.actions?.length > 0 && (
             <section className="dossier-block">
-              <h3 className="dossier-block__head dossier-block__head--red">藍白惡行</h3>
+              <h3 className="dossier-block__head dossier-block__head--red">
+                藍白惡行
+              </h3>
               <ul className="dossier-list dossier-list--red">
                 {inst.actions.map((a, i) => (
                   <li key={i}>{a}</li>
@@ -178,7 +211,9 @@ export default function InstitutionCard({ institution, index, expanded, onToggle
 
           {inst.impact?.length > 0 && (
             <section className="dossier-block">
-              <h3 className="dossier-block__head dossier-block__head--gold">機關癱瘓後果</h3>
+              <h3 className="dossier-block__head dossier-block__head--gold">
+                機關癱瘓後果
+              </h3>
               <ul className="dossier-list">
                 {inst.impact.map((a, i) => (
                   <li key={i}>{a}</li>
@@ -189,7 +224,9 @@ export default function InstitutionCard({ institution, index, expanded, onToggle
 
           {inst.timeline?.length > 0 && (
             <section className="dossier-block">
-              <h3 className="dossier-block__head dossier-block__head--neutral">事件時序</h3>
+              <h3 className="dossier-block__head dossier-block__head--neutral">
+                事件時序
+              </h3>
               <ul className="timeline">
                 {inst.timeline.map((t, i) => (
                   <li className="timeline__item" key={i}>
@@ -202,14 +239,22 @@ export default function InstitutionCard({ institution, index, expanded, onToggle
           )}
 
           {inst.elapsedSince ? (
-            <ElapsedSince date={inst.elapsedSince} label={inst.elapsedSinceLabel} />
+            <ElapsedSince
+              date={inst.elapsedSince}
+              label={inst.elapsedSinceLabel}
+            />
           ) : inst.criticalDate ? (
-            <CountdownToDeadline date={inst.criticalDate} label={inst.criticalDateLabel} />
+            <CountdownToDeadline
+              date={inst.criticalDate}
+              label={inst.criticalDateLabel}
+            />
           ) : null}
 
           {inst.sources?.length > 0 && (
             <section className="dossier-block">
-              <h3 className="dossier-block__head dossier-block__head--neutral">資料來源</h3>
+              <h3 className="dossier-block__head dossier-block__head--neutral">
+                資料來源
+              </h3>
               <ul className="source-list">
                 {inst.sources.map((s, i) => (
                   <li key={i}>
@@ -222,9 +267,11 @@ export default function InstitutionCard({ institution, index, expanded, onToggle
             </section>
           )}
 
-          {inst.keyFactEn && <p className="inst-card__detail-en">{inst.keyFactEn}</p>}
+          {inst.keyFactEn && (
+            <p className="inst-card__detail-en">{inst.keyFactEn}</p>
+          )}
         </div>
       )}
     </div>
-  )
+  );
 }

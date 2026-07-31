@@ -11,8 +11,9 @@ const PARALYSIS_START_NOTE =
 // 資料實際校準日（footer「最後更新」顯示用）：每次更新 src/data/ 內容時手動改這裡。
 const DATA_UPDATED = "2026年7月31日";
 
-// 狀態 → 色調對應（呈現層 InstitutionCard.STATUS_COLORS 同步登錄；新增狀態須兩處一致）
-//  paralyzed 已癱瘓 / partial 部分停擺 / atRisk 尚未但可能癱瘓 / overdue 逾期違憲 / former 曾癱瘓已恢復
+// status ＝ 檢傷分類級別（唯一登錄處在 components/statusTone.jsx 的 TRIAGE_LEVELS）
+//  collapsed 全面癱瘓（黑・瀕死）/ critical 瀕臨全面癱瘓（紅・重傷）
+//  atRisk 有癱瘓危險（黃・中傷）/ stable 正常運行，含曾癱瘓已恢復（綠・輕傷）
 
 const institutions = [
   {
@@ -20,13 +21,13 @@ const institutions = [
     name: "憲法法庭",
     subtitle: "Constitutional Court",
     status: "atRisk",
-    statusLabel: "尚未但可能癱瘓",
+    statusLabel: "15 席僅 8 人在任",
     totalSeats: 15,
     vacantSeats: 7,
     criticalDate: null,
     org: "司法院設大法官 15 人、任期 8 年，組成憲法法庭審理法規範及裁判憲法審查、機關爭議、總統副總統彈劾、政黨違憲解散、統一解釋法律命令等憲法訴訟案件。",
     keyFact:
-      "2024/10/31 七位大法官卸任、總統兩度提名均遭立法院否決，大法官僅餘 8 人長期不足額；藍白惡修《憲法訴訟法》一度使憲法法庭停擺四百餘天，雖經 114 年憲判字第 1 號宣告該修法違憲失效而危機暫解，仍恐因持續杯葛而再陷空懸。",
+      "2024/10/31 七位大法官卸任、總統兩度提名均遭立法院否決，大法官僅餘 8 人長期不足額；藍白惡修《憲法訴訟法》一度使憲法法庭停擺四百餘天，雖經 114 年憲判字第 1 號宣告該修法違憲失效而危機暫解，仍恐因持續杯葛而再陷空懸。2027/10/1 另有 4 名大法官任期屆滿，屆時若提名續遭杯葛，將僅餘蔡彩貞、朱富美、陳忠五、尤伯祥 4 人。",
     keyFactEn:
       "Seven justices left in Oct 2024 and the President’s nominations were twice rejected, leaving only 8 of 15. A high-quorum amendment paralyzed the Court for 400+ days until it was struck down as unconstitutional (Judgment 114-Hsien-Pan-1); a renewed blockade still threatens future vacancy.",
     actions: [
@@ -36,6 +37,7 @@ const institutions = [
     impact: [
       "憲法審查停擺期間，有問題或不合時宜的法律與裁判無法被宣告違憲而須繼續適用，嚴重損害人民權利（近三年逾 98% 釋憲案由人民提出）。",
       "《憲訴法》惡修已經 114 年憲判字第 1 號宣告違憲失效、憲法法庭重啟；惟大法官仍長期缺額，若提名持續遭杯葛、現額隨任期屆滿逐年流失，憲法法庭恐再陷不足額而難以穩定運作。",
+      "2027/10/1 另有 4 名大法官任期屆滿，屆時若提名續遭杯葛，15 席將僅餘 4 人在任，憲法法庭即瀕臨全面癱瘓。",
     ],
     timeline: [
       { date: "2024/10/31", text: "七位大法官卸任，總統提名兩度遭立法院否決" },
@@ -48,8 +50,8 @@ const institutions = [
         text: "114 憲判字第 1 號宣告該修法違憲失效，憲法法庭停擺逾 400 天後重啟",
       },
       {
-        date: "2027/09/30",
-        text: "謝銘洋等 4 位大法官任期屆滿，須及時提名補足",
+        date: "2027/10/01",
+        text: "另 4 位大法官任期屆滿，屆時僅餘蔡彩貞、朱富美、陳忠五、尤伯祥 4 人",
       },
     ],
     sources: [
@@ -71,23 +73,25 @@ const institutions = [
     id: "control-yuan",
     name: "監察院",
     subtitle: "Control Yuan",
-    status: "atRisk",
-    statusLabel: "預算遭刪 96%・人事恐遭杯葛",
+    status: "collapsed",
+    statusLabel: "29 席全數出缺・投票延至 9/29",
     totalSeats: 29,
-    vacantSeats: 0,
-    criticalDate: "2026-07-31",
-    criticalDateLabel: "距本屆監委任期屆滿",
-    org: "設監察委員 29 人、任期 6 年，為國家最高監察機關，行使彈劾、糾舉、糾正及審計權，並設國家人權委員會；本屆任期 2026/7/31 屆滿。",
+    vacantSeats: 29,
+    criticalDate: "2026-09-29",
+    criticalDateLabel: "距立法院監委同意權投票",
+    org: "設監察委員 29 人（含院長、副院長）、任期 6 年，為國家最高監察機關，行使彈劾、糾舉、糾正及審計權，並設國家人權委員會；第 6 屆任期 2026/7/31 屆滿。",
     keyFact:
-      "2025 年度總預算刪減監察院業務費高達 96%，調查、巡察、議事、國際監察及人權業務預算近乎全刪；本屆監委 2026/7/31 屆滿，藍白揚言全數否決提名並廢除監察院，恐使其陷於癱瘓。",
+      "第 6 屆 29 名監察委員任期 2026/7/31 屆滿，自 2026/8/1 起監察院 29 席全數出缺，無人可行使彈劾、糾舉、糾正等監察權，國家人權委員會亦同時停擺。總統府 2026/6/11 已公布第 7 屆院長、副院長及 25 名監委被提名人，立法院朝野協商卻將記名投票押到下會期 2026/9/29 上午，監察院至少空轉兩個月。2025 年度總預算另刪減監察院業務費達 96%。",
     keyFactEn:
-      "The 2025 budget slashed the Control Yuan’s operating funds by 96%; with the current term expiring on 31 July 2026 and the blue-white camp vowing to reject every nominee, the body faces paralysis.",
+      "All 29 Control Yuan members left office when their terms ended on 31 July 2026, leaving every seat vacant from 1 August and halting the National Human Rights Commission with it. Nominees for the 7th term were announced on 11 June 2026, but the Legislature pushed the confirmation vote to 29 September, guaranteeing at least two months with no Control Yuan. The 2025 budget had already cut its operating funds by 96%.",
     actions: [
+      "拖延同意權投票：總統府 2026/6/11 公布第 7 屆被提名人，立法院朝野協商卻將記名投票延至下會期 2026/9/29 上午 10 時，任期屆滿與投票之間形成至少兩個月的全面空窗。",
       "惡意刪減預算：2025 年度刪減監察院業務費達 96%，一般行政、調查巡察、議事、國際監察及人權業務預算近乎全刪。",
-      "恐全面否決提名：蔣萬安籲立法院藍白黨團全數否決監委人選並廢除監察院；羅智強表態將對所有監委投反對票、進行人事凍結。",
+      "揚言全面否決：蔣萬安籲立法院藍白黨團全數否決監委人選並廢除監察院；羅智強表態將對所有監委投反對票、進行人事凍結。",
     ],
     impact: [
-      "預算遭刪後監察院僅能勉力維持運作，對基本公務運作、職權行使、民眾權益及公共利益構成嚴重妨礙。",
+      "2026/8/1 起監察院無任何監察委員，彈劾、糾舉、糾正權及國家人權委員會職權全面停止行使，人民陳情案件無人可受理審查。",
+      "預算遭刪 96% 後監察院已僅能勉力維持運作，人事再全面出缺，等同同時抽掉預算與人力。",
       "監察院每月收受人民陳情書狀逾千件，依我國現行權力分立制度，監察院仍有不可取代之功能，若真要討論廢除監察院，應啟動修憲程序，並規劃監察院職權分配之具體方案及期程，而不是封殺人事及預算，癱瘓監察院卻不討論組織重整，致監察院無法發揮關鍵職權。",
     ],
     timeline: [
@@ -96,7 +100,12 @@ const institutions = [
         date: "2026/06/11",
         text: "總統府公布監察院第 7 屆正、副院長及監察委員被提名人",
       },
-      { date: "2026/07/31", text: "本屆監察委員任期屆滿，恐遭藍白全數否決" },
+      { date: "2026/07/31", text: "第 6 屆 29 名監察委員任期屆滿" },
+      { date: "2026/08/01", text: "監察院 29 席全數出缺，監察權全面停止行使" },
+      {
+        date: "2026/09/29",
+        text: "立法院新會期第 1 次會議，排定上午 10 時就監委人事同意權案記名投票",
+      },
     ],
     sources: [
       {
@@ -111,6 +120,11 @@ const institutions = [
         label: "TVBS：蔣萬安拋廢監院 羅智強挺監委全否決",
         url: "https://news.tvbs.com.tw/politics/3228862",
       },
+      {
+        label:
+          "中央社：朝野黨團協商結論 立院新會期 9/29 開議、同日上午監委同意權記名投票（2026/07/31）",
+        url: "https://www.cna.com.tw/news/aipl/202607310066.aspx",
+      },
     ],
   },
   {
@@ -118,7 +132,7 @@ const institutions = [
     name: "檢察總長",
     subtitle: "Prosecutor General",
     status: "atRisk",
-    statusLabel: "代理中・藍白要限縮代理",
+    statusLabel: "2026/5/8 起懸缺・由代理人代行",
     totalSeats: 1,
     vacantSeats: 1,
     criticalDate: null,
@@ -177,7 +191,7 @@ const institutions = [
     name: "中選會",
     subtitle: "Central Election Commission",
     status: "atRisk",
-    statusLabel: "委員低於法定下限・副主委從缺",
+    statusLabel: "11 席僅 8 人在任・低於法定下限 9 人",
     totalSeats: 11,
     vacantSeats: 3,
     criticalDate: null,
@@ -192,7 +206,8 @@ const institutions = [
     ],
     impact: [
       "2025/11/3 起至 2026/5/15 復會前約半年無法召開委員會議與作成決議，曾影響選務、公投及罷免等法定事項之推進。",
-      "雖已恢復開會，現有 8 名委員仍低於法定下限 9 人、副主委從缺，補提名 3 人又於 2026/7/3 遭全數否決；2027/11/3 另 4 名委員（黃秀端、陳月端、吳容輝、游清鑫）任期屆滿，將是下一道難關。",
+      "雖已恢復開會，現有 8 名委員仍低於法定下限 9 人、副主委從缺，補提名 3 人又於 2026/7/3 遭全數否決。",
+      "2027/11/3 另 4 名委員（黃秀端、陳月端、吳容輝、游清鑫）任期屆滿，屆時若缺額仍未補齊，11 席將僅餘 4 人在任，中選會即瀕臨全面癱瘓。",
     ],
     timeline: [
       {
@@ -260,25 +275,25 @@ const institutions = [
     id: "ncc",
     name: "通傳會（NCC）",
     subtitle: "National Communications Commission",
-    status: "paralyzed",
-    statusLabel: "逾百項業務停擺",
+    status: "collapsed",
+    statusLabel: "7 席全數出缺・成立 20 年來首見",
     totalSeats: 7,
-    vacantSeats: 4,
+    vacantSeats: 7,
     criticalDate: null,
     elapsedSince: "2024-11-30",
     elapsedSinceLabel: "自 2024/11/30 委員不足額",
     org: "依《國家通訊傳播委員會組織法》置委員 7 人，決議應以委員總額過半數（4 人）之同意行之；NCC 為通訊傳播事務之獨立管制機關。",
     keyFact:
-      "2024/11/30 代理主委翁柏宗因延任條款遭刪除卸任後，NCC 7 名委員僅餘 3 人、未達委員總額過半數（4 人）之決議門檻，自此無法召開法定委員會議，已持續癱瘓逾一年半；逾百項重大業務無法決議，僅能以不具決議效力的諮議會議授權主委處理約 58 項基本業務。現有委員王正嘉、王怡惠、陳崇樹 2026/7/31 同時屆滿，若提名續遭封殺恐全面團滅。",
+      "2024/11/30 代理主委翁柏宗因延任條款遭刪除卸任後，NCC 7 名委員僅餘 3 人、未達委員總額過半數（4 人）之決議門檻，自此無法召開法定委員會議，逾百項重大業務無法決議。僅存的代理主委陳崇樹及委員王正嘉、王怡惠又於 2026/7/31 任期屆滿，自 2026/8/1 起 NCC 無任何委員在任，為 2006/2/22 成立以來首見，尚有 748 件案件待委員會議審議。行政院 2026/7/24 提名袁秀慧（主委）、蕭蘋（副主委）等 7 人，仍待立法院審查。",
     keyFactEn:
-      "Since acting chair Weng Po-tsung left on 30 Nov 2024 the NCC has had only 3 of 7 members, short of the four-vote majority any resolution requires, and has been unable to hold a lawful commission meeting for over a year and a half; more than a hundred major items remain undecidable. The three remaining members’ terms all end 31 July 2026, risking a total wipeout.",
+      "Since acting chair Weng Po-tsung left on 30 Nov 2024 the NCC had only 3 of 7 members, short of the four-vote majority any resolution requires, and could not hold a lawful commission meeting. The last three members’ terms ended on 31 July 2026, so from 1 August the commission has no members at all for the first time since its founding in February 2006, with 748 cases awaiting a commission meeting. A fresh slate of seven nominees was announced on 24 July 2026 and still awaits legislative review.",
     actions: [
       "刪除延任條款：藍白於 2024/7/16 強行三讀刪除延任條款、11/15 三讀通過於次月施行，致代理主委翁柏宗 11/30 卸任，NCC 無法召開委員會議。",
-      "封殺全體提名：行政院 2025/7/31 提名蔣榮先、程明修、黃葳威、羅慧雯，2025/11/7 遭藍白全體否決。",
+      "封殺全體提名：行政院 2025/7/31 提名蔣榮先、程明修、黃葳威、羅慧雯，2025/11/7 遭藍白全體否決，缺額因而未能補上。",
     ],
     impact: [
       "NCC 自委員不足額後，逾百項重大業務無法決議，僅約 58 項基本業務得授權主委召集諮議會議處理。",
-      "現有委員王正嘉、王怡惠、陳崇樹 2026/7/31 同時屆滿，若提名續遭封殺，3 名委員將全體卸任、NCC 形同團滅。",
+      "2026/8/1 起 7 席全數出缺，無委員即無法召開任何委員會議或諮議會議，通訊傳播監理業務全面停止，748 件待審案件無人可決。",
     ],
     timeline: [
       {
@@ -287,7 +302,14 @@ const institutions = [
       },
       { date: "2025/07/31", text: "行政院提名蔣榮先等 4 名委員" },
       { date: "2025/11/07", text: "立法院藍白全體否決 4 名提名人" },
-      { date: "2026/07/31", text: "現有 3 名委員任期同時屆滿，恐全面團滅" },
+      {
+        date: "2026/07/24",
+        text: "行政院提名袁秀慧、蕭蘋等 7 名委員，待立法院審查",
+      },
+      {
+        date: "2026/07/31",
+        text: "陳崇樹、王正嘉、王怡惠任期屆滿，NCC 自 8/1 起無任何委員在任",
+      },
     ],
     sources: [
       {
@@ -303,6 +325,11 @@ const institutions = [
         label: "中央社：新 NCC 委員提名送立院審議（2025/07/31）",
         url: "https://www.cna.com.tw/news/aipl/202507310187.aspx",
       },
+      {
+        label:
+          "中央社：NCC 3 委員任期 31 日屆滿 面臨成立 20 年來首度無委員（2026/07/31）",
+        url: "https://www.cna.com.tw/news/afe/202607310185.aspx",
+      },
     ],
   },
   {
@@ -310,7 +337,7 @@ const institutions = [
     name: "公平會",
     subtitle: "Fair Trade Commission",
     status: "atRisk",
-    statusLabel: "尚未但可能癱瘓",
+    statusLabel: "7 席僅 5 人在任",
     totalSeats: 7,
     vacantSeats: 2,
     criticalDate: null,
@@ -325,7 +352,8 @@ const institutions = [
     ],
     impact: [
       "修法後委員出缺時無法由舊委員留任至新委員產生，席次直接空缺。",
-      "現有 5 名委員中辛志中、顏雅倫、李師榮 2027/1/30 屆滿，屆時若人事案續遭杯葛，公平會將僅剩 2 名委員，遇須迴避案件易因人數不足而無法成會。",
+      "現有 5 名委員中辛志中、顏雅倫、李師榮 2027/1/30 屆滿，屆時若人事案續遭杯葛，公平會將僅剩 2 名委員，依《公平交易委員會組織法》雖仍可部分運作，但已少於半數，遇須迴避案件易因人數不足而無法成會，即瀕臨全面癱瘓。",
+      "若委員任期陸續屆滿而提名持續遭杯葛，以致全體委員卸任，公平會依組織法即無法運作，形同全面癱瘓。",
     ],
     timeline: [
       { date: "2025/01/17", text: "立法院封殺李鎂、洪財隆，僅通過 2 人" },
@@ -354,14 +382,16 @@ const institutions = [
     id: "pts",
     name: "公共電視",
     subtitle: "Public Television Service",
-    status: "paralyzed",
-    statusLabel: "董事會停擺約半年",
+    status: "collapsed",
+    statusLabel: "董事會全數出缺・無合法董事會",
     totalSeats: 15,
     vacantSeats: 15,
     criticalDate: null,
+    elapsedSince: "2026-02-06",
+    elapsedSinceLabel: "自 2026/2/6 看守董事會解散",
     org: "依《公視法》公視基金會設董事 11-15 人、監察人 3-5 人、董事任期 3 年；由立法院推舉審查委員、行政院提名、經審查委員 2/3 同意後聘任。公視董事會為公廣集團最高治理機關。",
     keyFact:
-      "第 7 屆董監事 2025/5/19 任期屆滿，原依《公視法》看守延任條款（新的不來、舊的不走）續行職務；藍白 2026/1/16 三讀刪除該條款、2/4 公布、2/6 生效，看守董事會即告解散，公視董事會停擺至今約半年。第 8 屆董監事迄今未組成，藍白並杯葛審查、刪凍預算，公視無合法董事會可核定預算、遴聘總經理與決定節目方針。",
+      "第 7 屆董監事 2025/5/19 任期屆滿，原依《公視法》看守延任條款（新的不來、舊的不走）續行職務；藍白 2026/1/16 三讀刪除該條款、2/4 公布、2/6 生效，看守董事會即告解散。新一屆董事會因審查會屢遭杯葛而無法產生足額董事、迄今無人就任，公視自此無合法董事會可核定預算、遴聘總經理與決定節目方針，董事會全面癱瘓。",
     keyFactEn:
       "The 7th board’s term ended on 19 May 2025 but stayed on under the Public Television Act’s holdover clause. The blue-white camp repealed that clause on 16 Jan 2026 (promulgated 4 Feb, effective 6 Feb), dissolving the caretaker board and leaving PTS without a lawful board for about six months, with the 8th board still unseated amid blocked nominations and frozen budgets.",
     actions: [
@@ -402,8 +432,8 @@ const institutions = [
     id: "pdpc",
     name: "個資會",
     subtitle: "Personal Data Protection Commission",
-    status: "overdue",
-    statusLabel: "逾期未成立・違憲",
+    status: "collapsed",
+    statusLabel: "尚未成立・嚴重違憲",
     totalSeats: 1,
     vacantSeats: 1,
     seatNoun: "應設機關",
@@ -453,8 +483,8 @@ const institutions = [
     id: "examination-yuan",
     name: "考試院",
     subtitle: "Examination Yuan",
-    status: "former",
-    statusLabel: "曾癱瘓・已恢復",
+    status: "stable",
+    statusLabel: "已恢復運作・尚缺 1 席考試委員",
     totalSeats: 9,
     vacantSeats: 1,
     criticalDate: null,

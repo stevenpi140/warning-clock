@@ -631,7 +631,7 @@ body {
 
 .case-index__link {
   display: grid;
-  grid-template-columns: 13px minmax(7.5em, max-content) 1fr 4.5em 5.5em;
+  grid-template-columns: 13px minmax(7.5em, max-content) 1fr 4.5em;
   align-items: center;
   gap: 0.9rem;
   padding: 0.5rem 0.65rem;
@@ -664,18 +664,6 @@ body {
   color: var(--text-secondary);
 }
 
-.case-index__date {
-  text-align: right;
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
-
-/* 警示字（持續癱瘓／逾期 N 天）跟著該列的級別色走。
-   紅色在檢傷制度裡專指「瀕臨全面癱瘓」，黑級的列若印紅字就是分級撞色。 */
-.case-index__overdue {
-  color: var(--tier-rule, var(--accent));
-  font-weight: 700;
-}
 
 /* === 收合卡精簡（4-metric 與 progress 移入展開層） === */
 .inst-card__vacancy {
@@ -1923,11 +1911,11 @@ body {
     justify-self: end;
   }
 
-  /* 案件索引行動版：每列攤成兩行（機關名/關鍵日 在上，現況/空缺 在下） */
+  /* 案件索引行動版：每列攤成兩行（機關名在上，現況在下；空缺席次靠右跨兩行） */
   .case-index__link {
     grid-template-columns: 13px 1fr auto;
     grid-template-areas:
-      "marker name date"
+      "marker name vacancy"
       "marker status vacancy";
     row-gap: 0.2rem;
     column-gap: 0.7rem;
@@ -1939,8 +1927,11 @@ body {
   }
 
   .case-index__name { grid-area: name; }
-  .case-index__date { grid-area: date; }
-  .case-index__vacancy { grid-area: vacancy; }
+
+  .case-index__vacancy {
+    grid-area: vacancy;
+    align-self: center;
+  }
 
   .case-index__status {
     grid-area: status;

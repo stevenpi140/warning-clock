@@ -4,15 +4,8 @@ import { TriageStrip, TRIAGE_LEVELS } from "./statusTone";
 // 每一級一條色帶（＝傷票的色條），色帶下掛該級的機關列，每列跳該機關卷宗錨點。
 // 分級直接用資料層的 status，不在呈現層另做推導。
 
-// 末欄只放真正的日期資訊（剩 N 天／逾期 N 天）。沒有關鍵日就留白：
-// 「持續癱瘓」「有癱瘓危險」這類字只是把上面色帶的級別再講一次，是贅字。
-function keyDateOf(inst) {
-  if (!inst.criticalDate) return null;
-  const days = Math.round(
-    (new Date(inst.criticalDate).getTime() - Date.now()) / 86400000,
-  );
-  return { days, overdue: days < 0 };
-}
+// 索引不放倒數／逾期天數：分級由色帶與傷票色條表達，關鍵日留給各機關卷宗（InstitutionCard）。
+// 每列末欄＝空缺席次，靠右對齊。
 
 export default function CaseIndex({ institutions }) {
   const totalSeats = institutions.reduce((s, i) => s + i.totalSeats, 0);
@@ -64,35 +57,20 @@ export default function CaseIndex({ institutions }) {
 
             {rows.length > 0 && (
               <ul className="case-index__list">
-                {rows.map((inst) => {
-                  const kd = keyDateOf(inst);
-                  return (
-                    <li className="case-index__row" key={inst.id}>
-                      <a className="case-index__link" href={`#${inst.id}`}>
-                        <TriageStrip status={inst.status} size="row" />
-                        <span className="case-index__name">{inst.name}</span>
-                        <span className="case-index__status">
-                          {inst.statusLabel}
-                        </span>
-                        <span className="case-index__vacancy data">
-                          {inst.vacantSeats} / {inst.totalSeats}
-                        </span>
-                        <span className="case-index__date">
-                          {kd &&
-                            (kd.overdue ? (
-                              <span className="case-index__overdue">
-                                逾期 <span className="data">{-kd.days}</span> 天
-                              </span>
-                            ) : (
-                              <span className="case-index__remain">
-                                剩 <span className="data">{kd.days}</span> 天
-                              </span>
-                            ))}
-                        </span>
-                      </a>
-                    </li>
-                  );
-                })}
+                {rows.map((inst) => (
+                  <li className="case-index__row" key={inst.id}>
+                    <a className="case-index__link" href={`#${inst.id}`}>
+                      <TriageStrip status={inst.status} size="row" />
+                      <span className="case-index__name">{inst.name}</span>
+                      <span className="case-index__status">
+                        {inst.statusLabel}
+                      </span>
+                      <span className="case-index__vacancy data">
+                        {inst.vacantSeats} / {inst.totalSeats}
+                      </span>
+                    </a>
+                  </li>
+                ))}
               </ul>
             )}
           </div>

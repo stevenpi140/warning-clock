@@ -29,6 +29,8 @@
      0 瀕死＝深底挖空＋骨白髮絲線／I 重傷＝全站印泥紅／II 中傷＝琥珀家族／III 輕傷＝計分板綠灰。
      on-* 為色條上的文字色，四組對深底與各自底色皆過 WCAG AA（4.4:1 以上）。 */
   --triage-0: #08080a;
+  /* 傷票色條專用：純黑在深底上沒有形狀、鋸齒斷口讀不出來，色條的黑提亮一階 */
+  --triage-0-strip: #24242c;
   --triage-1: #c2362f;
   --triage-2: #bd8f33;
   --triage-3: #55705a;
@@ -559,12 +561,15 @@ body {
   font-weight: 700;
 }
 
-/* === 傷票色條：保留判定級別（含）以上的色條，其下畫撕除線 === */
+/* === 傷票色條 ===
+   外框＝整張傷票的原始高度（含已撕掉的部分，所以看得出撕到哪）；
+   __stub＝還沒被撕掉的色條，底緣切鋸齒＝沿騎縫撕開的斷口。 */
 .triage-strip {
-  --strip-h: 40px;
-  --strip-w: 13px;
-  display: grid;
-  grid-template-rows: repeat(4, 1fr);
+  --strip-h: 44px;
+  --strip-w: 20px;
+  --tooth-h: 7px;
+  display: block;
+  position: relative;
   width: var(--strip-w);
   height: var(--strip-h);
   flex-shrink: 0;
@@ -575,25 +580,54 @@ body {
 }
 
 .triage-strip--row {
-  --strip-h: 30px;
-  --strip-w: 12px;
+  --strip-h: 38px;
+  --strip-w: 18px;
+  --tooth-h: 6px;
+}
+
+/* stub 高度 ＝ 保留的色條數 / 總級數。用 flex 讓最後一條色條吃掉多出來的半個齒深，
+   齒尖才是「有顏色的紙」而不是透明 padding（否則只看得到凹口、看不到齒）。 */
+.triage-strip__stub {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: calc(var(--kept) / var(--total) * 100%);
+}
+
+/* 鋸齒斷口：4 個齒尖朝下，齒深 --tooth-h；drop-shadow 沿 clip-path 描出斷口唇邊，
+   讓黑條被撕的那一刀在深底上也看得見。判為輕傷者不撕，底緣維持平整。 */
+.triage-strip__stub--torn {
+  height: calc(var(--kept) / var(--total) * 100% + var(--tooth-h) / 2);
+  filter: drop-shadow(0 1px 0 rgba(236, 231, 220, 0.55));
+  clip-path: polygon(
+    0% 0%,
+    100% 0%,
+    100% calc(100% - var(--tooth-h)),
+    87.5% 100%,
+    75% calc(100% - var(--tooth-h)),
+    62.5% 100%,
+    50% calc(100% - var(--tooth-h)),
+    37.5% 100%,
+    25% calc(100% - var(--tooth-h)),
+    12.5% 100%,
+    0% calc(100% - var(--tooth-h))
+  );
+}
+
+/* 黑級色條已用 --triage-0-strip 提亮，唇邊只需比其他級略強 */
+.triage-strip--collapsed .triage-strip__stub--torn {
+  filter: drop-shadow(0 1px 0 rgba(236, 231, 220, 0.7));
 }
 
 .triage-strip__band {
   display: block;
+  flex: 1 1 0;
+  min-height: 0;
 }
 
 /* 黑條在深底上需骨白髮絲線，否則讀成「這裡沒東西」而不是「這是黑條」 */
 .triage-strip__band:first-child {
   box-shadow: inset 0 0 0 1px rgba(236, 231, 220, 0.55);
-}
-
-.triage-strip__torn {
-  display: block;
-}
-
-.triage-strip__torn--edge {
-  border-top: 1px dashed var(--text-muted);
 }
 
 /* === 級別章（卡片標頭用）=== */
@@ -631,7 +665,7 @@ body {
 
 .case-index__link {
   display: grid;
-  grid-template-columns: 13px minmax(7.5em, max-content) 1fr 4.5em;
+  grid-template-columns: 18px minmax(7.5em, max-content) 1fr 4.5em;
   align-items: center;
   gap: 0.9rem;
   padding: 0.5rem 0.65rem;
@@ -1913,7 +1947,7 @@ body {
 
   /* 案件索引行動版：每列攤成兩行（機關名在上，現況在下；空缺席次靠右跨兩行） */
   .case-index__link {
-    grid-template-columns: 13px 1fr auto;
+    grid-template-columns: 18px 1fr auto;
     grid-template-areas:
       "marker name vacancy"
       "marker status vacancy";

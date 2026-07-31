@@ -21,6 +21,8 @@ export const TRIAGE_LEVELS = [
     color: "var(--triage-0)",
     // 黑在深底上畫不出進度條與數字，圖表／數據場合改用骨白（同屬「已無色可撕」的視覺語意）
     chartColor: "var(--bone)",
+    // 傷票色條要看得出鋸齒斷口，純黑咬在深底上等於沒形狀，色條專用一階提亮的黑
+    stripColor: "var(--triage-0-strip)",
   },
   {
     key: "critical",
@@ -70,31 +72,31 @@ export function levelIndexOf(status) {
   return toneOf(status).index;
 }
 
-// 傷票色條：保留判定級別（含）以上的色條，其下為撕除區；撕線以虛線髮絲表示。
+// 傷票色條：外框是整張傷票的原始高度，內層 __stub 是「還沒被撕掉的部分」，
+// 底緣切成鋸齒（＝沿騎縫撕開的斷口）。撕線以下留空，一眼看得出被撕掉多少。
+// 判為輕傷（最後一級）時不撕任何色條，所以底緣維持平整、不上鋸齒。
 export function TriageStrip({ status, size }) {
   const lv = toneOf(status);
+  const kept = lv.index + 1;
+  const torn = kept < TRIAGE_LEVELS.length;
   return (
     <span
-      className={`triage-strip${size ? ` triage-strip--${size}` : ""}`}
+      className={`triage-strip triage-strip--${lv.key}${size ? ` triage-strip--${size}` : ""}`}
       role="img"
       aria-label={`檢傷 ${lv.code}｜${lv.name}`}
     >
-      {TRIAGE_LEVELS.map((band, i) =>
-        i <= lv.index ? (
+      <span
+        className={`triage-strip__stub${torn ? " triage-strip__stub--torn" : ""}`}
+        style={{ "--kept": kept, "--total": TRIAGE_LEVELS.length }}
+      >
+        {TRIAGE_LEVELS.slice(0, kept).map((band) => (
           <span
             key={band.key}
             className="triage-strip__band"
-            style={{ background: band.color }}
+            style={{ background: band.stripColor || band.color }}
           />
-        ) : (
-          <span
-            key={band.key}
-            className={`triage-strip__torn${
-              i === lv.index + 1 ? " triage-strip__torn--edge" : ""
-            }`}
-          />
-        ),
-      )}
+        ))}
+      </span>
     </span>
   );
 }

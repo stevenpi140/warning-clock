@@ -273,14 +273,34 @@ export default function LegislatorScoreboard() {
     >
       <div className="lb-scoreboard__head">
         <h2 className="lb-scoreboard__title">惡意癱瘓指數排名表</h2>
-        <p className="lb-scoreboard__subtitle">
-          依《立法院職權行使法》第 29
-          條，人事同意權案以「超過全體立法委員二分之一之同意」為通過；
-          統計並列同意票次數與非同意票次數（不同意、無效、未領票效果相同），展開後依立法院公報唱票紀錄逐格列出每位被提名人的行使結果。
-          癱瘓政府指數＝非同意票次數 ÷ 該委員在任期間人事同意權總表決次數 ×
-          100；未達 {PARALYSIS_THRESHOLD}{" "}
-          分者（比照美國異黨政府時期對大法官同意權行使狀況，考慮國會對行政部門提名人選之合理監督）不列入癱瘓指數。
-        </p>
+        {/* 四件事拆成四列，不要串成一段五行的長文；
+            JSX 會把換行接成空白，長段落寫在 JSX 裡必然出現「為通過； 統計」這種假空格 */}
+        <dl className="lb-scoreboard__meta">
+          <div className="lb-scoreboard__meta-row">
+            <dt>法源</dt>
+            <dd>
+              {"依《立法院職權行使法》第 29 條，人事同意權案以「超過全體立法委員二分之一之同意」為通過，因此不同意票、無效票、未領票的癱瘓效果相同。"}
+            </dd>
+          </div>
+          <div className="lb-scoreboard__meta-row">
+            <dt>計分</dt>
+            <dd>
+              {"癱瘓政府指數＝非同意票次數 ÷ 該委員在任期間人事同意權總表決次數 × 100，統計僅區分同意票與非同意票。"}
+            </dd>
+          </div>
+          <div className="lb-scoreboard__meta-row">
+            <dt>門檻</dt>
+            <dd>
+              {`未達 ${PARALYSIS_THRESHOLD} 分者不列入癱瘓指數（比照美國異黨政府時期對大法官同意權行使狀況，考慮國會對行政部門提名人選之合理監督）。`}
+            </dd>
+          </div>
+          <div className="lb-scoreboard__meta-row">
+            <dt>明細</dt>
+            <dd>
+              {"展開後依立法院公報唱票紀錄，逐格列出每位被提名人的行使結果。"}
+            </dd>
+          </div>
+        </dl>
       </div>
 
       <div className="lb-tabs" role="tablist" aria-label="政黨過濾">

@@ -79,7 +79,7 @@ npm run preview    # 預覽 build 結果
   - 行動版 768/480 都維持**兩欄**：單欄會讓九張傷票拉出近 5,000px 捲動。
 - **`InstitutionCard.jsx`**：收合態＝機關名＋級別章（`.triage-chip`：代號＋級別名）＋一句話現況＋一行空缺＋截斷 keyFact＋展開鈕，卡片左緣色規吃 `--tier-rule` 標示級別；展開態＝4-metric 格＋進度條＋卷宗五段（組織與任期／藍白惡行／機關癱瘓後果／事件時序／資料來源）＋關鍵日倒數。
 - **`AlertBanner.jsx`**：頂部 sticky 公告列，**件數由資料層即時算出**（不要手寫數字，會與卷宗脫節）。
-- **`LegislatorScoreboard.jsx`**：惡意癱瘓指數排名表（`id="legislator-scoreboard"`）。政黨分頁過濾＋預設顯示 20 位（`PAGE_SIZE`）；每列＝排名｜姓名＋黨籍章｜同意／非同意｜指數條｜分項；展開態＝**同意權行使具體細節**（`CaseRow`：一案一列，左為案由／日期／公報連結，右依行為分群列出被提名人姓名，同案同行為併成一行）＋法案角色清單。未達 `PARALYSIS_THRESHOLD` 者以分隔線置於表末。投票行為四色定義在檔內 `VOTE_TONE`（同意＝`--agree` 綠灰、不同意＝`--accent`、無效＝`--caution`、未領票＝`--text-muted`）。
+- **`LegislatorScoreboard.jsx`**：惡意癱瘓指數排名表（`id="legislator-scoreboard"`）。標題下的計分說明是 `.lb-scoreboard__meta` 定義列（法源／計分／門檻／明細各一列，桌機各一行）。**長段中文不要直接寫成 JSX 文字節點**：JSX 會把換行接成一個空白，於是渲染出「為通過； 統計」這種假空格；要嘛拆成短列，要嘛用 `{"..."}` 字串包起來。政黨分頁過濾＋預設顯示 20 位（`PAGE_SIZE`）；每列＝排名｜姓名＋黨籍章｜同意／非同意｜指數條｜分項；展開態＝**同意權行使具體細節**（`CaseRow`：一案一列，左為案由／日期／公報連結，右依行為分群列出被提名人姓名，同案同行為併成一行）＋法案角色清單。未達 `PARALYSIS_THRESHOLD` 者以分隔線置於表末。投票行為四色定義在檔內 `VOTE_TONE`（同意＝`--agree` 綠灰、不同意＝`--accent`、無效＝`--caution`、未領票＝`--text-muted`）。
 - **`BudgetClock.jsx`**：`BudgetFlap`（翻牌鐘）＋ `BudgetDossier`（預算卷宗）。**目前未被 App.jsx 引用**，與 `budget.js` 一起保留待改寫。
 
 ### `src/App.css`（單一樣式檔，~1.3k 行）

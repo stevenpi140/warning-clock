@@ -1,11 +1,8 @@
-import { TriageStrip, TRIAGE_LEVELS } from "./statusTone";
+import { TriageTag, TRIAGE_LEVELS, toneOf } from "./statusTone";
 
-// 案件索引＝檢傷分類板：9 個機關依 status 落入四級傷票色條，一眼掃完誰死透、誰重傷、誰只是掛彩。
-// 每一級一條色帶（＝傷票的色條），色帶下掛該級的機關列，每列跳該機關卷宗錨點。
+// 案件索引＝檢傷分類板：9 個機關各掛一張傷票，依嚴重度排序。
 // 分級直接用資料層的 status，不在呈現層另做推導。
-
-// 索引不放倒數／逾期天數：分級由色帶與傷票色條表達，關鍵日留給各機關卷宗（InstitutionCard）。
-// 每列末欄＝空缺席次，靠右對齊。
+// 不再按級別切分節：傷票的長度與底色本身就是分級，切節等於把同一件事講兩次。
 
 export default function CaseIndex({ institutions }) {
   const totalSeats = institutions.reduce((s, i) => s + i.totalSeats, 0);
@@ -13,13 +10,16 @@ export default function CaseIndex({ institutions }) {
   const vacantPct =
     totalSeats > 0 ? Math.round((totalVacant / totalSeats) * 100) : 0;
 
+  const sorted = [...institutions].sort(
+    (a, b) => toneOf(a.status).index - toneOf(b.status).index,
+  );
+
   return (
     <section className="case-index" aria-label="案件索引">
       <div className="case-index__head">
         <h2 className="case-index__title">案件索引</h2>
         <p className="case-index__summary">
-          <span className="data">{institutions.length}</span>{" "}
-          個國家機關（構）　空缺{" "}
+          <span className="data">{institutions.length}</span> 個國家機關（構）　空缺{" "}
           <span className="data">
             {totalVacant} / {totalSeats}
           </span>{" "}
@@ -28,54 +28,30 @@ export default function CaseIndex({ institutions }) {
       </div>
 
       <p className="case-index__note">
-        分級沿用緊急救護的檢傷分類：黑色瀕死＝全面癱瘓，紅色重傷＝瀕臨全面癱瘓，黃色中傷＝有癱瘓危險，綠色輕傷＝正常運行。每列左側色條依傷票判讀方式呈現，最下面露出的顏色即為該機關的分級。
+        分級沿用緊急救護的檢傷分類。檢傷員判定後會把比該級更輕的色條沿騎縫撕掉，最下面剩下的顏色就是判定結果，因此傷票愈短代表傷得愈重。
       </p>
 
-      {TRIAGE_LEVELS.map((lv) => {
-        const rows = institutions.filter((i) => i.status === lv.key);
-        return (
-          <div
-            className={`triage-tier triage-tier--${lv.key}${
-              rows.length === 0 ? " triage-tier--empty" : ""
-            }`}
-            key={lv.key}
-          >
-            <h3 className="triage-band">
-              <span className="triage-band__code" aria-hidden="true">
-                {lv.code}
+      <ol className="triage-key" aria-label="檢傷分級圖例">
+        {TRIAGE_LEVELS.map((lv) => {
+          const count = institutions.filter((i) => i.status === lv.key).length;
+          return (
+            <li className={`triage-key__item triage-key__item--${lv.key}`} key={lv.key}>
+              <span className="triage-key__chip">{lv.code}</span>
+              <span className="triage-key__name">{lv.name}</span>
+              <span className="triage-key__triage">{lv.triage}</span>
+              <span className="triage-key__count">
+                <span className="data">{count}</span> 件
               </span>
-              <span className="triage-band__name">{lv.name}</span>
-              <span className="triage-band__triage">{lv.triage}</span>
-              <span className="triage-band__gloss">{lv.gloss}</span>
-              <span className="triage-band__count">
-                <span className="data">{rows.length}</span> 件
-              </span>
-              <span className="triage-band__code" aria-hidden="true">
-                {lv.code}
-              </span>
-            </h3>
+            </li>
+          );
+        })}
+      </ol>
 
-            {rows.length > 0 && (
-              <ul className="case-index__list">
-                {rows.map((inst) => (
-                  <li className="case-index__row" key={inst.id}>
-                    <a className="case-index__link" href={`#${inst.id}`}>
-                      <TriageStrip status={inst.status} size="row" />
-                      <span className="case-index__name">{inst.name}</span>
-                      <span className="case-index__status">
-                        {inst.statusLabel}
-                      </span>
-                      <span className="case-index__vacancy data">
-                        {inst.vacantSeats} / {inst.totalSeats}
-                      </span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-        );
-      })}
+      <div className="triage-board">
+        {sorted.map((inst) => (
+          <TriageTag key={inst.id} institution={inst} />
+        ))}
+      </div>
     </section>
   );
 }

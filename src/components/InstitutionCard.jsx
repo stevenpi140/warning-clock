@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { TriageStrip, chartColorOf, toneOf } from "./statusTone";
+import { chartColorOf, toneOf } from "./statusTone";
 
 function ProgressBar({ filled, total, color }) {
   const pct = total > 0 ? (filled / total) * 100 : 0;
@@ -111,7 +111,6 @@ export default function InstitutionCard({
         aria-expanded={expanded}
       >
         <div className="inst-card__title-row">
-          <TriageStrip status={inst.status} />
           <div className="inst-card__titles">
             <h2 className="inst-card__name">{inst.name}</h2>
             <span className="inst-card__subtitle">{inst.subtitle}</span>

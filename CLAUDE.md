@@ -59,11 +59,13 @@ npm run preview    # 預覽 build 結果
 
 **四色是資訊本身（救護檢傷既有標準），不是新增的品牌 accent**；除黑與綠外皆沿用既有色相，單一 accent 紀律未被推翻。
 
-匯出 `TRIAGE_LEVELS`、`toneOf()`、`statusColorOf()`、`chartColorOf()`、`levelIndexOf()`、`<TriageStrip>`、`<StatusMarker>`（相容別名）。
+匯出 `TRIAGE_LEVELS`、`toneOf()`、`statusColorOf()`、`chartColorOf()`、`levelIndexOf()`、`<TriageTag>`。
 
-- **`<TriageStrip>`**：照搬傷票判讀機制，只保留判定級別（含）以上的色條、其下畫撕除虛線；**最下面露出的顏色就是分級**。
+- **`<TriageTag>`**：**一個機關一張傷票**，照搬傷票判讀機制，只保留判定級別（含）以上的色條，撕口切鋸齒且不補位，因此**傷票愈短＝傷得愈重**；最下面那條＝判定結果，印上級別名。
 - **`chartColorOf()`**：進度條、數據字等畫在深底上的場合用它，黑級會換成骨白（否則整條看不見）。畫色塊/章用 `statusColorOf()`。
 - `statusLabel` 只是該機關此刻的一句話現況（如「29 席全數出缺・投票延至 9/29」），**不決定顏色也不決定分級**。
+
+**2026/7/31 第二版改版紀錄（勿回退）**：第一版把傷票做成每列左側 18px 的迷你色條＋每級一條全幅色帶，是錯的——傷票是掛在「一個傷病患」身上的實體物件，18px 根本看不出四條色條與撕口，而每列重複一次級別（列已按級別分組）純屬贅飾；三條染底色帶在深底上也只是糊掉的橫紋。改成一張一張的傷票牆後這些問題一次消失。
 
 ### 呈現層 `src/App.jsx` + `src/components/`
 
@@ -71,10 +73,11 @@ npm run preview    # 預覽 build 結果
 
 - **`flap.jsx`**：翻牌鐘原件。`useElapsedParts(startDate, endDate?)` 即時算天/時/分/秒（給 `endDate` 即定格）；`FlapDigit`、`FlapGroup`（`tone="accent"` 讓「天」吃 accent 色）。
 - **國家機關（構）停擺鐘**（App.jsx 內 `FlapClock`，包在 `.clock-board.clock-board--single`）：目前只有這一座鐘。鐘面下方以髮絲線隔出 `.debt-clock__note` 起算說明（文字來自 `PARALYSIS_START_NOTE`）。`.clock-board` 的雙欄樣式仍在 CSS（預算鐘若回歸可直接用），`--single` 修飾子讓單鐘置中不被拉伸。
-- **`CaseIndex.jsx`**：案件索引＝**檢傷分類板**。直接依 `TRIAGE_LEVELS` 的四級渲染，一級一條「色帶」（`.triage-band`：代號章｜級別｜檢傷｜定義｜件數｜代號章），色帶下掛該級機關列。**四條色帶恆常渲染，該級 0 件也留位置**（抽掉染底只留色規與外框），這是誠實的計分板，不假裝某一級不存在。每列＝傷票色條｜機關名｜一句話現況｜空缺 X/Y｜關鍵倒數｜跳 `#id` 錨點。不改資料。
-  - 色帶用**染底 `--tier-tint` ＋ 左側色規 ＋ 實心代號章**，不是四條實心滿版。深底上四條都實心會讓最輕的黃色最吵、嚴重度倒過來。
-  - 警示字（`.case-index__overdue`）吃 `--tier-rule` 跟著該列級別走；紅色在檢傷制度裡專指「瀕臨全面癱瘓」，黑級的列印紅字就是分級撞色。
-- **`InstitutionCard.jsx`**：收合態＝傷票色條＋機關名＋級別章（`.triage-chip`：代號＋級別名）＋一句話現況＋一行空缺＋截斷 keyFact＋展開鈕；展開態＝4-metric 格＋進度條＋卷宗五段（組織與任期／藍白惡行／機關癱瘓後果／事件時序／資料來源）＋關鍵日倒數。
+- **`CaseIndex.jsx`**：案件索引＝**傷票牆**。`.triage-key`（四格圖例：代號章｜級別｜檢傷｜件數，件數由資料層即時算）＋ `.triage-board`（3 欄 grid，9 張 `<TriageTag>` 依 `toneOf().index` 排序，`align-items: start` 讓上緣切齊像掛在同一根桿子上）。不分節、不放倒數天數：分級由傷票長度與底色表達，切節與倒數都是把同一件事再講一次。不改資料。
+  - 傷票長度＝嚴重度，所以 `.triage-tag__body` 給 `min-height` 固定文字區，長短才不會被文案長度污染。
+  - 撕口用 `conic-gradient` 遮罩做鋸齒（`--tooth-w` / `--tooth-h`），並對非 `stable` 的傷票 `border-bottom: none`，否則鋸齒下方還壓一條直線。
+  - 行動版 768/480 都維持**兩欄**：單欄會讓九張傷票拉出近 5,000px 捲動。
+- **`InstitutionCard.jsx`**：收合態＝機關名＋級別章（`.triage-chip`：代號＋級別名）＋一句話現況＋一行空缺＋截斷 keyFact＋展開鈕，卡片左緣色規吃 `--tier-rule` 標示級別；展開態＝4-metric 格＋進度條＋卷宗五段（組織與任期／藍白惡行／機關癱瘓後果／事件時序／資料來源）＋關鍵日倒數。
 - **`AlertBanner.jsx`**：頂部 sticky 公告列，**件數由資料層即時算出**（不要手寫數字，會與卷宗脫節）。
 - **`LegislatorScoreboard.jsx`**：惡意癱瘓指數排名表（`id="legislator-scoreboard"`）。政黨分頁過濾＋預設顯示 20 位（`PAGE_SIZE`）；每列＝排名｜姓名＋黨籍章｜同意／非同意｜指數條｜分項；展開態＝**同意權行使具體細節**（`CaseRow`：一案一列，左為案由／日期／公報連結，右依行為分群列出被提名人姓名，同案同行為併成一行）＋法案角色清單。未達 `PARALYSIS_THRESHOLD` 者以分隔線置於表末。投票行為四色定義在檔內 `VOTE_TONE`（同意＝`--agree` 綠灰、不同意＝`--accent`、無效＝`--caution`、未領票＝`--text-muted`）。
 - **`BudgetClock.jsx`**：`BudgetFlap`（翻牌鐘）＋ `BudgetDossier`（預算卷宗）。**目前未被 App.jsx 引用**，與 `budget.js` 一起保留待改寫。
@@ -90,5 +93,6 @@ BEM 命名。設計 token 集中在 `:root`：`--accent`(#c2362f 單一印泥紅
 - 文件含**刻意保留的政治定性措辭**（如「傅崐萁集團」「藍白惡行」「機關癱瘓後果」）。這些是有意的編輯內容，不是要修掉的 bug；改動措辭前先理解其政治脈絡。
 - 每筆事實主張都附 `sources`（公開資料連結）。新增或修改主張時，**同步維護對應來源連結**，與「依公開資訊彙整」定位一致。
 - **不導入偽官方裝飾**（虛構檔號、印章、騎縫）——會傷可信度。公文質感只靠方角、髮絲線、mono 數據聲音達成。
-- 改內容動 `src/data/`；改狀態色階／新增 status 動 `statusTone.jsx`（必要時也動 `CaseIndex.jsx` 的 `TIERS`）；改版面動 `App.css`（守單一 accent、無 glow、`--radius`、768/480 斷點、em-dash 禁令）。
+- 改內容動 `src/data/`；改分級／新增 status 動 `statusTone.jsx` 的 `TRIAGE_LEVELS`（唯一登錄處）；改版面動 `App.css`（守單一 accent、無 glow、`--radius`、768/480 斷點、em-dash 禁令）。
+- **機關狀況一律用四個分級詞**：全面癱瘓／瀕臨全面癱瘓／有癱瘓危險／正常運行。事實描述（屆滿、出缺、卸任、不足額、遭否決）維持事實寫法，不換成分級詞。例外：《公視法》「看守延任條款」等法條用語、sources 引用的新聞原標題、停擺鐘名稱與計分板「癱瘓政府指數」，都不改。
 - **立委票格資料（`legislatorScores.js` 的 `votes`／`perCase`）一律以立法院公報唱票為準，不得手動微調單一票格。** 這份表點名到個人，錯一格就是對特定立委的不實指控；要更動就回去解析公報，並重跑 `votes` 與 `perCase` 的一致性驗算。

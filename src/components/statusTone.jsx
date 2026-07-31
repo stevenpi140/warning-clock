@@ -6,9 +6,11 @@
 //   III  正常運行      輕傷  綠   運作中，含曾癱瘓已恢復者
 //
 // 傷票的判讀機制是「撕除比判定級別更輕的色條，最下面露出的顏色就是判定結果」。
-// TriageStrip 照搬同一機制：只保留該機關級別（含）以上的色條，其下畫撕除線。
+// 每個機關＝一張傷票（TriageTag）：只保留判定級別（含）以上的色條，撕口切鋸齒；
+// 被撕掉的部分不補位，所以傷票長度本身就是嚴重度，全面癱瘓者只剩最上面一條黑。
+//
 // 四色是資訊本身（救護檢傷既有標準），不是新增的品牌 accent：紅沿用全站印泥紅
-// --accent、黃沿用琥珀家族、綠沿用計分板既有綠灰、黑為深底挖空加骨白髮絲線。
+// --accent、黃沿用琥珀家族、綠沿用計分板既有綠灰，僅黑為新增。
 // 卡片（InstitutionCard）與案件索引（CaseIndex）共用，避免色彩邏輯各寫一份。
 
 export const TRIAGE_LEVELS = [
@@ -21,8 +23,6 @@ export const TRIAGE_LEVELS = [
     color: "var(--triage-0)",
     // 黑在深底上畫不出進度條與數字，圖表／數據場合改用骨白（同屬「已無色可撕」的視覺語意）
     chartColor: "var(--bone)",
-    // 傷票色條要看得出鋸齒斷口，純黑咬在深底上等於沒形狀，色條專用一階提亮的黑
-    stripColor: "var(--triage-0-strip)",
   },
   {
     key: "critical",
@@ -72,36 +72,60 @@ export function levelIndexOf(status) {
   return toneOf(status).index;
 }
 
-// 傷票色條：外框是整張傷票的原始高度，內層 __stub 是「還沒被撕掉的部分」，
-// 底緣切成鋸齒（＝沿騎縫撕開的斷口）。撕線以下留空，一眼看得出被撕掉多少。
-// 判為輕傷（最後一級）時不撕任何色條，所以底緣維持平整、不上鋸齒。
-export function TriageStrip({ status, size }) {
-  const lv = toneOf(status);
+// 一張傷票＝一個機關。色條只留判定級別（含）以上，最下面那條＝判定結果，
+// 印上級別名；撕口切鋸齒且不補位，傷票長度即嚴重度。
+export function TriageTag({ institution }) {
+  const inst = institution;
+  const lv = toneOf(inst.status);
   const kept = lv.index + 1;
   const torn = kept < TRIAGE_LEVELS.length;
-  return (
-    <span
-      className={`triage-strip triage-strip--${lv.key}${size ? ` triage-strip--${size}` : ""}`}
-      role="img"
-      aria-label={`檢傷 ${lv.code}｜${lv.name}`}
-    >
-      <span
-        className={`triage-strip__stub${torn ? " triage-strip__stub--torn" : ""}`}
-        style={{ "--kept": kept, "--total": TRIAGE_LEVELS.length }}
-      >
-        {TRIAGE_LEVELS.slice(0, kept).map((band) => (
-          <span
-            key={band.key}
-            className="triage-strip__band"
-            style={{ background: band.stripColor || band.color }}
-          />
-        ))}
-      </span>
-    </span>
-  );
-}
 
-// 既有呼叫點沿用同一個名字，標記本身改為傷票色條。
-export function StatusMarker({ status }) {
-  return <TriageStrip status={status} />;
+  return (
+    <a
+      className={`triage-tag triage-tag--${lv.key}`}
+      href={`#${inst.id}`}
+      aria-label={`${inst.name}，檢傷 ${lv.code} ${lv.name}，空缺 ${inst.vacantSeats} / ${inst.totalSeats} 席`}
+    >
+      <span className="triage-tag__head" aria-hidden="true">
+        <span className="triage-tag__hole" />
+      </span>
+
+      <span className="triage-tag__body">
+        <span className="triage-tag__name">{inst.name}</span>
+        <span className="triage-tag__en">{inst.subtitle}</span>
+        <span className="triage-tag__status">{inst.statusLabel}</span>
+        <span className="triage-tag__seats">
+          <span className="triage-tag__seats-label">空缺席次</span>
+          <span className="data triage-tag__seats-num">
+            {inst.vacantSeats} / {inst.totalSeats}
+          </span>
+        </span>
+      </span>
+
+      <span className="triage-tag__bands">
+        {TRIAGE_LEVELS.slice(0, kept).map((band, i) => {
+          const verdict = i === kept - 1;
+          return (
+            <span
+              key={band.key}
+              className={[
+                "triage-tag__band",
+                verdict ? "triage-tag__band--verdict" : "",
+                verdict && torn ? "triage-tag__band--tear" : "",
+              ]
+                .filter(Boolean)
+                .join(" ")}
+              style={{ background: band.color, color: `var(--on-triage-${i})` }}
+            >
+              <span className="triage-tag__code">{band.code}</span>
+              {verdict && (
+                <span className="triage-tag__verdict">{band.name}</span>
+              )}
+              <span className="triage-tag__code">{band.code}</span>
+            </span>
+          );
+        })}
+      </span>
+    </a>
+  );
 }

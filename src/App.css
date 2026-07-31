@@ -29,8 +29,6 @@
      0 瀕死＝深底挖空＋骨白髮絲線／I 重傷＝全站印泥紅／II 中傷＝琥珀家族／III 輕傷＝計分板綠灰。
      on-* 為色條上的文字色，四組對深底與各自底色皆過 WCAG AA（4.4:1 以上）。 */
   --triage-0: #08080a;
-  /* 傷票色條專用：純黑在深底上沒有形狀、鋸齒斷口讀不出來，色條的黑提亮一階 */
-  --triage-0-strip: #24242c;
   --triage-1: #c2362f;
   --triage-2: #bd8f33;
   --triage-3: #55705a;
@@ -38,12 +36,6 @@
   --on-triage-1: #fbf7f0;
   --on-triage-2: #14140f;
   --on-triage-3: #fbf7f0;
-  /* 色帶底：深底上不能四條都實心滿版，否則黃色最輕的一級反而最吵、嚴重度倒過來。
-     色帶用染底＋實心代號章＋左側色規，四級等重；實心色只留給代號章與撕票色條。 */
-  --tint-triage-0: #111116;
-  --tint-triage-1: #3a1c1a;
-  --tint-triage-2: #362b18;
-  --tint-triage-3: #1e2a22;
   /* 骨白：翻牌數字等中性高亮 */
   --bone: #ece7dc;
   /* 舊變數名重新指向新色票：一次清掉 5-accent 彩虹與所有 glow 用色 */
@@ -482,221 +474,230 @@ body {
   color: var(--text-muted);
 }
 
-/* === 檢傷色帶（＝傷票的色條）：一級一帶，代號在兩端，件數在右 === */
-.triage-tier {
-  margin-bottom: 1.1rem;
-}
-
-.triage-tier--collapsed { --tier-color: var(--triage-0); --tier-on: var(--on-triage-0); --tier-tint: var(--tint-triage-0); --tier-rule: var(--bone); }
-.triage-tier--critical  { --tier-color: var(--triage-1); --tier-on: var(--on-triage-1); --tier-tint: var(--tint-triage-1); --tier-rule: var(--triage-1); }
-.triage-tier--atRisk    { --tier-color: var(--triage-2); --tier-on: var(--on-triage-2); --tier-tint: var(--tint-triage-2); --tier-rule: var(--triage-2); }
-.triage-tier--stable    { --tier-color: var(--triage-3); --tier-on: var(--on-triage-3); --tier-tint: var(--tint-triage-3); --tier-rule: var(--triage-3); }
-
-.triage-band {
+/* === 檢傷分級圖例：一列四格，說明四個代號各代表什麼、目前各幾件 === */
+.triage-key {
+  list-style: none;
   display: grid;
-  grid-template-columns: 1.7em minmax(6em, max-content) 3.2em 1fr auto 1.7em;
-  align-items: center;
-  gap: 0.85rem;
-  padding: 0.4rem 0.55rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  margin: 0 0 1.6rem;
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius);
-  background: var(--tier-tint);
-  border-left: 4px solid var(--tier-rule);
-  color: var(--text-primary);
-  font-size: 0.86rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
+  background: var(--border-subtle);
 }
 
-/* 該級目前無機關：抽掉染底只留色規與外框（誠實的計分板，不假裝沒有這一級） */
-.triage-tier--empty .triage-band {
-  background: transparent;
-  color: var(--text-muted);
-  box-shadow: inset 0 0 0 1px var(--border-subtle);
+.triage-key__item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  padding: 0.55rem 0.7rem;
+  background: var(--bg-primary);
+  font-size: 0.8rem;
 }
 
-/* 代號章＝實心色塊，四級唯一等重的實心色（黑章加骨白髮絲線才不會讀成沒東西） */
-.triage-band__code {
-  font-family: var(--font-mono);
-  font-size: 0.9em;
-  font-weight: 700;
-  text-align: center;
-  padding: 0.1rem 0;
-  border-radius: var(--radius);
-  background: var(--tier-color);
-  color: var(--tier-on);
-}
+.triage-key__item--collapsed { --key-color: var(--triage-0); --key-on: var(--on-triage-0); }
+.triage-key__item--critical  { --key-color: var(--triage-1); --key-on: var(--on-triage-1); }
+.triage-key__item--atRisk    { --key-color: var(--triage-2); --key-on: var(--on-triage-2); }
+.triage-key__item--stable    { --key-color: var(--triage-3); --key-on: var(--on-triage-3); }
 
-.triage-tier--collapsed .triage-band__code {
-  box-shadow: inset 0 0 0 1px rgba(236, 231, 220, 0.55);
-}
-
-.triage-tier--empty .triage-band__code {
-  opacity: 0.55;
-}
-
-.triage-band__triage {
-  font-size: 0.82em;
-  font-weight: 400;
-  letter-spacing: 0.08em;
-  color: var(--text-secondary);
-}
-
-.triage-band__gloss {
-  font-size: 0.8em;
-  font-weight: 400;
-  color: var(--text-muted);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.triage-band__count {
-  font-size: 0.85em;
-  font-weight: 400;
-  white-space: nowrap;
-  color: var(--text-secondary);
-}
-
-.triage-band__count .data {
-  font-weight: 700;
-}
-
-/* === 傷票色條 ===
-   外框＝整張傷票的原始高度（含已撕掉的部分，所以看得出撕到哪）；
-   __stub＝還沒被撕掉的色條，底緣切鋸齒＝沿騎縫撕開的斷口。 */
-.triage-strip {
-  --strip-h: 44px;
-  --strip-w: 20px;
-  --tooth-h: 7px;
-  display: block;
-  position: relative;
-  width: var(--strip-w);
-  height: var(--strip-h);
+.triage-key__chip {
   flex-shrink: 0;
+  min-width: 1.7em;
+  padding: 0.12rem 0;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.78rem;
+  border-radius: var(--radius);
+  background: var(--key-color);
+  color: var(--key-on);
+}
+
+.triage-key__item--collapsed .triage-key__chip {
+  box-shadow: inset 0 0 0 1px rgba(236, 231, 220, 0.4);
+}
+
+.triage-key__name {
+  font-weight: 700;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.triage-key__triage {
+  font-size: 0.9em;
+  color: var(--text-muted);
+}
+
+.triage-key__count {
+  margin-left: auto;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+/* === 傷票牆：一個機關一張傷票，依嚴重度排序，上緣切齊像掛在同一根桿子上 === */
+.triage-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: start;
+  gap: 1.1rem;
+}
+
+/* 一張傷票 */
+.triage-tag {
+  --band-h: 30px;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  background: var(--bg-secondary);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+/* 被撕過的傷票不留底框，否則鋸齒下方還壓一條直線，撕開的感覺就沒了 */
+.triage-tag:not(.triage-tag--stable) {
+  border-bottom: none;
+}
+
+.triage-tag:hover,
+.triage-tag:focus-visible {
+  background: var(--bg-card-hover);
+  border-color: var(--text-muted);
+}
+
+/* 綁繩孔：傷票掛在傷病患身上的那個孔 */
+.triage-tag__head {
+  display: flex;
+  justify-content: center;
+  padding: 0.55rem 0 0.45rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.triage-tag__hole {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
   background: var(--bg-primary);
+  box-shadow: inset 0 0 0 1px var(--border);
 }
 
-.triage-strip--row {
-  --strip-h: 38px;
-  --strip-w: 18px;
-  --tooth-h: 6px;
-}
-
-/* stub 高度 ＝ 保留的色條數 / 總級數。用 flex 讓最後一條色條吃掉多出來的半個齒深，
-   齒尖才是「有顏色的紙」而不是透明 padding（否則只看得到凹口、看不到齒）。 */
-.triage-strip__stub {
+/* 文字區高度固定，傷票長短才純粹反映嚴重度而不是文案長度 */
+.triage-tag__body {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: calc(var(--kept) / var(--total) * 100%);
+  min-height: 132px;
+  padding: 0.85rem 0.95rem 0.9rem;
 }
 
-/* 鋸齒斷口：4 個齒尖朝下，齒深 --tooth-h；drop-shadow 沿 clip-path 描出斷口唇邊，
-   讓黑條被撕的那一刀在深底上也看得見。判為輕傷者不撕，底緣維持平整。 */
-.triage-strip__stub--torn {
-  height: calc(var(--kept) / var(--total) * 100% + var(--tooth-h) / 2);
-  filter: drop-shadow(0 1px 0 rgba(236, 231, 220, 0.55));
-  clip-path: polygon(
-    0% 0%,
-    100% 0%,
-    100% calc(100% - var(--tooth-h)),
-    87.5% 100%,
-    75% calc(100% - var(--tooth-h)),
-    62.5% 100%,
-    50% calc(100% - var(--tooth-h)),
-    37.5% 100%,
-    25% calc(100% - var(--tooth-h)),
-    12.5% 100%,
-    0% calc(100% - var(--tooth-h))
-  );
-}
-
-/* 黑級色條已用 --triage-0-strip 提亮，唇邊只需比其他級略強 */
-.triage-strip--collapsed .triage-strip__stub--torn {
-  filter: drop-shadow(0 1px 0 rgba(236, 231, 220, 0.7));
-}
-
-.triage-strip__band {
-  display: block;
-  flex: 1 1 0;
-  min-height: 0;
-}
-
-/* 黑條在深底上需骨白髮絲線，否則讀成「這裡沒東西」而不是「這是黑條」 */
-.triage-strip__band:first-child {
-  box-shadow: inset 0 0 0 1px rgba(236, 231, 220, 0.55);
-}
-
-/* === 級別章（卡片標頭用）=== */
-.triage-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.2rem 0.6rem;
-  border-radius: var(--radius);
-  background: var(--tier-color);
-  color: var(--tier-on);
-  font-size: 0.78rem;
+.triage-tag__name {
+  font-size: 1.1rem;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+/* 英文名與現況都鎖行數：文字區高度必須固定，傷票長短才純粹是嚴重度而非文案長度 */
+.triage-tag__en {
+  margin-top: 0.15rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-muted);
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.triage-chip--collapsed { --tier-color: var(--triage-0); --tier-on: var(--on-triage-0); box-shadow: inset 0 0 0 1px rgba(236, 231, 220, 0.32); }
-.triage-chip--critical  { --tier-color: var(--triage-1); --tier-on: var(--on-triage-1); }
-.triage-chip--atRisk    { --tier-color: var(--triage-2); --tier-on: var(--on-triage-2); }
-.triage-chip--stable    { --tier-color: var(--triage-3); --tier-on: var(--on-triage-3); }
-
-.triage-chip__code {
-  font-family: var(--font-mono);
-  opacity: 0.85;
+.triage-tag__status {
+  margin-top: 0.55rem;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-.case-index__list {
-  list-style: none;
-}
-
-.case-index__row + .case-index__row .case-index__link {
+.triage-tag__seats {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.6rem;
+  margin-top: auto;
+  padding-top: 0.7rem;
   border-top: 1px solid var(--border-subtle);
 }
 
-.case-index__link {
-  display: grid;
-  grid-template-columns: 18px minmax(7.5em, max-content) 1fr 4.5em;
-  align-items: center;
-  gap: 0.9rem;
-  padding: 0.5rem 0.65rem;
-  text-decoration: none;
-  color: inherit;
-  transition: background 0.15s ease;
+.triage-tag__seats-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
 }
 
-.case-index__link:hover {
-  background: var(--bg-card-hover);
-}
-
-.case-index__name {
+.triage-tag__seats-num {
   font-size: 0.95rem;
   font-weight: 700;
   color: var(--text-primary);
 }
 
-.case-index__status {
-  font-size: 0.82rem;
-  color: var(--text-secondary);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+/* 色條區：只有沒被撕掉的色條 */
+.triage-tag__bands {
+  display: flex;
+  flex-direction: column;
 }
 
-.case-index__vacancy {
-  text-align: right;
-  font-size: 0.85rem;
-  color: var(--text-secondary);
+.triage-tag__band {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  height: var(--band-h);
+  padding: 0 0.6rem;
 }
+
+/* 黑條在深底上要有骨白髮絲線才讀得出是一條黑紙，不是缺口 */
+.triage-tag--collapsed .triage-tag__band:first-child {
+  box-shadow: inset 0 0 0 1px rgba(236, 231, 220, 0.32);
+}
+
+.triage-tag__code {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  opacity: 0.9;
+}
+
+/* 最下面那條＝判定結果，印上級別名 */
+.triage-tag__band--verdict {
+  height: calc(var(--band-h) + 4px);
+}
+
+.triage-tag__verdict {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+/* 撕口：沿騎縫撕開的鋸齒。齒尖是色條本身，往下咬進被撕掉的空白 */
+.triage-tag__band--tear {
+  --tooth-w: 15px;
+  --tooth-h: 8px;
+  height: calc(var(--band-h) + 4px + var(--tooth-h));
+  padding-bottom: var(--tooth-h);
+  -webkit-mask:
+    linear-gradient(#000 0 0) top / 100% calc(100% - var(--tooth-h)) no-repeat,
+    conic-gradient(from -45deg at 50% 100%, #000 90deg, #0000 0) bottom left /
+      var(--tooth-w) var(--tooth-h) repeat-x;
+  mask:
+    linear-gradient(#000 0 0) top / 100% calc(100% - var(--tooth-h)) no-repeat,
+    conic-gradient(from -45deg at 50% 100%, #000 90deg, #0000 0) bottom left /
+      var(--tooth-w) var(--tooth-h) repeat-x;
+}
+
 
 
 /* === 收合卡精簡（4-metric 與 progress 移入展開層） === */
@@ -735,9 +736,16 @@ body {
   gap: 1px;
 }
 
+/* 卷宗卡：左緣色規＝該機關的檢傷級別，與傷票牆同一套色 */
+.inst-card--collapsed { --tier-rule: var(--bone); }
+.inst-card--critical  { --tier-rule: var(--triage-1); }
+.inst-card--atRisk    { --tier-rule: var(--triage-2); }
+.inst-card--stable    { --tier-rule: var(--triage-3); }
+
 .inst-card {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--tier-rule, var(--border));
   transition: background 0.2s ease, border-color 0.2s ease;
   scroll-margin-top: 56px;
 }
@@ -1930,46 +1938,14 @@ body {
     gap: 1rem;
   }
 
-  /* 檢傷色帶行動版：收掉定義文與右端代號，保留代號｜級別｜檢傷｜件數 */
-  .triage-band {
-    grid-template-columns: 1.5em minmax(6em, max-content) 3.2em auto;
-    gap: 0.6rem;
+  /* 傷票牆行動版：768 以下兩欄，圖例改 2x2 */
+  .triage-board {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.9rem;
   }
 
-  .triage-band__gloss,
-  .triage-band__code:last-child {
-    display: none;
-  }
-
-  .triage-band__count {
-    justify-self: end;
-  }
-
-  /* 案件索引行動版：每列攤成兩行（機關名在上，現況在下；空缺席次靠右跨兩行） */
-  .case-index__link {
-    grid-template-columns: 18px 1fr auto;
-    grid-template-areas:
-      "marker name vacancy"
-      "marker status vacancy";
-    row-gap: 0.2rem;
-    column-gap: 0.7rem;
-  }
-
-  .case-index__link > .triage-strip {
-    grid-area: marker;
-    align-self: center;
-  }
-
-  .case-index__name { grid-area: name; }
-
-  .case-index__vacancy {
-    grid-area: vacancy;
-    align-self: center;
-  }
-
-  .case-index__status {
-    grid-area: status;
-    white-space: normal;
+  .triage-key {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .inst-card__header {
@@ -2025,6 +2001,49 @@ body {
 }
 
 @media (max-width: 480px) {
+  /* 窄螢幕仍維持兩欄：單欄會讓九張傷票拉出近五千像素的捲動 */
+  .triage-board {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.7rem;
+  }
+
+  .triage-key {
+    grid-template-columns: 1fr;
+  }
+
+  .triage-tag {
+    --band-h: 26px;
+  }
+
+  .triage-tag__body {
+    min-height: 128px;
+    padding: 0.7rem 0.7rem 0.75rem;
+  }
+
+  /* 窄欄放不下完整英文名，收掉；機關中文名與席次才是掃描重點 */
+  .triage-tag__en {
+    display: none;
+  }
+
+  .triage-tag__name {
+    font-size: 0.98rem;
+  }
+
+  .triage-tag__status {
+    margin-top: 0.4rem;
+    font-size: 0.74rem;
+  }
+
+  .triage-tag__verdict {
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+  }
+
+  .triage-tag__band--tear {
+    --tooth-w: 11px;
+    --tooth-h: 6px;
+  }
+
   .debt-clock {
     padding: 1.4rem 1rem 1.2rem;
   }

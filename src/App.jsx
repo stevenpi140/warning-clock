@@ -2,6 +2,7 @@ import { useState } from "react";
 import {
   institutions,
   PARALYSIS_START,
+  PARALYSIS_START_NOTE,
   DATA_UPDATED,
 } from "./data/institutions";
 import { economicDemocracyUnion as edu } from "./data/orgInfo";
@@ -12,7 +13,7 @@ import LegislatorScoreboard from "./components/LegislatorScoreboard";
 import { useElapsedParts, FlapGroup } from "./components/flap";
 import eduLogo from "./assets/edu-logo.png";
 
-function FlapClock({ startDate }) {
+function FlapClock({ startDate, note }) {
   const { days, h, m, s, totalHours } = useElapsedParts(startDate);
 
   return (
@@ -42,6 +43,8 @@ function FlapClock({ startDate }) {
       <div className="debt-clock__convert">
         ≒ {totalHours.toLocaleString()} 小時
       </div>
+
+      {note && <p className="debt-clock__note">{note}</p>}
     </div>
   );
 }
@@ -70,7 +73,7 @@ export default function App() {
           </span>
         </h1>
         <div className="clock-board clock-board--single">
-          <FlapClock startDate={PARALYSIS_START} />
+          <FlapClock startDate={PARALYSIS_START} note={PARALYSIS_START_NOTE} />
         </div>
         <p className="header__desc">
           鄭麗文傅崐萁集團透過杯葛人事同意權、惡修法令、刪減預算、拖延議程等手段，逐一癱瘓重要的國家機關（構）。

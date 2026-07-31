@@ -33,8 +33,9 @@ npm run preview    # 預覽 build 結果
 
 ### 資料層 `src/data/`
 
-- **`institutions.js`**（機關卷宗，唯一資料來源）：匯出 `{ institutions, PARALYSIS_START }`。
-  - `PARALYSIS_START`＝2024-05-28 16:41（《立法院職權行使法》國會擴權法案三讀時點），驅動首屏「國家機關（構）停擺鐘」即時天數。
+- **`institutions.js`**（機關卷宗，唯一資料來源）：匯出 `{ institutions, PARALYSIS_START, PARALYSIS_START_NOTE, DATA_UPDATED }`。
+  - `PARALYSIS_START`＝2024-09-01 00:00（第 13 屆考試院正副院長及考試委員 2024/8/31 任期屆滿後，考試委員出缺之時點），驅動首屏「國家機關（構）停擺鐘」即時天數。考試院是第一個因人事同意權遭杯葛而停擺的憲政機關，故取為計時原點（前一版起算點為 2024-05-28 16:41 國會擴權法案三讀時點，2026/07 已改）。
+  - `PARALYSIS_START_NOTE`＝停擺鐘下方的起算說明文字，由 `App.jsx` 的 `FlapClock` 以 `note` prop 接收、渲染成 `.debt-clock__note`。**改說明文字動這裡，不要改元件。**
   - 每個機關物件欄位：`id`（也是錨點 `#id`，CaseIndex 與卷宗共用）、`name`、`subtitle`（英文）、`status`、`statusLabel`（一句話現況，自由文字）、`totalSeats`、`vacantSeats`、選用 `seatNoun`（如「應設機關」）、`criticalDate`（ISO 或 null）、`criticalDateLabel`、`org`（組織與任期）、`keyFact`、選用 `keyFactEn`、`actions`（藍白惡行）、`impact`（機關癱瘓後果）、`timeline`（`[{date,text}]`）、`sources`（`[{label,url}]`）。
 - **`legislatorScores.js`**（立委計分板，唯一資料來源；**由公報唱票解析產生，勿手改個別票格**）：匯出 `{ SCORE_META, PARALYSIS_THRESHOLD, CASES, LEGISLATORS }`。
   - `CASES`＝9 件人事同意權案（考試院、大法官一／二輪、公平會、審計長、NCC、中選會一／二輪、檢察總長），每案 `id`、`date`、`org`、`nomineeCount`、`nominees`（被提名人名單，順序即票格順序）、`passed`、`dataStatus`、`gazette{議程編號,url,pages}`（立法院公報出處）。
@@ -64,7 +65,7 @@ npm run preview    # 預覽 build 結果
 頁面順序：**AlertBanner → hero（印章＋大標＋國家機關（構）停擺鐘＋說明）→ 案件索引 CaseIndex → 9 張機關卷宗 → 惡意癱瘓指數排名表 LegislatorScoreboard → footer（經民連＋免責）**。機關卡的手風琴展開狀態存在單一 `expandedCard`，計分板另有自己的 `expandedName`。
 
 - **`flap.jsx`**：翻牌鐘原件。`useElapsedParts(startDate, endDate?)` 即時算天/時/分/秒（給 `endDate` 即定格）；`FlapDigit`、`FlapGroup`（`tone="accent"` 讓「天」吃 accent 色）。
-- **國家機關（構）停擺鐘**（App.jsx 內 `FlapClock`，包在 `.clock-board.clock-board--single`）：目前只有這一座鐘。`.clock-board` 的雙欄樣式仍在 CSS（預算鐘若回歸可直接用），`--single` 修飾子讓單鐘置中不被拉伸。
+- **國家機關（構）停擺鐘**（App.jsx 內 `FlapClock`，包在 `.clock-board.clock-board--single`）：目前只有這一座鐘。鐘面下方以髮絲線隔出 `.debt-clock__note` 起算說明（文字來自 `PARALYSIS_START_NOTE`）。`.clock-board` 的雙欄樣式仍在 CSS（預算鐘若回歸可直接用），`--single` 修飾子讓單鐘置中不被拉伸。
 - **`CaseIndex.jsx`**：案件索引／triage 脊椎。在呈現層用 `TIERS` 依嚴重度把 9 機關分三層（停擺違憲：paralyzed/partial/overdue｜瀕危：atRisk｜已恢復：former），每列＝狀態標記｜機關名｜一句話現況｜空缺 X/Y｜關鍵倒數｜跳 `#id` 錨點。不改資料。
 - **`InstitutionCard.jsx`**：收合態＝標記＋機關名＋狀態 pill＋一行空缺＋截斷 keyFact＋展開鈕；展開態＝4-metric 格＋進度條＋卷宗五段（組織與任期／藍白惡行／機關癱瘓後果／事件時序／資料來源）＋關鍵日倒數。
 - **`LegislatorScoreboard.jsx`**：惡意癱瘓指數排名表（`id="legislator-scoreboard"`）。政黨分頁過濾＋預設顯示 20 位（`PAGE_SIZE`）；每列＝排名｜姓名＋黨籍章｜同意／非同意｜指數條｜分項；展開態＝**同意權行使具體細節**（`CaseRow`：一案一列，左為案由／日期／公報連結，右依行為分群列出被提名人姓名，同案同行為併成一行）＋法案角色清單。未達 `PARALYSIS_THRESHOLD` 者以分隔線置於表末。投票行為四色定義在檔內 `VOTE_TONE`（同意＝`--agree` 綠灰、不同意＝`--accent`、無效＝`--caution`、未領票＝`--text-muted`）。

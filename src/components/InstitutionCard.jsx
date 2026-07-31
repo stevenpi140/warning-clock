@@ -58,7 +58,7 @@ function CountdownToDeadline({ date, label }) {
   );
 }
 
-// 停擺累積計時（正數）：給已癱瘓且有明確起算日的機關，以「已癱瘓 N 天」呈現持續累積的時間壓力。
+// 癱瘓累積計時（正數）：給已全面癱瘓且有明確起算日的機關，呈現持續累積的時間壓力。
 function ElapsedSince({ date, label }) {
   const [elapsed, setElapsed] = useState({ d: 0, h: 0 });
 
@@ -77,9 +77,9 @@ function ElapsedSince({ date, label }) {
 
   return (
     <div className="countdown countdown--overdue">
-      <span className="countdown__label">{label || "已停擺"}</span>
+      <span className="countdown__label">{label || "起算"}</span>
       <span className="countdown__urgent">
-        已癱瘓 {elapsed.d} 天 {elapsed.h} 小時
+        已全面癱瘓 {elapsed.d} 天 {elapsed.h} 小時
       </span>
     </div>
   );

@@ -395,7 +395,7 @@ const institutions = [
     name: "公共電視",
     subtitle: "Public Television Service",
     status: "collapsed",
-    statusLabel: "董事會全數出缺・無合法董事會",
+    statusLabel: "審查委員辭任，無合法董事會",
     totalSeats: 15,
     vacantSeats: 15,
     criticalDate: null,

@@ -468,15 +468,24 @@ body {
   color: var(--text-secondary);
 }
 
-/* 檢傷分類說明：放在圖例之前，先講判讀方式再給結果。
-   實測單行 799px，容器有 1050px，不設 max-width 就是一行 */
-.case-index__note {
-  margin: 0 0 1.2rem;
+/* === 級別章（卷宗卡標頭用）：實心色塊＋級別名，不放代號（卡片上代號沒有對照可看） === */
+.triage-chip {
+  display: inline-block;
+  padding: 0.22rem 0.65rem;
+  border-radius: var(--radius);
+  background: var(--tier-color);
+  color: var(--tier-on);
   font-size: 0.78rem;
-  line-height: 1.75;
-  color: var(--text-muted);
-  text-wrap: pretty;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
+
+.triage-chip--collapsed { --tier-color: var(--triage-0); --tier-on: var(--on-triage-0); box-shadow: inset 0 0 0 1px rgba(236, 231, 220, 0.32); }
+.triage-chip--critical  { --tier-color: var(--triage-1); --tier-on: var(--on-triage-1); }
+.triage-chip--atRisk    { --tier-color: var(--triage-2); --tier-on: var(--on-triage-2); }
+.triage-chip--stable    { --tier-color: var(--triage-3); --tier-on: var(--on-triage-3); }
 
 /* === 檢傷分級圖例：一列四格，說明四個代號各代表什麼、目前各幾件 === */
 .triage-key {

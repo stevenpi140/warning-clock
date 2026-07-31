@@ -27,10 +27,6 @@ export default function CaseIndex({ institutions }) {
         </p>
       </div>
 
-      <p className="case-index__note">
-        分級沿用緊急救護的檢傷分類。檢傷員判定後會把比該級更輕的色條沿騎縫撕掉，最下面剩下的顏色就是判定結果，因此傷票愈短代表傷得愈重。
-      </p>
-
       <ol className="triage-key" aria-label="檢傷分級圖例">
         {TRIAGE_LEVELS.map((lv) => {
           const count = institutions.filter((i) => i.status === lv.key).length;

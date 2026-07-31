@@ -116,7 +116,6 @@ export default function InstitutionCard({
             <span className="inst-card__subtitle">{inst.subtitle}</span>
           </div>
           <span className={`triage-chip triage-chip--${level.key}`}>
-            <span className="triage-chip__code">{level.code}</span>
             {level.name}
           </span>
         </div>

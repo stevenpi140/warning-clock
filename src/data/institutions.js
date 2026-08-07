@@ -9,7 +9,7 @@ const PARALYSIS_START_NOTE =
   "計時自 2024 年 9 月 1 日零時起算。第 13 屆考試院院長、副院長及考試委員任期於 2024 年 8 月 31 日屆滿，藍白多數延宕人事同意權審查逾三個月，考試院自 9 月 1 日零時起出缺，是第 11 屆立法院所造成第一個因人事同意權遭杯葛而全面癱瘓的憲政機關，癱瘓警示鐘聲就此響起。";
 
 // 資料實際校準日（footer「最後更新」顯示用）：每次更新 src/data/ 內容時手動改這裡。
-const DATA_UPDATED = "2026年7月31日";
+const DATA_UPDATED = "2026年8月7日";
 
 // status ＝ 檢傷分類級別（唯一登錄處在 components/statusTone.jsx 的 TRIAGE_LEVELS）
 //  collapsed 全面癱瘓（黑・瀕死）/ critical 瀕臨全面癱瘓（紅・重傷）
@@ -394,25 +394,23 @@ const institutions = [
     id: "pts",
     name: "公共電視",
     subtitle: "Public Television Service",
-    status: "collapsed",
-    statusLabel: "審查委員辭任，無合法董事會",
+    status: "critical",
+    statusLabel: "審查委員辭任・第 8 屆董事會無法產生",
     totalSeats: 15,
     vacantSeats: 15,
     criticalDate: null,
-    elapsedSince: "2026-02-06",
-    elapsedSinceLabel: "自 2026/2/6",
     org: "依《公視法》公視基金會設董事 11-15 人、監察人 3-5 人、董事任期 3 年；由立法院推舉審查委員、行政院提名、經審查委員 2/3 同意後聘任。公視董事會為公廣集團最高治理機關。",
     keyFact:
-      "第 7 屆董監事 2025/5/19 任期屆滿，原依《公視法》看守延任條款（新的不來、舊的不走）續行職務；藍白 2026/1/16 三讀刪除該條款、2/4 公布、2/6 生效，看守董事會即告解散。新一屆董事會因審查會屢遭杯葛而無法產生足額董事、迄今無人就任，公視自此無合法董事會可核定預算、遴聘總經理與決定節目方針，董事會全面癱瘓。",
+      "第 7 屆董監事 2025/5/19 任期屆滿，原依《公視法》看守延任條款（新的不來、舊的不走）續行職務；藍白 2026/1/16 三讀刪除該條款、2/4 公布、2/6 生效。第 8 屆審查會 2025/12/31 僅 4 人通過、不足法定下限，2026/4/16 又因在野推舉之審查委員集體請辭而流會，新一屆董事會迄今無法產生、無人就任。第 7 屆董事得否續行職務則有法律爭議：文化部認依《公視法》第 2 條，其餘適用《財團法人法》，現任董事得續行職務至新任就任；在野立委則認延任條款既已刪除，即等同卸任。董事會組成懸而未決，核定預算決算、遴聘總經理與決定節目方針因此陷於不確定，公視董事會瀕臨全面癱瘓。",
     keyFactEn:
-      "The 7th board’s term ended on 19 May 2025 but stayed on under the Public Television Act’s holdover clause. The blue-white camp repealed that clause on 16 Jan 2026 (promulgated 4 Feb, effective 6 Feb), dissolving the caretaker board and leaving PTS without a lawful board for about six months, with the 8th board still unseated amid blocked nominations and frozen budgets.",
+      "The 7th board’s term ended on 19 May 2025 but stayed on under the Public Television Act’s holdover clause, which the blue-white camp repealed on 16 Jan 2026 (promulgated 4 Feb, effective 6 Feb). The 8th board still cannot be seated: only 4 nominees cleared the review panel on 31 Dec 2025, short of the statutory minimum, and the opposition-appointed reviewers resigned en masse, aborting the second session on 16 Apr 2026. Whether the 7th board may lawfully continue to serve is contested: the Ministry of Culture reads Article 2 of the Act as making the Foundation Act applicable, so sitting directors serve until successors take office, while opposition legislators argue the repeal amounts to their removal. With the board’s composition unresolved, budget approval, the appointment of a president and programming decisions are all in limbo.",
     actions: [
       "刪除看守條款：2026/1/16 三讀刪除《公視法》第 16 條「董事屆滿未及改聘者延任」（59:49）、2/4 公布、2/6 生效，使屆滿董事無法看守；5/7 羅智強並援引此修法將董事長胡元輝逐出議場。",
-      "杯葛審查：第 8 屆審查會 2025/12/31 僅 4 人過關、不足法定下限 11 人；2026/4/16 在野推舉之審委集體請辭／拒審而流會。",
+      "杯葛審查：第 8 屆審查會 2025/12/31 僅 4 人過關、不足法定下限 11 人；在野推舉之 8 名審查委員 2026/4/9 聯名請辭，4/16 第二次審查會因未達法定人數流會，審查程序無從進行。",
       "刪凍預算：2025 年度公視預算遭刪 2,300 萬、凍結 5.7 億（約 25%）。",
     ],
     impact: [
-      "無合法董事會即無法核定預算決算、遴聘總經理、決定節目方針，公視董事會全面癱瘓，並連動整個公廣集團（公視、台語台、客台、兒少台、TaiwanPlus、華視）。",
+      "董事會組成合法性懸而未決，核定預算決算、遴聘總經理、決定節目方針等權責難以正常行使，公視董事會瀕臨全面癱瘓，並連動整個公廣集團（公視、台語台、客台、兒少台、TaiwanPlus、華視）。",
       "波及 TaiwanPlus 國際傳播與台語、客語公共服務；監委已申請自動調查公視治理危機。",
     ],
     timeline: [
@@ -421,9 +419,12 @@ const institutions = [
       { date: "2026/01/16", text: "立法院三讀刪除董事看守延任條款" },
       {
         date: "2026/02/06",
-        text: "刪除延任條款生效（2/4 公布），第 7 屆看守董事會解散，公視董事會自此全面癱瘓",
+        text: "刪除延任條款生效（2/4 公布），第 7 屆董事得否續行職務自此生法律爭議",
       },
-      { date: "2026/04/16", text: "再次提名遭在野審委請辭、流會" },
+      {
+        date: "2026/04/16",
+        text: "在野推舉之 8 名審查委員 4/9 聯名請辭，第二次審查會未達法定人數流會",
+      },
     ],
     sources: [
       {
@@ -433,6 +434,15 @@ const institutions = [
       {
         label: "聯合報：公視法修正 董事屆滿未及改聘不可延任（刪看守條款）",
         url: "https://udn.com/news/story/6656/9269556",
+      },
+      {
+        label: "中央社：8 審委請辭 第 8 屆公視董監事第二次審查會議流會",
+        url: "https://www.cna.com.tw/news/acul/202604160214.aspx",
+      },
+      {
+        label:
+          "CTWANT：延任條款遭刪 文化部搬《財團法人法》解套（第 7 屆董事續任爭議）",
+        url: "https://www.ctwant.com/article/479293/",
       },
       {
         label: "CTWANT：公視預算刪 2,300 萬、凍結約 25%（5.7 億）",

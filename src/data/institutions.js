@@ -104,7 +104,7 @@ const institutions = [
       "揚言全面否決：蔣萬安籲立法院藍白黨團全數否決監委人選並廢除監察院；羅智強表態將對所有監委投反對票、進行人事凍結。",
     ],
     impact: [
-      "2026/8/1 起監察院無任何監察委員，人民陳情書狀仍照收登錄，但調查、彈劾、糾舉、糾正一概停擺；國家人權委員會可收件卻無法召開委員會議，政治獻金等罰鍰處分亦告停頓。",
+      "2026/8/1 起監察院無任何監察委員，人民陳情書狀仍照收登錄，但調查、彈劾、糾舉、糾正一概停擺；國家人權委員會可收件卻無法召開委員會議，廉政委員會亦無法組成，相關審議與裁罰暫停。",
       "9/29 全數否決後，總統府未宣布重新提名時程；即使再提名，也須重新經過立法院審查與投票，監察院全面癱瘓沒有可預期的終點。",
       "預算遭刪 96% 後監察院已僅能勉力維持運作，人事再全面出缺、監委人事費又遭凍結，等同同時抽掉預算與人力。",
       "監察院每月收受人民陳情書狀逾千件，依我國現行權力分立制度，監察院仍有不可取代之功能，若真要討論廢除監察院，應啟動修憲程序，並規劃監察院職權分配之具體方案及期程，而不是封殺人事及預算，癱瘓監察院卻不討論組織重整，致監察院無法發揮關鍵職權。立法院 2026/8/6 監委人事同意權公聽會上即有學者指出，以全數否決人選凍結監察院運作屬違憲手段，要廢監察院須經修憲；監察院可廢，監察權不可一日癱瘓。",
@@ -152,11 +152,11 @@ const institutions = [
         url: "https://www.cna.com.tw/news/aipl/202608060091.aspx",
       },
       {
-        label: "ETtoday：監委全數出缺 陳情照收、調查彈劾停擺（2026/08/03）",
+        label: "ETtoday：沒監委怎麼辦？ 監察院：民眾仍可提陳情檢舉「但暫無法辦理」（2026/08/03）",
         url: "https://www.ettoday.net/news/20260803/3212649.htm",
       },
       {
-        label: "聯合報：總預算民眾黨團保留案表決 刪監院 1.1 億元 凍結監委人事費",
+        label: "聯合報：總預算民眾黨團保留 39 案表決 刪監院 1.1 億元 凍結監委人事費",
         url: "https://udn.com/news/story/6656/9691255",
       },
       {
@@ -165,7 +165,7 @@ const institutions = [
         url: "https://www.cna.com.tw/news/aipl/202609290145.aspx",
       },
       {
-        label: "聯合報：監院續空 27 監委人選 藍白聯手全封殺（2026/09/29）",
+        label: "聯合報：監院續空…27 監委人選 藍白聯手全封殺（2026/09/29）",
         url: "https://udn.com/news/story/6656/9784546",
       },
     ],
@@ -223,7 +223,7 @@ const institutions = [
         url: "https://law.moj.gov.tw/LawClass/LawSingle.aspx?pcode=C0010001&flno=441",
       },
       {
-        label: "聯合報：反社會型人格違常可否減刑？檢察總長為縱火案非常上訴（2026/06/08）",
+        label: "聯合報：反社會型人格違常可否減刑？ 檢察總長為「縱火案」非常上訴（2026/06/08）",
         url: "https://udn.com/news/story/7321/9553636",
       },
       {
@@ -338,12 +338,12 @@ const institutions = [
         url: "https://ppg.ly.gov.tw/ppg/download/communique1/final/pdf/115/54/LCIDC01_1155401_00004.pdf",
       },
       {
-        label: "中央社：中選會發布 2026 地方公職人員選舉公告（2026/08/20）",
+        label: "中央社：中選會公告九合一大選 11/28 選出 1 萬 1051 名公職（2026/08/20）",
         url: "https://www.cna.com.tw/news/aipl/202608200078.aspx",
       },
       {
-        label: "聯合報：九合一登記截止 19,695 人參選",
-        url: "https://udn.com/news/story/124652/9739027",
+        label: "中央社：中選會：九合一選舉 1 萬 9695 人完成登記 26 名陸配參選（2026/09/07）",
+        url: "https://www.cna.com.tw/news/aipl/202609070085.aspx",
       },
       {
         label: "中央社：九合一大選併廢除非核家園公投 鞭刑、交通罰鍰 2 案遭否決（2026/08/28）",
@@ -430,7 +430,7 @@ const institutions = [
         url: "https://www.cna.com.tw/news/afe/202607310185.aspx",
       },
       {
-        label: "中央社：行政院提名袁秀慧、蕭蘋等 7 人為 NCC 委員（2026/07/24）",
+        label: "中央社：政院再提 NCC 委員名單 7 人專長橫跨電信傳播法律領域（2026/07/24）",
         url: "https://www.cna.com.tw/news/aipl/202607240315.aspx",
       },
       {
@@ -438,19 +438,19 @@ const institutions = [
         url: "https://www.cna.com.tw/news/aipl/202608060365.aspx",
       },
       {
-        label: "中央社：NCC 無委員 機關代表人優先處理射頻器材審驗等民生案件（2026/08/17）",
+        label: "中央社：NCC 無委員空窗期 政院指派機關代表人優先處理射頻器材核准（2026/08/17）",
         url: "https://www.cna.com.tw/news/afe/202608170189.aspx",
       },
       {
-        label: "中央社：總預算三讀 政院點名七項非理性刪凍（2026/08/14）",
+        label: "中央社：政院：立院 7 項非理性刪凍總預算 衝擊政府正常運作（2026/08/14）",
         url: "https://www.cna.com.tw/news/aipl/202608140363.aspx",
       },
       {
-        label: "聯合報：NCC 副主委被提名人蕭蘋：假新聞為故意危害（2026/10/19 聯席審查）",
+        label: "聯合報：NCC 副主委被提名人蕭蘋：假新聞為故意危害 應善盡查證（2026/10/19）",
         url: "https://udn.com/news/story/6656/9824326",
       },
       {
-        label: "中央社：立院聯席會續審 NCC 委員被提名人（2026/10/21）",
+        label: "中央社：NCC 委員被提名人張春炎：節目政治宣傳情況嚴重應改善（2026/10/21）",
         url: "https://www.cna.com.tw/news/aipl/202610210131.aspx",
       },
     ],
@@ -573,7 +573,7 @@ const institutions = [
         url: "https://www.cna.com.tw/news/acul/202608140349.aspx",
       },
       {
-        label: "自由時報：表決通過翁曉玲提案 減列公視 2185 萬元並凍結 2 億元",
+        label: "自由時報：文化部媒宣費遭藍白全刪！公視預算遭刪 2185 萬、凍結 2 億 Taiwan Plus 減列 2 億元（2026/08/14）",
         url: "https://news.ltn.com.tw/news/politics/breakingnews/5540151",
       },
     ],
@@ -593,7 +593,7 @@ const institutions = [
     keyFact:
       "法定應於 2025/8/12 前成立個資會，迄今逾期；《個資會組織法》2025/5/28 初審通過後送黨團協商，立法院長韓國瑜逾一年四個月未召集協商、組織法尚未三讀，違憲狀態持續未消除。2026/10/28 中選會候選人財產申報系統爆出 1,573 名候選人身分證字號外洩，行政院直言 2025 年修正、課予機關外洩通報義務的新《個資法》，正因個資會組織法卡在立法院而無法施行。",
     keyFactEn:
-      "A 2022 constitutional ruling required an independent data-protection authority by 12 Aug 2025; the organic act stalled in caucus negotiation that the Legislative Speaker has not convened for over 300 days, leaving the unconstitutional gap unresolved. When the ID numbers of 1,573 election candidates leaked from a government system in October 2026, the Executive Yuan noted that the amended data-protection law requiring breach notification cannot take effect while the organic act remains stuck.",
+      "A 2022 constitutional ruling required an independent data-protection authority by 12 Aug 2025; the organic act stalled in caucus negotiation that the Legislative Speaker has not convened for more than 16 months, leaving the unconstitutional gap unresolved. When the ID numbers of 1,573 election candidates leaked from a government system in October 2026, the Executive Yuan noted that the amended data-protection law requiring breach notification cannot take effect while the organic act remains stuck.",
     actions: [
       "擱置協商：《個資會組織法》2025/5/28 初審通過、6/24 決議送院長召集黨團協商後，院長韓國瑜逾一年四個月未召集，組織法迄今未三讀。",
       "藍白兩黨一度提案將個資會籌備處預算砍至 1,000 元。",
@@ -640,11 +640,11 @@ const institutions = [
         url: "https://udn.com/news/story/6656/9841841",
       },
       {
-        label: "自由時報：中選會個資外洩 政院：新個資法因個資會組織法卡立院無法施行（2026/10/28）",
+        label: "自由時報：候選人個資爆外洩 行政院：個資會組織法還卡在立法院（2026/10/28）",
         url: "https://news.ltn.com.tw/news/politics/breakingnews/5621975",
       },
       {
-        label: "自由時報：個資會組織法卡關 綠黨團將推協商（2026/10/28）",
+        label: "自由時報：中選會外洩候選人個資 民進黨團：儘速協商完成「個資會組織法」（2026/10/28）",
         url: "https://news.ltn.com.tw/news/politics/breakingnews/5621883",
       },
     ],

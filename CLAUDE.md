@@ -38,9 +38,9 @@ npm run preview    # 預覽 build 結果
   - `PARALYSIS_START_NOTE`＝停擺鐘下方的起算說明文字，由 `App.jsx` 的 `FlapClock` 以 `note` prop 接收、渲染成 `.debt-clock__note`。**改說明文字動這裡，不要改元件。**
   - 每個機關物件欄位：`id`（也是錨點 `#id`，CaseIndex 與卷宗共用）、`name`、`subtitle`（英文）、**`status`（檢傷分級：`collapsed`／`critical`／`atRisk`／`stable`，定義見下節）**、`statusLabel`（一句話現況，自由文字）、`totalSeats`、`vacantSeats`、選用 `seatNoun`（如「應設機關」）、`criticalDate`（ISO 或 null）、`criticalDateLabel`、選用 `elapsedSince`／`elapsedSinceLabel`（已癱瘓累積計時）、`org`（組織與任期）、`keyFact`、選用 `keyFactEn`、`actions`（藍白惡行）、`impact`（機關癱瘓後果）、`timeline`（`[{date,text}]`）、`sources`（`[{label,url}]`）。
 - **`legislatorScores.js`**（立委計分板，唯一資料來源；**由公報唱票解析產生，勿手改個別票格**）：匯出 `{ SCORE_META, PARALYSIS_THRESHOLD, CASES, LEGISLATORS }`。
-  - `CASES`＝9 件人事同意權案（考試院、大法官一／二輪、公平會、審計長、NCC、中選會一／二輪、檢察總長），每案 `id`、`date`、`org`、`nomineeCount`、`nominees`（被提名人名單，順序即票格順序）、`passed`、`dataStatus`、`gazette{議程編號,url,pages}`（立法院公報出處）。
+  - `CASES`＝10 件人事同意權案（考試院、大法官一／二輪、公平會、審計長、NCC、中選會一／二輪、檢察總長、監察院），每案 `id`、`date`、`org`、`nomineeCount`、`nominees`（被提名人名單，順序即票格順序）、`passed`、`dataStatus`、`gazette{議程編號,url,pages}`（立法院公報出處）。
   - `LEGISLATORS`＝113 位立委，欄位 `rank`、`name`、`party`、`agree`、`nonAgree`、`inOffice`、`index`（癱瘓政府指數）、`billRoles`／`billBonus`／`weightedIndex`（法案角色加權）、`paralyzing`（是否達 `PARALYSIS_THRESHOLD`＝40）、`breakdown`、`perCase`（每案四項計數）、**`votes`**（每案一個陣列，與該案 `nominees` 同序，值為 `同意`／`不同意`／`無效`／`未領票`；不在任的案不出現該 key）、選用 `voteNotes`（極少數有實質可考據事由的票格，目前不在畫面顯示）。
-  - 全部 4859 個票格逐格解析自立法院公報院會紀錄的唱票逐字稿（`ppg.ly.gov.tw`），已與 `perCase` 彙總交叉驗證零不符。要新增案件時：抓該次院會公報 → 解析 `{委員}委員同意權票：` 區塊（單一被提名人的案是同一行格式）→ 補 `CASES` 與各立委 `votes`，並驗算 `votes` 與 `perCase` 一致。公報議程可用 `https://ly.govapi.tw/v2/gazette_agendas?會議日期=YYYY-MM-DD` 查得。
+  - 全部 7910 個票格（2026/11 新增監察院案 3051 格）逐格解析自立法院公報院會紀錄的唱票逐字稿（`ppg.ly.gov.tw`），已與 `perCase` 彙總交叉驗證零不符。要新增案件時：抓該次院會公報 → 解析 `{委員}委員同意權票：` 區塊（單一被提名人的案是同一行格式）→ 補 `CASES` 與各立委 `votes`，並驗算 `votes` 與 `perCase` 一致。公報議程可用 `https://ly.govapi.tw/v2/gazette_agendas?會議日期=YYYY-MM-DD` 查得。
   - 注意：公報對原住民籍立委的姓名寫法不一致（時而「鄭天財Sra Kacaw」、時而「鄭天財」），比對姓名時要剝除拉丁族名，否則會誤判為未領票。
 - **`billSummaries.js`**：法案一句話摘要與議案編號解析（`BILL_SUMMARIES`、`billNoFromSource`、`billDisplay`），供計分板呈現法案角色。
 - **`orgInfo.js`**：匯出 `economicDemocracyUnion`（經民連，footer 發起／合作團體資訊）。

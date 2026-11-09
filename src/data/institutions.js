@@ -9,7 +9,7 @@ const PARALYSIS_START_NOTE =
   "計時自 2024 年 9 月 1 日零時起算。第 13 屆考試院院長、副院長及考試委員任期於 2024 年 8 月 31 日屆滿，藍白多數延宕人事同意權審查逾三個月，考試院自 9 月 1 日零時起出缺，是第 11 屆立法院所造成第一個因人事同意權遭杯葛而全面癱瘓的憲政機關，癱瘓警示鐘聲就此響起。";
 
 // 資料實際校準日（footer「最後更新」顯示用）：每次更新 src/data/ 內容時手動改這裡。
-const DATA_UPDATED = "2026年10月31日";
+const DATA_UPDATED = "2026年11月9日";
 
 // status ＝ 檢傷分類級別（唯一登錄處在 components/statusTone.jsx 的 TRIAGE_LEVELS）
 //  collapsed 全面癱瘓（黑・瀕死）/ critical 瀕臨全面癱瘓（紅・重傷）
@@ -368,13 +368,14 @@ const institutions = [
     elapsedSinceLabel: "自 2024/11/30",
     org: "依《國家通訊傳播委員會組織法》置委員 7 人，決議應以委員總額過半數（4 人）之同意行之；NCC 為通訊傳播事務之獨立管制機關。",
     keyFact:
-      "2024/11/30 代理主委翁柏宗因延任條款遭刪除卸任後，NCC 7 名委員僅餘 3 人、未達委員總額過半數（4 人）之決議門檻，自此無法召開法定委員會議、逾百項重大業務無法決議，NCC 全面癱瘓。僅存的代理主委陳崇樹及委員王正嘉、王怡惠又於 2026/7/31 任期屆滿，自 2026/8/1 起 NCC 無任何委員在任，為 2006/2/22 成立以來首見，尚有 748 件案件待委員會議審議；行政院只能指派主任秘書溫俊瑜為機關代表人維持日常行政，執照與重大監理決定一律無法作成。行政院 2026/7/24 第三度提名袁秀慧（主委）、蕭蘋（副主委）等 7 人，立法院交通、教育及文化委員會 10/19、10/21 聯席審查完畢，院會投票日期迄未排定。",
+      "2024/11/30 代理主委翁柏宗因延任條款遭刪除卸任後，NCC 7 名委員僅餘 3 人、未達委員總額過半數（4 人）之決議門檻，自此無法召開法定委員會議、逾百項重大業務無法決議，NCC 全面癱瘓。僅存的代理主委陳崇樹及委員王正嘉、王怡惠又於 2026/7/31 任期屆滿，自 2026/8/1 起 NCC 無任何委員在任，為 2006/2/22 成立以來首見，尚有 748 件案件待委員會議審議；行政院只能指派主任秘書溫俊瑜為機關代表人維持日常行政，執照與重大監理決定一律無法作成。行政院 2026/7/24 第三度提名袁秀慧（主委）、蕭蘋（副主委）等 7 人，立法院交通、教育及文化委員會 10/19、10/21 聯席審查完畢，院會投票日期迄未排定；11/9 交通委員會審查 116 年度預算時，藍白立委又以 NCC 沒有委員為由，主張人事案通過前暫緩審查預算。",
     keyFactEn:
-      "Since acting chair Weng Po-tsung left on 30 Nov 2024 the NCC had only 3 of 7 members, short of the four-vote majority any resolution requires, and could not hold a lawful commission meeting. The last three members’ terms ended on 31 July 2026, so from 1 August the commission has no members at all for the first time since its founding in February 2006, with 748 cases awaiting a commission meeting. The Executive Yuan could only designate the secretary-general as the agency's legal representative to keep day-to-day administration going; no licence or major regulatory decision can be made. A third slate of seven nominees, announced on 24 July 2026, cleared joint committee hearings on 19 and 21 October, but no floor vote has been scheduled.",
+      "Since acting chair Weng Po-tsung left on 30 Nov 2024 the NCC had only 3 of 7 members, short of the four-vote majority any resolution requires, and could not hold a lawful commission meeting. The last three members’ terms ended on 31 July 2026, so from 1 August the commission has no members at all for the first time since its founding in February 2006, with 748 cases awaiting a commission meeting. The Executive Yuan could only designate the secretary-general as the agency's legal representative to keep day-to-day administration going; no licence or major regulatory decision can be made. A third slate of seven nominees, announced on 24 July 2026, cleared joint committee hearings on 19 and 21 October, but no floor vote has been scheduled. On 9 November KMT and TPP legislators then argued that, with no commissioners in office, the agency's 2027 budget should not be reviewed until the nominees are confirmed.",
     actions: [
       "刪除延任條款：藍白於 2024/7/16 強行三讀刪除延任條款、11/15 三讀通過於次月施行，致代理主委翁柏宗 11/30 卸任，NCC 無法召開委員會議。",
       "封殺全體提名：行政院 2025/7/31 提名蔣榮先、程明修、黃葳威、羅慧雯，2025/11/7 遭藍白全體否決，缺額因而未能補上。",
       "刪除基本運作預算：2026/8/14 三讀之 115 年度總預算，將 NCC 8 至 12 月「基本行政工作維持」5,782.3 萬元全數刪除，列入行政院所稱「非理性刪凍」。",
+      "左手卡人事、右手擋預算：2026/11/9 交通委員會審查 NCC 116 年度預算，民眾黨立委陳清龍、國民黨立委洪孟楷質疑主任秘書擔任機關代表人無法源依據，主張委員產生前暫緩預算審查；而委員出缺，正是藍白兩度封殺提名、第三輪提名迄未排入院會表決所致。",
     ],
     impact: [
       "NCC 自 2024/11/30 委員不足決議門檻起即全面癱瘓，逾百項重大業務無法決議，僅約 58 項基本業務得授權主委召集諮議會議處理。",
@@ -408,6 +409,10 @@ const institutions = [
       {
         date: "2026/10/21",
         text: "立法院交通、教育及文化委員會完成 7 名被提名人聯席審查，院會投票日期未定",
+      },
+      {
+        date: "2026/11/09",
+        text: "交通委員會審 116 年度預算，藍白立委以 NCC 無委員為由主張暫緩審查",
       },
     ],
     sources: [
@@ -452,6 +457,10 @@ const institutions = [
       {
         label: "中央社：NCC 委員被提名人張春炎：節目政治宣傳情況嚴重應改善（2026/10/21）",
         url: "https://www.cna.com.tw/news/aipl/202610210131.aspx",
+      },
+      {
+        label: "中央社：NCC 目前沒有委員 藍白立委：待人事案通過再審預算（2026/11/09）",
+        url: "https://www.cna.com.tw/news/aipl/202611090087.aspx",
       },
     ],
   },
